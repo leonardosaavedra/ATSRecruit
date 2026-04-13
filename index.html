@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Empleo Corporativo | 3R LABORAL</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Estilos para el nuevo aspecto de Dashboard */
+        .hero-banner {
+            background: linear-gradient(135deg, #0d6efd 0%, #0042a5 100%);
+            border-radius: 20px;
+            padding: 3rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-img {
+            position: absolute;
+            right: 20px;
+            bottom: -20px;
+            width: 280px;
+            opacity: 0.2;
+            pointer-events: none;
+        }
+        .card-vacante-moderna {
+            transition: all 0.3s ease;
+            border: 1px solid rgba(0,0,0,0.08) !important;
+            border-radius: 12px;
+            cursor: pointer;
+            background-color: white;
+        }
+        .card-vacante-moderna:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+            border-color: #0d6efd !important;
+        }
+        .modal-content { border-radius: 20px; border: none; }
+        .modal-header { border: none; }
+        .bg-primary-subtle { background-color: #e7f1ff !important; }
+    </style>
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-light bg-white border-bottom py-3 sticky-top">
+    <div class="container d-flex justify-content-between align-items-center">
+        <a class="navbar-brand fw-bold text-primary" href="#">3R LABORAL - BOLSA DE TRABAJO</a>
+        
+        <div class="d-flex align-items-center gap-3">
+            <div id="auth-container-reclutador">
+                <a href="login.html" class="btn btn-outline-primary px-3 py-2 fw-bold btn-sm" id="btn-login-reclutador">
+                    <i class="fas fa-lock me-1"></i> Reclutador
+                </a>
+            </div>
+
+            <div id="auth-container">
+                <button id="btnGoogle" class="btn btn-danger px-3 py-2 fw-bold btn-sm">
+                    <i class="fab fa-google me-2"></i> Iniciar sesión con Google
+                </button>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<main class="container py-4">
+    <div class="hero-banner mb-5 shadow-sm">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h3 class="display-5 fw-bold mb-2">¡Hola! ¿Qué empleo estás buscando?</h3>
+                <p class="lead mb-0 opacity-75">Hay vacantes esperando por ti en 3R LABORAL.</p>
+                <p class="lead mb-0 opacity-75">Encuentra tu próxima oportunidad hoy.</p>
+            </div>
+        </div>
+        <img src="https://cdn-icons-png.flaticon.com/512/1088/1088537.png" class="hero-img" alt="">
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-12">
+            <h4 class="fw-bold mb-4"><i class="fas fa-briefcase text-primary me-2"></i>Últimas vacantes publicadas</h4>
+            <div id="listaVacantes" class="row g-3">
+                <div class="col-12 text-center py-5">
+                    <div class="spinner-border text-primary" role="status"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div class="modal fade" id="modalVacante" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content shadow-lg">
+            <div class="modal-header border-0 pb-0">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4" id="contenidoModal"></div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer-corporativo bg-white border-top pt-5 pb-3 mt-5">
+    <div class="container">
+        <div class="row gy-4">
+            <div class="col-lg-4 col-md-6">
+                <h5 class="fw-bold text-primary mb-3">3R LABORAL</h5>
+                <p class="text-muted small">
+                    Expertos en soluciones de capital humano y cumplimiento laboral. Conectando el mejor talento con las mejores oportunidades.
+                </p>
+                <div class="redes-sociales">
+                    <a href="#" class="me-2 text-primary"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="me-2 text-primary"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="text-primary"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-6">
+                <h6 class="fw-bold mb-3">Navegación</h6>
+                <ul class="list-unstyled small">
+                    <li class="mb-2"><a href="index.html" class="text-decoration-none text-muted">Bolsa de Trabajo</a></li>
+                    <li class="mb-2"><a href="admin.html" class="text-decoration-none text-muted">Panel Admin</a></li>
+                    <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Aviso de Privacidad</a></li>
+                </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <h6 class="fw-bold mb-3">Contacto</h6>
+                <ul class="list-unstyled small text-muted">
+                    <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> Querétaro, México</li>
+                    <li class="mb-2"><i class="fas fa-phone me-2"></i> +52 (442) 242 8962</li>
+                    <li class="mb-2"><i class="fas fa-clock me-2"></i> Lun - Vie: 9:00 - 18:00</li>
+                </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-6 text-lg-end">
+                <h6 class="fw-bold mb-3">Sistema v2.0</h6>
+                <p class="small text-muted">Desarrollado para la gestión eficiente de reclutamiento</p>
+                <img src="https://cdn-icons-png.flaticon.com/512/1162/1162933.png" alt="Compliance" width="40" style="opacity: 0.5;">
+            </div>
+        </div>
+        <hr class="my-4 text-muted">
+        <div class="row align-items-center">
+            <div class="col-md-6 small text-muted">&copy; 2026 3R Laboral. Todos los derechos reservados.</div>
+            <div class="col-md-6 text-md-end small">
+                <span class="text-muted">Desarrollado con</span> <i class="fas fa-heart text-danger"></i> <span class="text-muted">y Google Gemini</span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script type="module">
+    import { auth, onAuthStateChanged, db, ref, get, set, push, child } from './js/config.js';
+    import { loginConGoogle } from './js/auth-candidatos.js';
+
+    window.usuarioActual = null;
+    const modalElement = document.getElementById('modalVacante');
+    const modalBS = new bootstrap.Modal(modalElement);
+
+    // 1. Detectar usuario logueado
+    onAuthStateChanged(auth, async (user) => {
+        const containerCandidato = document.getElementById('auth-container');
+        const containerReclutador = document.getElementById('auth-container-reclutador');
+
+        if (user) {
+            window.usuarioActual = user;
+            try {
+                const dbRef = ref(db);
+                const snapshot = await get(child(dbRef, `usuarios/${user.uid}`));
+
+                if (snapshot.exists()) {
+                    const userData = snapshot.val();
+                    const nombreReclutador = userData.nombre || "Reclutador";
+                    containerReclutador.innerHTML = `
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle fw-bold btn-sm shadow-sm" type="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-user-tie me-1"></i> ${nombreReclutador}
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end shadow border-0">
+                                <li><a class="dropdown-item" href="recruit/reclutador.html">Mi Panel</a></li>
+                                <li><button class="dropdown-item text-danger" id="btnCerrarSesionRecruit">Cerrar Sesión</button></li>
+                            </ul>
+                        </div>`;
+                    document.getElementById('btnCerrarSesionRecruit').addEventListener('click', () => auth.signOut().then(() => window.location.reload()));
+                    if(containerCandidato) containerCandidato.style.display = 'none';
+                } else {
+                    if (containerCandidato) {
+                        containerCandidato.innerHTML = `
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle fw-bold btn-sm shadow-sm" type="button" data-bs-toggle="dropdown">
+                                    <img src="${user.photoURL || ''}" width="30" class="rounded-circle me-1" onerror="this.src='https://via.placeholder.com/20'"> 
+                                    ${user.displayName ? user.displayName.split(' ')[0] : 'Perfil'}
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end shadow border-0">
+                                    <li><a class="dropdown-item" href="candidatos/cv-candidato.html">Mi Perfil</a></li>
+                                    <li><button class="dropdown-item text-danger" id="btnCerrarSesionIndex">Cerrar Sesión</button></li>
+                                </ul>
+                            </div>`;
+                        document.getElementById('btnCerrarSesionIndex').addEventListener('click', () => auth.signOut().then(() => window.location.reload()));
+                    }
+                    if(containerReclutador) containerReclutador.style.display = 'none';
+                }
+            } catch (error) { console.error(error); }
+        }
+    });
+
+// 2. Función para realizar la postulación corregida
+window.enviarPostulacion = async function() {
+    const idV = document.getElementById('inputIDModal').value;
+    const btn = document.getElementById('btnPostularModal');
+
+    // SI NO HAY USUARIO: Iniciar sesión directamente
+    if (!window.usuarioActual) {
+        try {
+            await loginConGoogle();
+            window.location.reload(); 
+        } catch (e) { console.error("Login cancelado", e); }
+        return;
+    }
+
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Postulando...';
+
+    try {
+        // Referencia a la tabla de candidatos (usuarios_candidatos)
+        const userRef = ref(db, `usuarios_candidatos/${window.usuarioActual.uid}`);
+        const snapshot = await get(userRef);
+        const datosUsuario = snapshot.val();
+
+        // VALIDACIÓN CRÍTICA: 
+        // Verificamos si los datos no existen O si la bandera perfil_completado es falsa
+        if (!datosUsuario || datosUsuario.perfil_completado === false) {
+            alert("Debes completar tu perfil profesional con tus datos de contacto y experiencia antes de poder postularte.");
+            // Redirigir al formulario de perfil
+            window.location.href = 'perfil-candidato.html?new=true';
+            return;
+        }
+
+        // Si el perfil está completo (true), procedemos con la postulación
+        const dataParaInsertar = {
+            ...datosUsuario,
+            id_vacante: idV,
+            uid_candidato: window.usuarioActual.uid,
+            fecha_postulacion: new Date().toLocaleString(),
+            estado_proceso: "Pendiente"
+        };
+
+        await set(push(ref(db, 'postulaciones')), dataParaInsertar);
+        
+        alert("¡Postulación enviada exitosamente!");
+        btn.classList.replace('btn-primary', 'btn-success');
+        btn.innerHTML = '<i class="fas fa-check me-2"></i> Ya te has postulado';
+        btn.onclick = null;
+
+    } catch (error) {
+        console.error("Error en postulación:", error);
+        alert("Hubo un error al procesar tu postulación. Intenta de nuevo.");
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-paper-plane me-2"></i> Postularse ahora';
+    }
+};
+
+    // 3. Función para abrir modal
+    window.abrirModalVacante = async function(id) {
+        const snap = await get(ref(db, `vacantes/${id}`));
+        if(!snap.exists()) return;
+        const v = snap.val();
+        
+        // Determinar texto del botón según estado de login
+        const textoBoton = window.usuarioActual ? 
+            '<i class="fas fa-paper-plane me-2"></i> ¡Postúlate ahora!' : 
+            '<i class="fab fa-google me-2"></i> Inicia sesión con Gmail para postularte';
+
+        const contenedor = document.getElementById('contenidoModal');
+        contenedor.innerHTML = `
+            <input type="hidden" id="inputIDModal" value="${id}">
+            <div class="mb-3">
+                <h2 class="fw-bold text-dark mb-1">${v.titulo}</h2>
+                <p class="text-primary fw-bold mb-0">3R Laboral - Vacante Confidencial</p>
+            </div>
+
+            <div class="row g-3 mb-4">
+                <div class="col-md-4">
+                    <div class="p-3 bg-light rounded-3 text-center border">
+                        <i class="fas fa-money-bill-wave text-primary mb-2"></i>
+                        <h6 class="fw-bold mb-0">$${Number(v.salarioDesde).toLocaleString()} - $${Number(v.salarioHasta).toLocaleString()}</h6>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-3 bg-light rounded-3 text-center border">
+                        <i class="fas fa-map-marker-alt text-primary mb-2"></i>
+                        <h6 class="fw-bold mb-0">${v.ubicacion}</h6>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-3 bg-light rounded-3 text-center border">
+                        <i class="fas fa-clock text-primary mb-2"></i>
+                        <h6 class="fw-bold mb-0">${v.jornada}</h6>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <h5 class="fw-bold border-bottom pb-2">Descripción del puesto</h5>
+                <div class="text-secondary mt-3" style="line-height: 1.6;">${v.desc ? v.desc.replace(/\n/g, '<br>') : 'Sin descripción.'}</div>
+            </div>
+
+            <button id="btnPostularModal" class="btn btn-primary w-100 py-3 fw-bold shadow-sm" onclick="window.enviarPostulacion()">
+                ${textoBoton}
+            </button>
+        `;
+
+        // Si está logueado, verificar si ya se postuló
+        if (window.usuarioActual) {
+            const postSnap = await get(ref(db, 'postulaciones'));
+            if (postSnap.exists()) {
+                const yaPostulado = Object.values(postSnap.val()).some(p => 
+                    p.uid_candidato === window.usuarioActual.uid && p.id_vacante === id
+                );
+                if (yaPostulado) {
+                    const btn = document.getElementById('btnPostularModal');
+                    btn.disabled = true;
+                    btn.classList.replace('btn-primary', 'btn-success');
+                    btn.innerHTML = '<i class="fas fa-check me-2"></i> Ya te has postulado';
+                }
+            }
+        }
+        modalBS.show();
+    };
+
+    document.getElementById('btnGoogle')?.addEventListener('click', async () => {
+        try { await loginConGoogle(); window.location.reload(); } catch (e) {}
+    });
+</script>
+
+<script type="module" src="js/public-logic.js"></script>
+</body>
+</html>
+<!--
+<footer class="footer-corporativo bg-white border-top pt-5 pb-3 mt-5">
+    <div class="container">
+        <div class="row gy-4">
+            <div class="col-lg-4 col-md-6">
+                <h5 class="fw-bold text-primary mb-3">3R LABORAL</h5>
+                <p class="text-muted small">
+                    Expertos en soluciones de capital humano y cumplimiento laboral. Conectando el mejor talento con las mejores oportunidades.
+                </p>
+                <div class="redes-sociales">
+                    <a href="#" class="me-2 text-primary"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="me-2 text-primary"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="text-primary"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-md-6">
+                <h6 class="fw-bold mb-3">Navegación</h6>
+                <ul class="list-unstyled small">
+                    <li class="mb-2"><a href="index.html" class="text-decoration-none text-muted">Bolsa de Trabajo</a></li>
+                    <li class="mb-2"><a href="admin.html" class="text-decoration-none text-muted">Panel Admin</a></li>
+                    <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Aviso de Privacidad</a></li>
+                </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+                <h6 class="fw-bold mb-3">Contacto</h6>
+                <ul class="list-unstyled small text-muted">
+                    <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> Querétaro, México</li>
+                    <li class="mb-2"><i class="fas fa-phone me-2"></i> +52 (442) 242 8962</li>
+                    <li class="mb-2"><i class="fas fa-clock me-2"></i> Lun - Vie: 9:00 - 18:00</li>
+                </ul>
+            </div>
+
+            <div class="col-lg-3 col-md-6 text-lg-end">
+                <h6 class="fw-bold mb-3">Sistema v2.0</h6>
+                <p class="small text-muted">Desarrollado para la gestión eficiente de reclutamiento</p>
+                <img src="https://cdn-icons-png.flaticon.com/512/1162/1162933.png" alt="Compliance" width="40" style="opacity: 0.5;">
+            </div>
+        </div>
+        <hr class="my-4 text-muted">
+        <div class="row align-items-center">
+            <div class="col-md-6 small text-muted">&copy; 2026 3R Laboral. Todos los derechos reservados.</div>
+            <div class="col-md-6 text-md-end small">
+                <span class="text-muted">Desarrollado con</span> <i class="fas fa-heart text-danger"></i> <span class="text-muted">y Google Gemini</span>
+            </div>
+        </div>
+    </div>
+</footer>
+-->

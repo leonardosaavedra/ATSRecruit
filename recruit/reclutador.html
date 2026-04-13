@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <script type="module" src="../js/guard.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Reclutador - 3R Laboral</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/quill@2.0.2/dist/quill.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="admin-body">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow-lg border-bottom border-primary">
+    <div class="container d-flex justify-content-between align-items-center">
+        <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
+            <span>3R LABORAL | <i class="fa-solid fa-user-tie text-white"></i> RECLUTADOR</span>
+        </a>
+        <button class="btn btn-outline-danger btn-sm fw-bold border-2" id="btnCerrarSesion">
+            <i class="fa-solid fa-right-from-bracket me-1"></i> Salir del Panel
+        </button>
+    </div>
+</nav>
+
+<main class="main-content-wrapper">
+    <div class="container py-2">
+        
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="bg-white p-4 rounded shadow-sm d-flex justify-content-between align-items-center">
+                    <div>
+                        <h2 class="fw-bold text-dark mb-1">¡Hola, Reclutador!</h2>
+                        <p class="text-muted mb-0">Gestiona tus vacantes y encuentra el mejor talento!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xl-5 col-lg-6 mb-4">
+                <div class="card card-admin p-4 shadow-sm border-0 h-100">
+                    <div class="d-flex align-items-center mb-4">
+                        <div class="icon-box bg-primary-subtle text-primary p-3 rounded-circle me-3">
+                            <i class="fa-solid fa-file-signature fs-4"></i>
+                        </div>
+                        <h4 class="fw-bold m-0 text-primary">Nueva Vacante</h4>
+                    </div>
+                    
+                    <form id="formNuevaVacante">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small text-muted">TÍTULO DEL PUESTO</label>
+                            <input type="text" name="titulo" class="form-control form-control-lg border-2" placeholder="Ej: Desarrollador Backend" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small text-muted">UBICACIÓN / CIUDAD</label>
+                            <input type="text" name="ubicacion" class="form-control" placeholder="Querétaro, Qro." required>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold small text-muted">SALARIO MÍNIMO</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" name="salarioDesde" class="form-control" placeholder="0.00" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold small text-muted">SALARIO MÁXIMO</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" name="salarioHasta" class="form-control" placeholder="0.00" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold small text-muted">TIPO DE JORNADA</label>
+                                <select name="jornada" class="form-select border-2">
+                                    <option value="Tiempo Completo">Tiempo Completo</option>
+                                    <option value="Medio Tiempo">Medio Tiempo</option>
+                                    <option value="Por Proyecto">Por Proyecto</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold small text-muted">HORARIO LABORAL</label>
+                                <select name="horario" class="form-select border-2">
+                                    <option value="Lunes a Viernes">Lunes a Viernes</option>
+                                    <option value="Lunes a Sábado">Lunes a Sábado</option>
+                                    <option value="Fines de Semana">Fines de Semana</option>
+                                    <option value="Turnos Rotativos">Turnos Rotativos</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold small text-muted">REQUISITOS Y DESCRIPCIÓN</label>
+                            <div id="editor-registro" style="height: 250px; background: #fff;">
+                                <div id="editor-container"></div>
+                                <input type="hidden" name="descripcion" id="descripcion-input">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 py-3 fw-bold shadow">
+                            <i class="fa-solid fa-rocket me-2"></i>PUBLICAR VACANTE
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-xl-7 col-lg-6 mb-4">
+                <div class="card card-admin p-4 shadow-sm border-0 h-100">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h4 class="fw-bold m-0 text-dark"><i class="fa-solid fa-list-check me-2 text-primary"></i>Tus Publicaciones</h4>
+                        <button class="btn btn-sm btn-outline-primary rounded-pill px-3" id="btnRefrescarVacantes">
+                            <i class="fa-solid fa-rotate me-1"></i> Actualizar
+                        </button>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle border-top">
+                            <thead class="bg-light text-uppercase small text-muted">
+                                <tr>
+                                    <th class="py-3">ID</th>
+                                    <th class="py-3">Vacante</th>
+                                    <th class="py-3 text-center">Estatus</th>
+                                    <th class="py-3 text-end">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablaCuerpo">
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div class="modal fade" id="modalEditarVacante" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title fw-bold"><i class="fa-solid fa-pen-to-square me-2 text-info"></i>Modificar Vacante</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <form id="formEditarVacante">
+                    <input type="hidden" id="editVacanteId">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold small text-muted">NOMBRE DE LA VACANTE</label>
+                            <input type="text" id="editVacTitulo" class="form-control" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold small text-muted">UBICACIÓN</label>
+                            <input type="text" id="editVacUbicacion" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label fw-bold small text-muted">SALARIO DESDE</label>
+                            <input type="number" id="editVacSalarioDesde" class="form-control" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label fw-bold small text-muted">SALARIO HASTA</label>
+                            <input type="number" id="editVacSalarioHasta" class="form-control" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label fw-bold small text-muted">ESTADO ACTUAL</label>
+                            <select id="editVacEstado" class="form-select border-info">
+                                <option value="Activa">Activa</option>
+                                <option value="Pausada">Pausada</option>
+                                <option value="Cerrada">Cerrada</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold small text-muted">JORNADA</label>
+                            <select id="editVacJornada" class="form-select">
+                                <option value="Tiempo Completo">Tiempo Completo</option>
+                                <option value="Medio Tiempo">Medio Tiempo</option>
+                                <option value="Por Proyecto">Por Proyecto</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold small text-muted">HORARIO</label>
+                            <select id="editVacHorario" class="form-select">
+                                <option value="Lunes a Viernes">Lunes a Viernes</option>
+                                <option value="Lunes a Sábado">Lunes a Sábado</option>
+                                <option value="Fines de Semana">Fines de Semana</option>
+                                <option value="Turnos Rotativos">Turnos Rotativos</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <label class="form-label fw-bold small text-muted">DESCRIPCIÓN DE LA VACANTE</label>
+                    <div id="editor-edicion" style="height: 250px; background: #fff;">
+                        <div id="editor-container-edit" style="height: 200px;"></div>
+                        <input type="hidden" name="descripcion" id="descripcion-input-edit">
+                    </div>
+
+                    <div class="text-end mt-4 pt-3 border-top">
+                        <button type="button" class="btn btn-light fw-bold" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-primary fw-bold px-5 shadow">GUARDAR CAMBIOS</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<footer class="footer-corporativo mt-5 py-4">
+<div class="container">
+<div class="row gy-4">
+<div class="col-lg-4 col-md-6">
+<h5 class="fw-bold text-primary mb-3">PANEL RECLUTADOR</h5>
+<p class="text-muted small">Panel de gestión interna para reclutamiento.</p>
+</div>
+
+
+
+<div class="col-lg-4 col-md-6">
+<h6 class="fw-bold mb-3 text-dark text-uppercase small">Enlaces Rápidos</h6>
+<ul class="list-unstyled small">
+<li class="mb-2"><a href="../index.html" class="text-decoration-none text-muted"><i class="fa-solid fa-house me-2"></i>Volver al inicio</a>
+</li>
+<li><a href="#" class="text-decoration-none text-muted"><i class="fa-solid fa-headset me-2"></i>Soporte Técnico</a>
+</li>
+</ul>
+</div>
+
+
+<div class="col-lg-4 col-md-6 text-lg-end">
+<h6 class="fw-bold mb-3 text-dark text-uppercase small">Sistema v2.0</h6>
+<p class="small text-muted mb-0">&copy; 2026 3R Laboral. Todos los derechos reservados.</p>
+<span class="badge bg-success mt-2"><i class="fa-solid fa-check-circle me-1"></i> Servidor Online</span>
+</div>
+</div>
+</div>
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script type="module" src="../js/admin-logic.js"></script>
+
+</body>
+</html>

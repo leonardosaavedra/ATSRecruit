@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <script type="module" src="js/guard.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Vacante - 3R Laboral</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-dark bg-primary mb-4 shadow">
+    <div class="container">
+        <a href="admin.html" class="btn btn-outline-light btn-sm">
+            <i class="fas fa-arrow-left me-1"></i> Volver al Panel
+        </a>
+        <span class="navbar-brand mb-0 h1">MODO EDICIÓN</span>
+    </div>
+</nav>
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm border-0">
+                <div id="loadingOverlay" class="position-absolute w-100 h-100 bg-white d-flex align-items-center justify-content-center" style="z-index: 10; border-radius: 15px;">
+                    <div class="text-center">
+                        <div class="spinner-border text-primary" role="status"></div>
+                        <p class="mt-2 text-muted">Cargando datos de la vacante...</p>
+                    </div>
+                </div>
+
+                <div class="card-body p-4">
+                    <h4 class="fw-bold mb-4 text-primary"><i class="fas fa-edit me-2"></i>Actualizar Detalles</h4>
+                    
+                    <form id="formEditarVacante">
+                        <input type="hidden" id="edit_id" name="id">
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small">TÍTULO DEL PUESTO</label>
+                            <input type="text" id="edit_titulo" name="titulo" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small">UBICACIÓN</label>
+                            <input type="text" id="edit_ubicacion" name="ubicacion" class="form-control" required>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold small">SALARIO (Monto)</label>
+                                <input type="number" id="edit_salario" name="salario" class="form-control" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label fw-bold small">JORNADA</label>
+                                <select id="edit_jornada" name="jornada" class="form-select">
+                                    <option value="Tiempo Completo">Tiempo Completo</option>
+                                    <option value="Medio Tiempo">Medio Tiempo</option>
+                                    <option value="Por Proyecto">Por Proyecto</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small">DÍAS LABORALES / HORARIO</label>
+                            <select id="edit_horario" name="horario" class="form-select">
+                                <option value="Lunes a Viernes">Lunes a Viernes</option>
+                                <option value="Lunes a Sábado">Lunes a Sábado</option>
+                                <option value="Fines de Semana">Fines de Semana</option>
+                                <option value="Turnos Rotativos">Turnos Rotativos</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small">DESCRIPCIÓN DEL EMPLEO</label>
+                            <textarea id="edit_desc" name="desc" class="form-control" rows="4" required></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small">REQUISITOS</label>
+                            <textarea id="edit_requisitos" name="requisitos" class="form-control" rows="3" required></textarea>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold small">BENEFICIOS</label>
+                            <textarea id="edit_beneficios" name="beneficios" class="form-control" rows="3" required></textarea>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" id="btnGuardarCambios" class="btn btn-success py-3 fw-bold shadow-sm">
+                                <i class="fas fa-save me-2"></i>GUARDAR CAMBIOS EN EL SISTEMA
+                            </button>
+                            <a href="admin.html" class="btn btn-light border">Cancelar y Salir</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script type="module">
+    import { db, ref, get, child, update } from './js/config.js';
+
+    const idAEditar = localStorage.getItem('idVacanteAEditar');
+    const form = document.getElementById('formEditarVacante');
+    const overlay = document.getElementById('loadingOverlay');
+
+    // --- 1. CARGA DE DATOS AL INICIAR ---
+    window.addEventListener('DOMContentLoaded', async () => {
+        if (!idAEditar) {
+            alert("⚠️ Error: No se ha seleccionado ninguna vacante para editar.");
+            window.location.href = 'admin.html';
+            return;
+        }
+
+        try {
+            const dbRef = ref(db);
+            // Buscamos en el nodo 'vacantes/ID'
+            const snapshot = await get(child(dbRef, `vacantes/${idAEditar}`));
+            
+            if (snapshot.exists()) {
+                const v = snapshot.val();
+                
+                // Mapeo de datos a los inputs del formulario
+                document.getElementById('edit_id').value = idAEditar;
+                document.getElementById('edit_titulo').value = v.titulo || '';
+                document.getElementById('edit_ubicacion').value = v.ubicacion || '';
+                document.getElementById('edit_salario').value = v.salario || '';
+                document.getElementById('edit_jornada').value = v.jornada || 'Tiempo Completo';
+                document.getElementById('edit_horario').value = v.horario || 'Lunes a Viernes';
+                document.getElementById('edit_desc').value = v.desc || '';
+                document.getElementById('edit_requisitos').value = v.requisitos || '';
+                document.getElementById('edit_beneficios').value = v.beneficios || '';
+
+                // Ocultar pantalla de carga
+                overlay.classList.add('d-none');
+            } else {
+                alert("❌ La vacante seleccionada no existe en la base de datos.");
+                window.location.href = 'admin.html';
+            }
+        } catch (error) {
+            console.error("Error al obtener vacante:", error);
+            alert("Hubo un problema al conectar con la base de datos.");
+        }
+    });
+
+    // --- 2. LOGICA DE ACTUALIZACIÓN ---
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const btn = document.getElementById('btnGuardarCambios');
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> PROCESANDO...';
+
+        // Recopilamos los datos del formulario
+        const formData = new FormData(form);
+        const dataActualizada = Object.fromEntries(formData.entries());
+
+        try {
+            // Referencia específica al documento en Firebase
+            const vacanteRef = ref(db, `vacantes/${idAEditar}`);
+            
+            // Usamos 'update' para sobrescribir los valores existentes
+            await update(vacanteRef, dataActualizada);
+
+            alert("✅ ¡Éxito! La vacante ha sido actualizada correctamente.");
+            
+            // Limpieza y redirección
+            localStorage.removeItem('idVacanteAEditar');
+            window.location.href = 'admin.html';
+            
+        } catch (error) {
+            console.error("Error en el guardado:", error);
+            alert("❌ Error: No se pudieron guardar los cambios. Intente de nuevo.");
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-save me-2"></i>GUARDAR CAMBIOS EN EL SISTEMA';
+        }
+    });
+</script>
+
+</body>
+</html>
