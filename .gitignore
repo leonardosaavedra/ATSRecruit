@@ -1,0 +1,23 @@
+# Dependencias
+node_modules/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Configuración sensible
+.env
+config.local.js
+
+# VS Code
+.vscode/
+
+# Temporales
+*.tmp
+
+# PDFs generados (opcional)
+*.pdf
