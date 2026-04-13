@@ -34,13 +34,13 @@
 <div class="container my-5">
     <div class="row">
         <div class="col-lg-3">
-            <div class="card card-profile p-4 text-center">
+            <div class="card card-profile p-4 text-center mb-3">
                 <img src="" id="lblFoto" class="profile-main-img mx-auto mb-3" onerror="this.src='https://via.placeholder.com/100'">
                 <h5 class="fw-bold mb-0" id="lblNombreMain">-</h5>
                 <p class="text-primary small fw-bold" id="lblPuestoPrincipal">-</p>
             </div>
 
-            <div class="card card-profile p-3">
+            <div class="card card-profile p-3 mb-3">
                 <div class="section-header">DATOS PERSONALES <i class="bi bi-pencil-square edit-icon" data-bs-toggle="modal" data-bs-target="#modalPersonales"></i></div>
                 <div class="info-label">Nacionalidad</div>
                 <div class="info-value" id="lblPais">-</div>
@@ -54,14 +54,14 @@
                 <div class="info-value" id="lblLicencia">-</div>
             </div>
 
-            <div class="card card-profile p-3">
+            <div class="card card-profile p-3 mb-3">
                 <div class="section-header">UBICACIÓN <i class="bi bi-pencil-square edit-icon" data-bs-toggle="modal" data-bs-target="#modalUbicacion"></i></div>
                 <div id="lbldireccion" class="info-value">-</div>
-                <div id="lblUbicacionCompleta" class="info-value">-</div>
-                
+                <div id="lblColonia" class="info-value">-</div>
+                <div id="lblMunicipioEstado" class="info-value small text-muted">-</div>
             </div>
 
-            <div class="card card-profile p-3">
+            <div class="card card-profile p-3 mb-3">
                 <div class="section-header">CONTACTO <i class="bi bi-pencil-square edit-icon" data-bs-toggle="modal" data-bs-target="#modalContacto"></i></div>
                 <div class="info-value"><i class="bi bi-whatsapp text-success me-2"></i> <span id="lblWhatsapp">-</span></div>
                 <div class="info-value"><i class="bi bi-envelope text-muted me-2"></i> <span id="lblCorreo">-</span></div>
@@ -70,13 +70,27 @@
 
         <div class="col-lg-6">
             <div class="card card-profile h-100">
+
                 <div class="card-header bg-white border-0 pt-3">
-                    <ul class="nav nav-tabs nav-tabs-custom" role="tablist">
-                        <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tabEdu">Educación</button></li>
-                        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabExp">Experiencia</button></li>
-                        <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabPerfil">Perfil</button></li>
+                    <ul class="nav nav-tabs nav-tabs-custom position-relative" role="tablist">
+                    <li class="nav-item">
+                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tabEdu">
+                            <i class="bi bi-mortarboard me-1"></i> Educación </button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabExp">
+                            <i class="bi bi-briefcase me-1"></i> Experiencia</button>
+                    </li>
+                    <li class="nav-item">
+                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabPerfil">
+                            <i class="bi bi-person-lines-fill me-1"></i> Perfil</button>
+                    </li>
+                     <!-- 🔥 Slider -->
+                    <span class="tab-slider"></span>
                     </ul>
+
                 </div>
+
                 <div class="card-body tab-content p-4">
                     <div class="tab-pane fade show active" id="tabEdu">
                         <div class="section-header">FORMACIÓN ACADÉMICA <button class="btn btn-outline-primary btn-add-section" data-bs-toggle="modal" data-bs-target="#modalEducacion">+ Sumar estudio</button></div>
@@ -157,13 +171,37 @@
 <div class="modal fade" id="modalUbicacion" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content border-0 shadow">
-            <div class="modal-header border-0 pb-0"><h5 class="fw-bold m-0">Dirección</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
-            <div class="modal-body p-4 row g-3">
-                <div class="col-md-6"><label class="info-label">Estado</label><input type="text" id="estado" class="form-control"></div>
-                <div class="col-md-6"><label class="info-label">Municipio / Alcaldía</label><input type="text" id="municipio" class="form-control"></div>
-                <div class="col-md-12"><label class="info-label">Dirección</label><input type="text" id="direccion" class="form-control"></div>
+            <div class="modal-header border-0 pb-0">
+                <h5 class="fw-bold m-0">Dirección</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <div class="modal-footer border-0 p-4"><button class="btn btn-primary w-100 fw-bold btn-save" data-modal="modalUbicacion">Guardar Dirección</button></div>
+            <div class="modal-body p-4 row g-3">
+                <div class="col-md-6">
+                    <label class="info-label">Código Postal</label>
+                    <input type="text" id="cp" class="form-control" maxlength="5" placeholder="Ej. 76800">
+                </div>
+                <div class="col-md-6">
+                    <label class="info-label">Colonia</label>
+                    <select id="colonia" class="form-select">
+                        <option value="">Selecciona colonia</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label class="info-label">Estado</label>
+                    <input type="text" id="estado" class="form-control" readonly>
+                </div>
+                <div class="col-md-6">
+                    <label class="info-label">Municipio</label>
+                    <input type="text" id="municipio" class="form-control" readonly>
+                </div>
+                <div class="col-md-12">
+                    <label class="info-label">Calle y número</label>
+                    <input type="text" id="direccion" class="form-control" placeholder="Nombre de calle, # exterior e interior">
+                </div>
+            </div>
+            <div class="modal-footer border-0 p-4">
+                <button class="btn btn-primary w-100 fw-bold btn-save" data-modal="modalUbicacion">Guardar Dirección</button>
+            </div>
         </div>
     </div>
 </div>
@@ -201,8 +239,58 @@
                 <div class="col-md-6"><label class="info-label">Área de estudio</label><input type="text" id="area_estudio" class="form-control"></div>
                 <div class="col-md-6"><label class="info-label">Institución</label><input type="text" id="institucion" class="form-control"></div>
                 <div class="col-md-4"><label class="info-label">Estado actual</label><input type="text" id="estado_edu" class="form-control"></div>
-                <div class="col-md-4"><label class="info-label">Fecha de inicio</label><input type="date" id="edu_inicio" class="form-control"></div>
-                <div class="col-md-4"><label class="info-label">Fecha de finalización</label><input type="date" id="edu_fin" class="form-control"></div>
+<div class="col-md-2">
+    <label class="info-label">Mes inicio</label>
+    <select id="edu_inicio_mes" class="form-select">
+        <option value="">Mes</option>
+        <option>Enero</option>
+        <option>Febrero</option>
+        <option>Marzo</option>
+        <option>Abril</option>
+        <option>Mayo</option>
+        <option>Junio</option>
+        <option>Julio</option>
+        <option>Agosto</option>
+        <option>Septiembre</option>
+        <option>Octubre</option>
+        <option>Noviembre</option>
+        <option>Diciembre</option>
+    </select>
+</div>
+
+<div class="col-md-2">
+    <label class="info-label">Año</label>
+    <select id="edu_inicio_anio" class="form-select select-anio">
+        <option value="">Año</option>
+    </select>
+</div>
+
+<!-- FECHA FIN -->
+<div class="col-md-2">
+    <label class="info-label">Mes fin</label>
+    <select id="edu_fin_mes" class="form-select">
+        <option value="">Mes</option>
+        <option>Enero</option>
+        <option>Febrero</option>
+        <option>Marzo</option>
+        <option>Abril</option>
+        <option>Mayo</option>
+        <option>Junio</option>
+        <option>Julio</option>
+        <option>Agosto</option>
+        <option>Septiembre</option>
+        <option>Octubre</option>
+        <option>Noviembre</option>
+        <option>Diciembre</option>
+    </select>
+</div>
+
+<div class="col-md-2">
+    <label class="info-label">Año</label>
+    <select id="edu_fin_anio" class="form-select select-anio">
+        <option value="">Año</option>
+    </select>
+</div>
             </div>
             <div class="modal-footer border-0 p-4"><button class="btn btn-primary w-100 fw-bold btn-save" data-modal="modalEducacion">Guardar Estudios</button></div>
         </div>
@@ -283,6 +371,33 @@
         </div>
     </div>
 </div>
+
+
+<footer class="footer-cv mt-auto">
+    <div class="container">
+        <div class="row align-items-center">
+
+            <!-- Marca -->
+            <div class="col-md-4 text-center text-md-start mb-2 mb-md-0">
+                <span class="fw-bold text-primary">3R LABORAL</span>
+                <div class="small text-muted">Tu perfil profesional en un solo lugar</div>
+            </div>
+
+            <!-- Links -->
+            <div class="col-md-4 text-center mb-2 mb-md-0">
+                <a href="#" class="footer-link">Aviso de privacidad</a>
+                <span class="mx-2 text-muted">|</span>
+                <a href="#" class="footer-link">Términos</a>
+            </div>
+
+            <!-- Copyright -->
+            <div class="col-md-4 text-center text-md-end">
+                <span class="small text-muted">© 2026 3R LABORAL</span>
+            </div>
+
+        </div>
+    </div>
+</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script type="module" src="cvcandidato.js"></script>
