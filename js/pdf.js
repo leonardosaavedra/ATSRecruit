@@ -70,18 +70,66 @@ const PDFGenerator = {
         }
     },
 
-    descargarPDF: function() {
-        const element = document.getElementById('areaImpresion');
-        const nombreDoc = document.getElementById('pdfNombre').innerText;
-        const opt = {
-            margin: [10, 10],
-            filename: `Perfil_${nombreDoc.replace(/\s+/g, '_')}.pdf`,
-            image: { type: 'jpeg', quality: 0.98 },
-            html2canvas: { scale: 2, useCORS: true },
-            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-        };
-        html2pdf().set(opt).from(element).save();
+ descargarPDF: function() {
+
+    const original = document.getElementById('areaImpresion');
+
+    if (!original) {
+        alert("No se encontró el área para generar PDF");
+        return;
     }
+
+    // 🔥 1. CLONAR CONTENIDO (FUERA DEL MODAL)
+    const clone = original.cloneNode(true);
+
+    // 🔥 2. LIMPIAR CLASES DE BOOTSTRAP PROBLEMÁTICAS
+    clone.classList.remove('modal-content');
+    clone.style.boxShadow = "none";
+    clone.style.border = "none";
+    clone.style.background = "#ffffff";
+    clone.style.opacity = "1";
+    clone.style.transform = "none";
+
+    // 🔥 3. CONTENEDOR TEMPORAL LIMPIO
+    const container = document.createElement("div");
+    container.style.position = "fixed";
+    container.style.top = "0";
+    container.style.left = "0";
+    container.style.width = "100%";
+    container.style.background = "#ffffff";
+    container.style.zIndex = "-1"; // oculto
+    container.appendChild(clone);
+
+    document.body.appendChild(container);
+
+    const nombreDoc = document.getElementById('pdfNombre')?.innerText || "Candidato";
+
+    const opt = {
+        margin: 10,
+        filename: `Perfil_${nombreDoc.replace(/\s+/g, '_')}.pdf`,
+        image: { type: 'jpeg', quality: 1 },
+        html2canvas: {
+            scale: 2,
+            useCORS: true,
+            backgroundColor: "#ffffff"
+        },
+        jsPDF: {
+            unit: 'mm',
+            format: 'a4',
+            orientation: 'portrait'
+        }
+    };
+
+    // 🔥 4. GENERAR PDF DESDE EL CLON LIMPIO
+    html2pdf()
+        .set(opt)
+        .from(clone)
+        .save()
+        .then(() => {
+            // 🔥 5. LIMPIAR DOM
+            document.body.removeChild(container);
+        });
+}
 };
 
 window.PDFGenerator = PDFGenerator;

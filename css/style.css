@@ -114,3 +114,36 @@ main {
 
 /* Utilidades */
 .cursor-pointer { cursor: pointer; }
+
+
+/* TIMELINE EXPERIENCIA */
+.timeline {
+    border-left: 2px solid #0d6efd;
+    padding-left: 15px;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.timeline-item::before {
+    content: "";
+    position: absolute;
+    left: -9px;
+    top: 5px;
+    width: 12px;
+    height: 12px;
+    background: #0d6efd;
+    border-radius: 50%;
+}
+
+/* TAGS HABILIDADES */
+.skill-badge {
+    background: #e7f1ff;
+    color: #0d6efd;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
