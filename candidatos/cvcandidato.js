@@ -295,8 +295,8 @@ async function cargarPostulaciones(uid) {
 
             contenedor.innerHTML += `
                 <div class="border rounded p-2 mb-2 d-flex justify-content-between align-items-center"
-                     style="cursor:pointer"
-                     onclick="verVacante('${p.id_vacante}', '${p.estado_proceso}')"
+                    style="cursor:pointer"
+                    onclick="verVacante('${p.id_vacante}', '${p.estado_proceso}')">
 
                     <div>
                         <div class="fw-bold small">${titulo}</div>
@@ -322,6 +322,43 @@ function getColorEstado(estado) {
         case "En revisión": return "warning";
         default: return "secondary";
     }
+}
+
+/* ==========================================
+    FUNCION PARA GENERAR TIMELINE DE PROCESO
+========================================== */
+
+function generarTimeline(estadoActual) {
+
+    const pasos = [
+        "Postulado",
+        "En revisión",
+        "Interesado",
+        "Entrevista",
+        "Contratado"
+    ];
+
+    let html = '<div class="mt-3 small">';
+
+    pasos.forEach(paso => {
+
+        let icono = "○";
+        let clase = "text-muted";
+
+        if (paso === estadoActual) {
+            icono = "⬤";
+            clase = "fw-bold text-primary";
+        } else if (pasos.indexOf(paso) < pasos.indexOf(estadoActual)) {
+            icono = "✔";
+            clase = "text-success";
+        }
+
+        html += `<div class="${clase}">${icono} ${paso}</div>`;
+    });
+
+    html += '</div>';
+
+    return html;
 }
 
 
@@ -383,18 +420,23 @@ window.verVacante = async (idVacante, estado) => {
 
     // 🔥 CONTENIDO
     document.getElementById("descripcionVacante").innerHTML = `
-        <div class="mb-2">
-            <span class="badge bg-${colorEstado}">${estado || "Pendiente"}</span>
-        </div>
+    
+    <div class="mb-2">
+        <span class="badge bg-${colorEstado}">${estado || "Pendiente"}</span>
+    </div>
 
-        <div><strong>Horario:</strong> ${v.horario || "-"}</div>
-        <div><strong>Jornada:</strong> ${v.jornada || "-"}</div>
-        <div><strong>Salario:</strong> $${v.salarioDesde || "0"} - $${v.salarioHasta || "0"}</div>
+    ${generarTimeline(estado)}
 
-        <hr>
+    <hr>
 
-        <div>${v.desc || "-"}</div>
-    `;
+    <div><strong>Horario:</strong> ${v.horario || "-"}</div>
+    <div><strong>Jornada:</strong> ${v.jornada || "-"}</div>
+    <div><strong>Salario:</strong> $${v.salarioDesde || "0"} - $${v.salarioHasta || "0"}</div>
+
+    <hr>
+
+    <div>${v.desc || "-"}</div>
+`;
 
     const modal = new bootstrap.Modal(document.getElementById('modalVacante'));
     modal.show();
