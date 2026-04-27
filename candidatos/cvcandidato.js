@@ -1,4 +1,4 @@
-import { auth, db, ref, get, onAuthStateChanged, signOut, update } from '../js/config.js';
+import { auth, db, ref, get, onValue, onAuthStateChanged, signOut, update } from '../js/config.js';
 
 const DEFAULT_PHOTO = 'https://via.placeholder.com/150';
 
@@ -93,6 +93,7 @@ onAuthStateChanged(auth, async (user) => {
             const data = snapshot.val();
             renderCandidato(data, user);
             fillModals(data, user);
+            cargarPostulaciones(user.uid);
         }
 
         const userNameNav = document.getElementById('userNameNav');
@@ -245,6 +246,86 @@ if (modalId === "modalEducacion") {
 });
 
 /* ==========================================
+    CARGAR POSTULACIONES DEL CANDIDATO
+========================================== */
+
+async function cargarPostulaciones(uid) {
+
+    const contenedor = document.getElementById("misPostulaciones");
+    const postulacionesRef = ref(db, "postulaciones");
+
+    onValue(postulacionesRef, async (snapshot) => {
+
+        const data = snapshot.val();
+
+        if (!data) {
+            contenedor.innerHTML = `<p class="text-muted small">No tienes postulaciones</p>`;
+            return;
+        }
+
+        const postulaciones = Object.values(data)
+            .filter(p => p.uid_candidato === uid);
+
+        if (postulaciones.length === 0) {
+            contenedor.innerHTML = `<p class="text-muted small">Aún no te has postulado</p>`;
+            return;
+        }
+
+        contenedor.innerHTML = "";
+
+        for (let p of postulaciones) {
+
+            const estado = p.estado_proceso || "Pendiente";
+            const color = getColorEstado(estado);
+
+            let titulo = "Vacante";
+            let empresa = "";
+
+            // 🔥 TRAER VACANTE REAL
+            if (p.id_vacante) {
+                const vacRef = ref(db, `vacantes/${p.id_vacante}`);
+                const snapVac = await get(vacRef);
+
+                if (snapVac.exists()) {
+                    const v = snapVac.val();
+                    titulo = v.titulo || "Vacante";
+                    empresa = v.empresa || "";
+                }
+            }
+
+            contenedor.innerHTML += `
+                <div class="border rounded p-2 mb-2 d-flex justify-content-between align-items-center"
+                     style="cursor:pointer"
+                     onclick="verVacante('${p.id_vacante}', '${p.estado_proceso}')"
+
+                    <div>
+                        <div class="fw-bold small">${titulo}</div>
+                        <small class="text-muted">${empresa}</small>
+                    </div>
+
+                    <span class="badge bg-${color}">${estado}</span>
+                </div>
+            `;
+        }
+
+    });
+}
+
+/* ==========================================
+    FUNCION PARA ASIGNAR COLOR SEGÚN ESTADO
+========================================== */
+
+function getColorEstado(estado) {
+    switch (estado) {
+        case "Interesado": return "success";
+        case "Descartado": return "danger";
+        case "En revisión": return "warning";
+        default: return "secondary";
+    }
+}
+
+
+/* ==========================================
    SLIDER DE TABS (FINAL FIX)
 ========================================== */
 
@@ -279,3 +360,42 @@ window.addEventListener('resize', moveSlider);
 
 const btnCerrar = document.getElementById('btnCerrarSesion');
 if (btnCerrar) btnCerrar.onclick = () => signOut(auth);
+
+
+// 🔥 AQUÍ MISMO AGREGA ESTO
+window.verVacante = async (idVacante, estado) => {
+
+    const vacanteRef = ref(db, `vacantes/${idVacante}`);
+    const snapshot = await get(vacanteRef);
+
+    if (!snapshot.exists()) return;
+
+    const v = snapshot.val();
+
+    // 🔥 TÍTULO
+    document.getElementById("tituloVacanteModal").innerHTML = `
+        ${v.titulo || "Vacante"}
+        <div class="small text-muted">${v.ubicacion || ""}</div>
+    `;
+
+    // 🔥 ESTATUS DINÁMICO
+    const colorEstado = getColorEstado(estado);
+
+    // 🔥 CONTENIDO
+    document.getElementById("descripcionVacante").innerHTML = `
+        <div class="mb-2">
+            <span class="badge bg-${colorEstado}">${estado || "Pendiente"}</span>
+        </div>
+
+        <div><strong>Horario:</strong> ${v.horario || "-"}</div>
+        <div><strong>Jornada:</strong> ${v.jornada || "-"}</div>
+        <div><strong>Salario:</strong> $${v.salarioDesde || "0"} - $${v.salarioHasta || "0"}</div>
+
+        <hr>
+
+        <div>${v.desc || "-"}</div>
+    `;
+
+    const modal = new bootstrap.Modal(document.getElementById('modalVacante'));
+    modal.show();
+};
