@@ -16,7 +16,7 @@ export async function loginUsuario(email, password) {
 
             // Redirigir según el rol
             if (datos.rol === 'admin') {
-                window.location.href = 'admin.html';
+                window.location.href = 'cpanel/admin.html';
             } else if (datos.rol === 'reclutador') {
                 window.location.href = 'recruit/reclutador.html';
             } else {
