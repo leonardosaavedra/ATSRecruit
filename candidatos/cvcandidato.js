@@ -338,25 +338,33 @@ function generarTimeline(estadoActual) {
         "Contratado"
     ];
 
-    let html = '<div class="mt-3 small">';
+    let html = `
+        <div class="timeline-horizontal mt-3 mb-3">
+    `;
 
-    pasos.forEach(paso => {
+    pasos.forEach((paso, index) => {
 
-        let icono = "○";
-        let clase = "text-muted";
+        let clase = "pending";
 
         if (paso === estadoActual) {
-            icono = "⬤";
-            clase = "fw-bold text-primary";
+            clase = "active";
         } else if (pasos.indexOf(paso) < pasos.indexOf(estadoActual)) {
-            icono = "✔";
-            clase = "text-success";
+            clase = "done";
         }
 
-        html += `<div class="${clase}">${icono} ${paso}</div>`;
+        html += `
+            <div class="step ${clase}">
+                <div class="circle"></div>
+                <div class="label">${paso}</div>
+            </div>
+        `;
+
+        if (index < pasos.length - 1) {
+            html += `<div class="line"></div>`;
+        }
     });
 
-    html += '</div>';
+    html += `</div>`;
 
     return html;
 }
