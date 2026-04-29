@@ -1,7 +1,3 @@
-
-
-
-
 /* NAV BAR */
 
 .navbar {
@@ -199,4 +195,63 @@ body {
 
 .footer-link:hover {
     color: #0d6efd;
+}
+
+
+
+.estado-container {
+    width: 100%;
+    display: flex;
+    justify-content: center; /* 🔥 centra horizontal */
+    margin-bottom: 10px;
+}
+
+.estado-badge {
+    font-size: 13px;
+    padding: 8px 20px;
+    border-radius: 999px;
+    font-weight: 600;
+}
+
+
+
+.modal-vacante-dark .modal-header {
+    background: linear-gradient(135deg, #111827, #1f2937);
+    color: #fff;
+    border-bottom: none;
+    padding: 18px 20px;
+}
+
+/* Contenedor */
+.header-vacante {
+    width: 100%;
+}
+
+/* Título */
+.titulo-vacante {
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+}
+
+/* Ubicación */
+.vacante-ubicacion {
+    font-size: 15px;
+    color: #ffffff;
+    margin-top: 4px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Badge estado */
+.estado-badge {
+    font-size: 12px;
+    padding: 6px 10px;
+    border-radius: 20px;
+}
+
+/* Botón cerrar blanco */
+.modal-vacante-dark .btn-close {
+    filter: invert(1);
 }

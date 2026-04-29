@@ -330,6 +330,16 @@ function getColorEstado(estado) {
 
 function generarTimeline(estadoActual) {
 
+    // 🔴 MANEJO ESPECIAL PARA DESCARTADO
+    if (estadoActual === "Descartado") {
+        return `
+            <div class="alert alert-danger small mt-3">
+                <i class="bi bi-x-circle me-2"></i>
+                Tu postulación no continuó en este proceso. ¡Sigue intentando!
+            </div>
+        `;
+    }
+
     const pasos = [
         "Postulado",
         "En revisión",
@@ -338,11 +348,9 @@ function generarTimeline(estadoActual) {
         "Contratado"
     ];
 
-    let html = `
-        <div class="timeline-horizontal mt-3 mb-3">
-    `;
+    let html = `<div class="timeline-horizontal mt-3 mb-3">`;
 
-    pasos.forEach((paso, index) => {
+    pasos.forEach((paso) => {
 
         let clase = "pending";
 
@@ -353,15 +361,11 @@ function generarTimeline(estadoActual) {
         }
 
         html += `
-            <div class="step ${clase}">
-                <div class="circle"></div>
+            <div class="timeline-step ${clase}">
+                <div class="dot"></div>
                 <div class="label">${paso}</div>
             </div>
         `;
-
-        if (index < pasos.length - 1) {
-            html += `<div class="line"></div>`;
-        }
     });
 
     html += `</div>`;
@@ -420,7 +424,7 @@ window.verVacante = async (idVacante, estado) => {
     // 🔥 TÍTULO
     document.getElementById("tituloVacanteModal").innerHTML = `
         ${v.titulo || "Vacante"}
-        <div class="small text-muted">${v.ubicacion || ""}</div>
+        <div class="vacante-ubicacion">${v.ubicacion || ""}</div>
     `;
 
     // 🔥 ESTATUS DINÁMICO
@@ -429,9 +433,11 @@ window.verVacante = async (idVacante, estado) => {
     // 🔥 CONTENIDO
     document.getElementById("descripcionVacante").innerHTML = `
     
-    <div class="mb-2">
-        <span class="badge bg-${colorEstado}">${estado || "Pendiente"}</span>
-    </div>
+    <div class="estado-container">
+    <span class="badge estado-badge bg-${colorEstado}">
+        ${estado || "Pendiente"}
+    </span>
+</div>
 
     ${generarTimeline(estado)}
 
