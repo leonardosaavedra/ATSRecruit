@@ -430,26 +430,27 @@ window.verVacante = async (idVacante, estado) => {
     // 🔥 ESTATUS DINÁMICO
     const colorEstado = getColorEstado(estado);
 
-    // 🔥 CONTENIDO
-    document.getElementById("descripcionVacante").innerHTML = `
-    
-    <div class="estado-container">
-    <span class="badge estado-badge bg-${colorEstado}">
-        ${estado || "Pendiente"}
-    </span>
-</div>
+    // 🔥 CLASE PERSONALIZADA PARA COLOR
+    const claseEstado = `estado-${colorEstado}`;
 
-    ${generarTimeline(estado)}
+        document.getElementById("descripcionVacante").innerHTML = `
 
-    <hr>
+            <div class="estado-bar ${claseEstado}">
+                <i class="bi bi-info-circle me-2"></i>
+                ${estado || "Pendiente"}
+            </div>
 
-    <div><strong>Horario:</strong> ${v.horario || "-"}</div>
-    <div><strong>Jornada:</strong> ${v.jornada || "-"}</div>
-    <div><strong>Salario:</strong> $${v.salarioDesde || "0"} - $${v.salarioHasta || "0"}</div>
+            ${generarTimeline(estado)}
 
-    <hr>
+            <hr>
 
-    <div>${v.desc || "-"}</div>
+            <div><strong>Horario:</strong> ${v.horario || "-"}</div>
+            <div><strong>Jornada:</strong> ${v.jornada || "-"}</div>
+            <div><strong>Salario:</strong> $${v.salarioDesde || "0"} - $${v.salarioHasta || "0"}</div>
+
+            <hr>
+
+            <div>${v.desc || "-"}</div>
 `;
 
     const modal = new bootstrap.Modal(document.getElementById('modalVacante'));
