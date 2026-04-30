@@ -30,6 +30,15 @@ function formatearMoneda(valor) {
     return Number(valor).toLocaleString('en-US');
 }
 
+
+
+
+
+
+
+// 🔥 BASE URL automática (local / servidor)
+const BASE_URL = window.location.origin;
+
 // --- CARGAR VACANTES CON AUTO-SELECCIÓN DE LA PRIMERA ---
 async function cargarVacantes() {
     try {
@@ -43,44 +52,103 @@ async function cargarVacantes() {
 
             keys.forEach((id) => {
                 const v = datos[id];
+
                 if (v.estado === "Activa") {
+
+                    // 🔥 URL dinámica para compartir
+                    const urlCompartir = `${BASE_URL}/empleo.php?id=${id}`;
+                    const mensaje = `Mira esta vacante en 3R Laboral 👇\n${urlCompartir}`;
+
                     const card = document.createElement('div');
-                    card.className = 'col-12'; // Ocupa todo el ancho
-                    
-                    // Diseño basado en tu referencia: Tarjeta horizontal moderna
+                    card.className = 'col-12';
+
                     card.innerHTML = `
                         <div class="card card-vacante-moderna shadow-sm p-4 mb-3" onclick="window.abrirModalVacante('${id}')">
                             <div class="row align-items-center">
+                                
                                 <div class="col-md-8">
                                     <div class="d-flex align-items-center mb-2">
                                         <span class="badge bg-primary-subtle text-primary me-2">Nueva vacante</span>
-                                        <span class="text-muted small"><i class="far fa-clock me-1"></i> Publicado recientemente</span>
+                                        <span class="text-muted small">
+                                            <i class="far fa-clock me-1"></i> Publicado recientemente
+                                        </span>
                                     </div>
+
                                     <h4 class="fw-bold mb-1 text-dark">${v.titulo}</h4>
+
                                     <p class="text-muted mb-0">
                                         <i class="fas fa-map-marker-alt text-primary me-2"></i>${v.ubicacion} 
                                         <span class="mx-2">•</span> 
                                         <i class="fas fa-briefcase text-primary me-2"></i>${v.jornada}
                                     </p>
                                 </div>
+
                                 <div class="col-md-4 text-md-end mt-3 mt-md-0">
                                     <p class="small text-muted mb-0">Sueldo mensual bruto</p>
-                                    <h5 class="fw-bold text-dark mb-2">$${formatearMoneda(v.salarioDesde)} - $${formatearMoneda(v.salarioHasta)}</h5>
-                                    <button class="btn btn-outline-primary rounded-pill px-4">Ver detalles</button>
+                                    
+                                    <h5 class="fw-bold text-dark mb-2">
+                                        $${formatearMoneda(v.salarioDesde)} - $${formatearMoneda(v.salarioHasta)}
+                                    </h5>
+
+                                    <div class="d-flex justify-content-md-end gap-2">
+
+                                        <!-- Botón ver -->
+                                        <button class="btn btn-outline-primary rounded-pill px-4">
+                                            Ver detalles
+                                        </button>
+
+                                        <!-- 🔥 BOTÓN COMPARTIR -->
+                                        <button class="btn btn-outline-success rounded-pill px-3 btn-share" data-mensaje="${mensaje}">
+                                            <i class="fab fa-whatsapp me-1"></i>
+                                            <span class="d-none d-md-inline">WhatsApp</span>
+                                        </button>
+
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
                     `;
+
+                    // 🔥 AGREGAR EVENTO AL BOTÓN COMPARTIR (SOLUCIÓN REAL)
+                    const btnShare = card.querySelector('.btn-share');
+                    if (btnShare) {
+                        btnShare.addEventListener('click', (e) => {
+                            e.stopPropagation(); // 🚫 evita abrir modal
+
+                            const mensaje = btnShare.getAttribute('data-mensaje');
+                            const url = `https://wa.me/?text=${encodeURIComponent(mensaje)}`;
+                            window.open(url, '_blank');
+                        });
+                    }
+
                     listaVacantes.appendChild(card);
                 }
             });
+
         } else {
             listaVacantes.innerHTML = '<p class="text-center py-5 text-muted">No hay vacantes activas en este momento.</p>';
         }
+
     } catch (error) {
         console.error("Error al cargar vacantes:", error);
     }
 }
+
+
+
+
+
+
+
+
+
+// 🔥 FUNCIÓN GLOBAL PARA COMPARTIR
+window.compartirVacante = function(mensaje, e) {
+    e.stopPropagation(); // 🔥 evita que dispare el click del padre
+    const url = `https://wa.me/?text=${encodeURIComponent(mensaje)}`;
+    window.open(url, '_blank');
+};
 
 // --- MOSTRAR DETALLE CON VALIDACIÓN DE REGISTRO PREVIO ---
 async function mostrarDetalle(id, v) {

@@ -273,6 +273,8 @@ window.enviarPostulacion = async function() {
             '<i class="fas fa-paper-plane me-2"></i> ¡Postúlate ahora!' : 
             '<i class="fab fa-google me-2"></i> Inicia sesión con Gmail para postularte';
 
+        const urlCompartir = `https://empleos.3rlaboral.com/empleo.php?id=${id}`;
+
         const contenedor = document.getElementById('contenidoModal');
         contenedor.innerHTML = `
             <input type="hidden" id="inputIDModal" value="${id}">
@@ -310,6 +312,20 @@ window.enviarPostulacion = async function() {
             <button id="btnPostularModal" class="btn btn-primary w-100 py-3 fw-bold shadow-sm" onclick="window.enviarPostulacion()">
                 ${textoBoton}
             </button>
+
+            <div class="d-flex gap-2 mt-3">
+    <!-- WhatsApp -->
+    <a href="https://wa.me/?text=${encodeURIComponent(urlCompartir)}" 
+       target="_blank" 
+       class="btn btn-success w-50">
+       <i class="fab fa-whatsapp me-2"></i> Compartir
+    </a>
+
+    <!-- Copiar link -->
+    <button class="btn btn-outline-secondary w-50" onclick="copiarLink('${urlCompartir}')">
+        <i class="fas fa-link me-2"></i> Copiar link
+    </button>
+</div>
         `;
 
         // Si está logueado, verificar si ya se postuló
@@ -333,6 +349,11 @@ window.enviarPostulacion = async function() {
     document.getElementById('btnGoogle')?.addEventListener('click', async () => {
         try { await loginConGoogle(); window.location.reload(); } catch (e) {}
     });
+
+    window.copiarLink = function(url) {
+    navigator.clipboard.writeText(url);
+    alert("Link copiado al portapapeles");
+}
 </script>
 
 <script type="module" src="js/public-logic.js"></script>
