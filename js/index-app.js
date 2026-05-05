@@ -1,4 +1,4 @@
-import { auth, onAuthStateChanged, db, ref, get, set, push, child } from './config.js';
+import { auth, onAuthStateChanged, db, ref, get, set, push, child, SHARE_BASE } from './config.js';
 import { loginConGoogle } from './auth-candidatos.js';
 
 window.usuarioActual = null;
@@ -131,8 +131,7 @@ window.abrirModalVacante = async function (id) {
         ? 'Postularse'
         : 'Inicia sesión para postularte';
 
-    const BASE_URL = window.location.origin;
-    const urlCompartir = `${BASE_URL}/empleo.php?id=${id}`;
+    const urlCompartir = `${SHARE_BASE}/empleos/empleo.php?id=${id}`;
 
     const contenedor = document.getElementById('contenidoModal');
 
@@ -153,11 +152,11 @@ window.abrirModalVacante = async function (id) {
 
         <div class="d-flex gap-2 mt-3">
             <a href="https://wa.me/?text=${encodeURIComponent(urlCompartir)}" target="_blank" class="btn btn-success w-50">
-                WhatsApp
+                <i class="fab fa-whatsapp me-1"></i> WhatsApp
             </a>
 
             <button class="btn btn-outline-secondary w-50" onclick="copiarLink('${urlCompartir}')">
-                Copiar link
+                <i class="fas fa-link me-1"></i> Copiar link
             </button>
         </div>
     `;

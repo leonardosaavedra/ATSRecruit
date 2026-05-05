@@ -12,8 +12,12 @@ $id = $_GET['id'] ?? '';
 // 🔥 DETECCIÓN AUTOMÁTICA
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https" : "http";
 $host = $_SERVER['HTTP_HOST'];
-$urlActual = $protocol . "://" . $host . "/v1/empleos/empleo.php?id=" . $id;
-$imagen = $protocol . "://" . $host . "/v1/logo.png";
+
+// 🔥 Detecta automáticamente la carpeta donde está este archivo
+$scriptUrl = $_SERVER['SCRIPT_NAME'];
+$urlActual = $protocol . "://" . $host . $scriptUrl . "?id=" . $id;
+
+$imagen = $protocol . "://" . $host . "/logo.png";
 
 // 🔹 Firebase
 $firebaseUrl = "https://r-ats-recruit-default-rtdb.firebaseio.com/vacantes/$id.json";
@@ -45,8 +49,6 @@ if ($salarioDesde && $salarioHasta) {
 
 $jornada = htmlspecialchars($data['jornada'] ?? 'No especificada');
 
-// 🔥 MENSAJE
-$mensaje = "Mira esta vacante en 3R Laboral 👇\n" . $urlActual;
 ?>
 
 <!DOCTYPE html>
@@ -130,10 +132,9 @@ $mensaje = "Mira esta vacante en 3R Laboral 👇\n" . $urlActual;
     </button>
 
     <div class="actions">
-        <a class="btn btn-whatsapp" target="_blank"
-           href="https://wa.me/?text=<?php echo urlencode($mensaje); ?>">
-           <i class="fab fa-whatsapp"></i> Compartir
-        </a>
+        <button class="btn btn-whatsapp" onclick="compartirWhatsapp()">
+            <i class="fab fa-whatsapp"></i> Compartir
+        </button>
 
         <button class="btn btn-copy" onclick="copiarLink()">
             🔗 Copiar link
@@ -194,8 +195,33 @@ $mensaje = "Mira esta vacante en 3R Laboral 👇\n" . $urlActual;
 </footer>
 
 <script>
+function compartirWhatsapp() {
+    const url = window.location.href;
+    const mensaje = `Mira esta vacante en 3R Laboral:\n${url}`;
+    window.open(`https://wa.me/?text=${encodeURIComponent(mensaje)}`, '_blank');
+}
+
+
 function copiarLink() {
-    navigator.clipboard.writeText("<?php echo $urlActual; ?>");
+    const texto = window.location.href;
+
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(texto)
+            .then(() => alert("Link copiado"))
+            .catch(() => copiarFallback(texto));
+    } else {
+        copiarFallback(texto);
+    }
+}
+
+
+function copiarFallback(texto) {
+    const input = document.createElement("input");
+    input.value = texto;
+    document.body.appendChild(input);
+    input.select();
+    document.execCommand("copy");
+    document.body.removeChild(input);
     alert("Link copiado");
 }
 </script>

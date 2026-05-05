@@ -28,6 +28,10 @@ googleProvider.setCustomParameters({
 
 const analytics = getAnalytics(app);
 
+// 🔥 URL base dinámica para compartir vacantes
+export const SHARE_BASE = window.location.origin + 
+    window.location.pathname.replace(/\/index\.html$/, '').replace(/\/$/, '');
+
 // EXPORTACIÓN
 export { 
     db, auth, googleProvider, analytics, 

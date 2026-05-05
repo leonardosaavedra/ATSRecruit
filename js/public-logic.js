@@ -1,4 +1,4 @@
-import { db, ref, get, child, push, set, auth, onAuthStateChanged } from './config.js';
+import { db, ref, get, child, push, set, auth, onAuthStateChanged, SHARE_BASE } from './config.js';
 
 const listaVacantes = document.getElementById('listaVacantes');
 const authContainer = document.getElementById('auth-container');
@@ -30,15 +30,6 @@ function formatearMoneda(valor) {
     return Number(valor).toLocaleString('en-US');
 }
 
-
-
-
-
-
-
-// 🔥 BASE URL automática (local / servidor)
-const BASE_URL = window.location.origin;
-
 // --- CARGAR VACANTES CON AUTO-SELECCIÓN DE LA PRIMERA ---
 async function cargarVacantes() {
     try {
@@ -56,8 +47,8 @@ async function cargarVacantes() {
                 if (v.estado === "Activa") {
 
                     // 🔥 URL dinámica para compartir
-                    const urlCompartir = `${BASE_URL}/empleo.php?id=${id}`;
-                    const mensaje = `Mira esta vacante en 3R Laboral 👇\n${urlCompartir}`;
+                    const urlCompartir = `${SHARE_BASE}/empleos/empleo.php?id=${id}`;
+                    const mensaje = `Mira esta vacante en 3R Laboral:\n${urlCompartir}`;
 
                     const card = document.createElement('div');
                     card.className = 'col-12';
