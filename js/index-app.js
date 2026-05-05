@@ -189,9 +189,24 @@ window.abrirModalVacante = async function (id) {
 // 🔗 COPY LINK
 // ============================
 window.copiarLink = function (url) {
-    navigator.clipboard.writeText(url);
-    alert("Link copiado");
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(url)
+            .then(() => alert("Link copiado"))
+            .catch(() => copiarFallback(url));
+    } else {
+        copiarFallback(url);
+    }
 };
+
+function copiarFallback(url) {
+    const input = document.createElement("input");
+    input.value = url;
+    document.body.appendChild(input);
+    input.select();
+    document.execCommand("copy");
+    document.body.removeChild(input);
+    alert("Link copiado");
+}
 
 // ============================
 // 🔐 LOGIN BTN
