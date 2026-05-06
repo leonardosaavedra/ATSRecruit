@@ -1,0 +1,275 @@
+/* ==========================================
+   CANDIDATOS-ADMIN.CSS — Vista candidatos Admin 3R Laboral
+   ========================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+:root {
+    --azul: #0D3B66;
+    --azul-claro: #185FA5;
+    --naranja: #F77F00;
+    --gris: #F5F7FA;
+    --gris-medio: #E8ECF0;
+    --texto: #1a1a2e;
+    --texto-muted: #5a6a7a;
+    --dark-nav: #0f1923;
+    --dark-nav2: #1a2535;
+    --dark-border: rgba(255,255,255,0.07);
+    --radius: 12px;
+    --radius-lg: 16px;
+    --sombra: 0 2px 16px rgba(13,59,102,0.08);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+
+body.cadmin-body {
+    font-family: 'DM Sans', sans-serif;
+    background: #f0f2f5;
+    color: var(--texto);
+    display: flex; flex-direction: column; min-height: 100vh;
+}
+.cadmin-main { flex: 1; }
+
+/* ── NAVBAR DARK ── */
+.cadmin-navbar {
+    background: var(--dark-nav);
+    padding: 0; position: sticky; top: 0; z-index: 1000;
+    border-bottom: 1px solid var(--dark-border);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+}
+.cadmin-navbar-inner {
+    max-width: 1400px; margin: 0 auto;
+    padding: 0 28px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+}
+.cadmin-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.cadmin-brand-icon {
+    width: 34px; height: 34px;
+    background: linear-gradient(135deg, var(--naranja), #ff6b00);
+    border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 13px; color: white; letter-spacing: -1px;
+}
+.cadmin-brand-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px; font-weight: 700; color: white; line-height: 1; display: block;
+}
+.cadmin-brand-sub {
+    font-size: 9.5px; color: rgba(255,255,255,0.4);
+    text-transform: uppercase; letter-spacing: 1.5px; display: block; margin-top: 1px;
+}
+.btn-cadmin-back {
+    display: flex; align-items: center; gap: 7px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid var(--dark-border);
+    color: rgba(255,255,255,0.7);
+    padding: 7px 15px; border-radius: 9px;
+    font-size: 13px; font-weight: 500;
+    text-decoration: none; transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+}
+.btn-cadmin-back:hover { background: rgba(255,255,255,0.13); color: white; }
+
+/* ── SUBHEADER ── */
+.cadmin-subheader {
+    background: var(--dark-nav2);
+    border-bottom: 1px solid var(--dark-border); padding: 10px 0;
+}
+.cadmin-subheader-inner {
+    max-width: 1400px; margin: 0 auto; padding: 0 28px;
+    display: flex; align-items: center; justify-content: space-between;
+}
+.cadmin-page-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px; font-weight: 700; color: white;
+    display: flex; align-items: center; gap: 10px;
+}
+.cadmin-page-title-icon {
+    width: 28px; height: 28px; border-radius: 7px;
+    background: rgba(247,127,0,0.2);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--naranja); font-size: 13px;
+}
+.cadmin-breadcrumb { font-size: 12px; color: rgba(255,255,255,0.35); }
+.cadmin-breadcrumb span { color: rgba(255,255,255,0.6); }
+
+/* ── CONTENIDO ── */
+.cadmin-content { max-width: 1400px; margin: 0 auto; padding: 28px 28px 60px; }
+
+/* ── PANEL ── */
+.cadmin-panel {
+    background: white; border-radius: var(--radius-lg);
+    border: 1px solid var(--gris-medio);
+    box-shadow: var(--sombra); overflow: hidden;
+}
+.cadmin-panel-header {
+    padding: 18px 24px; border-bottom: 1px solid var(--gris-medio);
+    display: flex; align-items: center; justify-content: space-between;
+}
+.cadmin-panel-title {
+    font-size: 15px; font-weight: 700; color: var(--azul);
+    display: flex; align-items: center; gap: 8px;
+}
+.cadmin-panel-title i { color: var(--naranja); }
+
+/* ── TABLA ── */
+.cadmin-table { width: 100%; border-collapse: collapse; }
+.cadmin-table thead tr { background: var(--gris); border-bottom: 2px solid var(--gris-medio); }
+.cadmin-table th {
+    font-size: 11px; font-weight: 700; color: var(--texto-muted);
+    text-transform: uppercase; letter-spacing: 0.8px; padding: 11px 16px; text-align: left;
+}
+.cadmin-table td {
+    padding: 13px 16px; font-size: 13.5px; color: var(--texto);
+    border-bottom: 1px solid var(--gris-medio); vertical-align: middle;
+}
+.cadmin-table tr:last-child td { border-bottom: none; }
+.cadmin-table tr:hover td { background: #fafbff; }
+
+/* ── BADGES ── */
+.cadmin-badge {
+    padding: 4px 12px; border-radius: 20px;
+    font-size: 11.5px; font-weight: 600;
+    display: inline-flex; align-items: center; gap: 5px;
+}
+.cadmin-badge-disponible { background: rgba(25,135,84,0.1);  color: #198754; }
+.cadmin-badge-proceso    { background: rgba(247,127,0,0.1);  color: var(--naranja); }
+.cadmin-badge-descartado { background: rgba(220,53,69,0.1);  color: #dc3545; }
+
+/* ── BOTÓN VER ── */
+.btn-cadmin-ver {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--azul); color: white; border: none;
+    padding: 7px 14px; border-radius: 8px;
+    font-size: 12.5px; font-weight: 600; cursor: pointer;
+    transition: all 0.2s; font-family: 'DM Sans', sans-serif;
+}
+.btn-cadmin-ver:hover { background: var(--azul-claro); transform: translateY(-1px); }
+
+/* ── MODAL ── */
+.cadmin-body .modal-content {
+    border-radius: 18px !important; border: none !important;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2) !important;
+    overflow: hidden;
+}
+.cadmin-modal-header {
+    background: var(--dark-nav); padding: 20px 24px;
+    border-bottom: 1px solid var(--dark-border);
+    display: flex; align-items: center; justify-content: space-between;
+}
+.cadmin-modal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; font-weight: 700; color: white;
+    display: flex; align-items: center; gap: 10px;
+}
+.cadmin-modal-title i { color: var(--naranja); }
+.btn-cadmin-modal-close {
+    background: rgba(255,255,255,0.1); border: none;
+    width: 30px; height: 30px; border-radius: 8px;
+    color: rgba(255,255,255,0.6); font-size: 14px;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+}
+.btn-cadmin-modal-close:hover { background: rgba(255,255,255,0.18); color: white; }
+
+/* Info del modal */
+.cadmin-info-card {
+    background: white; border-radius: var(--radius);
+    border: 1px solid var(--gris-medio);
+    padding: 18px 20px; margin-bottom: 14px;
+}
+.cadmin-info-title {
+    font-size: 11px; font-weight: 700; color: var(--texto-muted);
+    text-transform: uppercase; letter-spacing: 0.8px;
+    margin-bottom: 12px; padding-bottom: 10px;
+    border-bottom: 1px solid var(--gris-medio);
+    display: flex; align-items: center; gap: 7px;
+}
+.cadmin-info-title i { color: var(--naranja); }
+.cadmin-info-row {
+    display: flex; justify-content: space-between;
+    font-size: 13.5px; margin-bottom: 7px; gap: 12px;
+}
+.cadmin-info-row:last-child { margin-bottom: 0; }
+.cadmin-info-label { color: var(--texto-muted); flex-shrink: 0; }
+.cadmin-info-value { color: var(--texto); font-weight: 500; text-align: right; }
+
+/* Habilidades */
+.cadmin-skill-chip {
+    background: rgba(13,59,102,0.08); color: var(--azul);
+    padding: 4px 12px; border-radius: 20px;
+    font-size: 12px; font-weight: 600;
+    display: inline-block; margin: 3px;
+}
+
+/* Timeline experiencia */
+.cadmin-timeline { padding-left: 14px; border-left: 2px solid var(--gris-medio); }
+.cadmin-timeline-item { position: relative; margin-bottom: 14px; padding-left: 14px; }
+.cadmin-timeline-item::before {
+    content: ''; position: absolute; left: -19px; top: 5px;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--azul-claro); border: 2px solid white;
+    box-shadow: 0 0 0 2px var(--azul-claro);
+}
+.cadmin-exp-empresa { font-weight: 700; font-size: 13.5px; color: var(--texto); }
+.cadmin-exp-puesto  { font-size: 12.5px; color: var(--texto-muted); margin-top: 1px; }
+.cadmin-exp-periodo { font-size: 11.5px; color: var(--naranja); margin-top: 2px; }
+
+/* Footer modal */
+.cadmin-modal-footer {
+    background: var(--gris); border-top: 1px solid var(--gris-medio);
+    padding: 14px 24px; display: flex; justify-content: flex-end; gap: 10px;
+}
+.btn-cadmin-pdf {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: #dc3545; color: white; border: none;
+    padding: 10px 20px; border-radius: 9px;
+    font-size: 13.5px; font-weight: 600; cursor: pointer;
+    transition: all 0.2s; font-family: 'DM Sans', sans-serif;
+}
+.btn-cadmin-pdf:hover { background: #c82333; transform: translateY(-1px); }
+.btn-cadmin-cerrar {
+    display: inline-flex; align-items: center; gap: 7px;
+    background: transparent; color: var(--texto-muted);
+    border: 1.5px solid var(--gris-medio);
+    padding: 10px 20px; border-radius: 9px;
+    font-size: 13.5px; font-weight: 600; cursor: pointer;
+    transition: all 0.2s; font-family: 'DM Sans', sans-serif;
+}
+.btn-cadmin-cerrar:hover { border-color: var(--azul); color: var(--azul); }
+
+/* ── FOOTER DARK ── */
+.cadmin-footer {
+    background: var(--dark-nav); border-top: 1px solid var(--dark-border);
+    padding: 20px 28px;
+    display: flex; align-items: center; justify-content: space-between;
+    font-size: 12.5px; color: rgba(255,255,255,0.35);
+}
+.cadmin-footer a { color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s; }
+.cadmin-footer a:hover { color: rgba(255,255,255,0.7); }
+.cadmin-server-badge {
+    display: flex; align-items: center; gap: 6px;
+    background: rgba(25,135,84,0.15); border: 1px solid rgba(25,135,84,0.3);
+    color: #4caf87; padding: 4px 12px; border-radius: 20px;
+    font-size: 11.5px; font-weight: 600;
+}
+.cadmin-server-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #4caf87; animation: cadminPulse 2s infinite;
+}
+@keyframes cadminPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+
+/* PDF */
+#areaImpresion { background: #ffffff !important; }
+.no-print { display: block; }
+
+/* ── RESPONSIVE ── */
+@media(max-width: 768px) {
+    .cadmin-content { padding: 18px 16px 40px; }
+    .cadmin-footer { flex-direction: column; gap: 10px; text-align: center; }
+}

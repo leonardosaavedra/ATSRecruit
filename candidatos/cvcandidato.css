@@ -1,296 +1,370 @@
-/* NAV BAR */
+/* ==========================================
+   CV-CANDIDATO.CSS — Perfil del Candidato
+   ========================================== */
 
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+:root {
+    --azul: #0D3B66;
+    --azul-claro: #185FA5;
+    --naranja: #F77F00;
+    --gris: #F5F7FA;
+    --gris-medio: #E8ECF0;
+    --texto: #1a1a2e;
+    --texto-muted: #5a6a7a;
+    --dark-nav: #0f1923;
+    --dark-nav2: #1a2535;
+    --dark-border: rgba(255,255,255,0.07);
+    --radius: 12px;
+    --radius-lg: 16px;
+    --sombra: 0 2px 16px rgba(13,59,102,0.08);
+    --sombra-hover: 0 8px 28px rgba(13,59,102,0.14);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    background: #f0f2f5;
+    color: var(--texto);
+    display: flex; flex-direction: column; min-height: 100vh;
+}
+
+/* ── NAVBAR DARK ── */
 .navbar {
-    background: #fff;
-    border-bottom: 1px solid #e0e0e0;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+    background: var(--dark-nav) !important;
+    border-bottom: 1px solid var(--dark-border) !important;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.3) !important;
+    padding: 0 !important;
+    position: sticky; top: 0; z-index: 1000;
+}
+.navbar .container {
+    height: 60px;
+    display: flex; align-items: center; justify-content: space-between;
+}
+.navbar-brand {
+    display: flex; align-items: center; gap: 10px;
+    text-decoration: none !important;
+}
+.navbar-brand-icon {
+    width: 34px; height: 34px;
+    background: linear-gradient(135deg, var(--naranja), #ff6b00);
+    border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 13px; color: white; letter-spacing: -1px;
+    flex-shrink: 0;
+}
+.navbar-brand-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px; font-weight: 700; color: white !important;
+    line-height: 1.1; display: block;
+}
+.navbar-brand-sub {
+    font-size: 9.5px; color: rgba(255,255,255,0.4) !important;
+    text-transform: uppercase; letter-spacing: 1.5px; display: block;
 }
 
+/* User pill en navbar */
+.navbar .btn.btn-primary {
+    background: rgba(255,255,255,0.08) !important;
+    border: 1px solid var(--dark-border) !important;
+    border-radius: 30px !important;
+    padding: 5px 14px 5px 6px !important;
+    display: flex !important; align-items: center !important; gap: 8px !important;
+    color: rgba(255,255,255,0.8) !important;
+    font-size: 13px !important; font-weight: 500 !important;
+    transition: all 0.2s !important;
+}
+.navbar .btn.btn-primary:hover {
+    background: rgba(255,255,255,0.14) !important;
+}
 #userImgNav {
-    width: 24px;
-    height: 24px;
-    object-fit: cover;
-    border-radius: 50%;
+    width: 26px; height: 26px;
+    border-radius: 50%; object-fit: cover;
+}
+.navbar .dropdown-menu {
+    border-radius: 12px !important; border: 1px solid var(--gris-medio) !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.12) !important; overflow: hidden;
+    min-width: 170px;
+}
+.navbar .dropdown-item {
+    font-size: 13.5px !important; padding: 11px 16px !important;
+    font-family: 'DM Sans', sans-serif !important;
+    transition: background 0.15s !important;
+}
+.navbar .dropdown-item:hover { background: var(--gris) !important; }
+.navbar .dropdown-divider { border-color: var(--gris-medio) !important; margin: 0 !important; }
+
+/* ── LAYOUT ── */
+.container.my-5 { padding-top: 28px !important; padding-bottom: 60px !important; }
+
+/* ── CARDS PERFIL ── */
+.card-profile {
+    border: 1.5px solid var(--gris-medio) !important;
+    border-radius: var(--radius-lg) !important;
+    box-shadow: var(--sombra) !important;
+    background: white !important;
+    margin-bottom: 16px !important;
+    transition: all 0.25s !important;
+}
+.card-profile:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: var(--sombra-hover) !important;
 }
 
+/* ── FOTO PERFIL ── */
+.profile-main-img {
+    width: 100px; height: 100px;
+    border-radius: 50%; object-fit: cover;
+    border: 3px solid white;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    transition: 0.3s;
+}
+.profile-main-img:hover { transform: scale(1.05); }
 
-/* Títulos más oscuros y elegantes */
+/* Nombre y puesto en card perfil */
+#lblNombreMain {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px; color: var(--azul); margin-bottom: 2px !important;
+}
+#lblPuestoPrincipal { color: var(--naranja) !important; font-size: 13px !important; }
 
+/* ── SECTION HEADERS ── */
 .section-header {
-    font-size: 0.8rem;
-    font-weight: 800;
-    color: #212529;
-    letter-spacing: 1px;
-    margin-bottom: 15px;
+    font-size: 10.5px;
+    font-weight: 700;
+    color: var(--texto-muted);
+    letter-spacing: 1.2px;
+    margin-bottom: 14px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     text-transform: uppercase;
-    border-bottom: 1px solid #e9ecef;
-    padding-bottom: 6px;
+    border-bottom: 1px solid var(--gris-medio);
+    padding-bottom: 8px;
 }
 
-
-/* Mejora visual de los datos */
-
+/* ── INFO LABELS Y VALUES ── */
 .info-label {
-    font-size: 0.65rem;
+    font-size: 10px;
     font-weight: 700;
-    color: #9aa0a6;
+    color: var(--texto-muted);
     text-transform: uppercase;
+    letter-spacing: 0.8px;
     margin-bottom: 2px;
+    display: block;
 }
-
 .info-value {
-    font-size: 0.95rem;
+    font-size: 13.5px;
     margin-bottom: 10px;
     font-weight: 600;
-    color: #212529;
+    color: var(--texto);
 }
+.info-value span { font-weight: 600; }
 
-
-/* Cards modernas */
-
-.card-profile {
-    border: none;
-    border-radius: 16px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-    background: #fff;
-    margin-bottom: 1.5rem;
-    transition: 0.2s;
+/* ── ICONO EDITAR ── */
+.edit-icon {
+    color: var(--texto-muted);
+    cursor: pointer;
+    font-size: 13px;
+    transition: color 0.2s;
 }
+.edit-icon:hover { color: var(--azul); }
 
-.card-profile:hover {
-    transform: translateY(-2px);
-}
-
-
-/* Ubicación */
-
-#lbldireccion {
-    font-weight: 600;
-}
-
-#lblColonia {
-    color: #495057;
-}
-
-#lblMunicipioEstado {
-    color: #6c757d;
-    font-size: 0.85rem;
-}
-
-
-/* FOTO PERFIL */
-
-.profile-main-img {
-    width: 110px;
-    height: 110px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 4px solid #fff;
-    box-shadow: 
-        0 8px 20px rgba(0,0,0,0.15),
-        0 2px 6px rgba(0,0,0,0.08);
-    transition: 0.3s;
-}
-
-.profile-main-img:hover {
-    transform: scale(1.05);
-}
-
-
-/* ==========================================
-   TABS PRO (MEJORADOS)
-========================================== */
-
+/* ── TABS ── */
 .nav-tabs-custom {
     display: flex;
-    border-bottom: 1px solid #e5e7eb;
-    position: relative; /* 🔥 clave para que el slider se posicione aquí */
+    border-bottom: 1px solid var(--gris-medio);
+    position: relative;
 }
-
-.nav-tabs-custom .nav-item {
-    flex: 1;
-    text-align: center;
-}
-
+.nav-tabs-custom .nav-item { flex: 1; text-align: center; }
 .nav-tabs-custom .nav-link {
-    width: 100%;
-    border: none;
-    background: none;
-    font-weight: 700;
-    color: #343a40;
-    padding: 12px 0;
+    width: 100%; border: none !important; background: none;
+    font-weight: 600; color: var(--texto-muted);
+    padding: 12px 0; font-size: 13.5px;
+    font-family: 'DM Sans', sans-serif;
+    transition: color 0.2s;
 }
+.nav-tabs-custom .nav-link:hover { color: var(--azul); }
+.nav-tabs-custom .nav-link.active { color: var(--azul) !important; }
 
-/* 🔥 SLIDER REAL */
+/* Slider de tabs */
 .tab-slider {
     position: absolute;
-    bottom: -1px; /* 🔥 lo pega justo debajo del tab */
-    height: 3px;
-    background: #0d6efd;
+    bottom: -1px;
+    height: 2.5px;
+    background: var(--azul);
     border-radius: 10px;
     transition: all 0.3s ease;
-
-    width: 0;
-    left: 0;
+    width: 0; left: 0;
 }
 
-
-
-
-/* Botones */
-
-.btn-primary {
-    border-radius: 10px;
-    font-weight: 600;
-}
-
+/* ── BOTÓN ADD SECTION ── */
 .btn-add-section {
-    font-size: 0.7rem;
-    padding: 4px 10px;
-    border-radius: 20px;
-    text-transform: none;
+    font-size: 11px !important;
+    padding: 3px 12px !important;
+    border-radius: 20px !important;
+    font-weight: 600 !important;
+    color: var(--azul) !important;
+    border-color: var(--azul) !important;
+    transition: all 0.2s !important;
+}
+.btn-add-section:hover {
+    background: var(--azul) !important;
+    color: white !important;
 }
 
+/* ── CARD PRINCIPAL TABS ── */
+.card-profile.h-100 .card-header { border-radius: var(--radius-lg) var(--radius-lg) 0 0 !important; }
+.card-profile.h-100 { padding: 0 !important; overflow: hidden; }
+.card-profile.h-100 .card-body { padding: 24px !important; }
 
-/* Fondo general */
-
-body {
-    background: linear-gradient(180deg, #f8f9fb 0%, #eef1f6 100%);
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+/* ── HABILIDADES ── */
+.p-3.bg-light.rounded.small.text-secondary {
+    background: var(--gris) !important;
+    border-radius: 10px !important;
+    border: 1px solid var(--gris-medio) !important;
+    font-size: 13.5px !important;
+    color: var(--texto-muted) !important;
+    line-height: 1.65 !important;
 }
 
+/* ── EXPERIENCIA ── */
+#lblExp_puesto1 {
+    color: var(--azul) !important;
+    font-size: 14px !important;
+    font-family: 'Playfair Display', serif;
+}
+#lblExp_empresa1 { color: var(--naranja) !important; }
+.p-3.bg-light.rounded.small { background: var(--gris) !important; border-radius: 10px !important; border: 1px solid var(--gris-medio) !important; }
 
-.info-value span {
-    font-weight: 600;
+/* ── FORM CONTROLS EN MODALES ── */
+.modal .form-control,
+.modal .form-select {
+    border: 1.5px solid var(--gris-medio) !important;
+    border-radius: 9px !important;
+    font-family: 'DM Sans', sans-serif !important;
+    font-size: 14px !important;
+    background: var(--gris) !important;
+    color: var(--texto) !important;
+    padding: 10px 14px !important;
+    transition: all 0.2s !important;
+}
+.modal .form-control:focus,
+.modal .form-select:focus {
+    border-color: var(--azul-claro) !important;
+    background: white !important;
+    box-shadow: 0 0 0 3px rgba(24,95,165,0.1) !important;
+    outline: none !important;
+}
+.modal .form-control[readonly] { opacity: 0.6 !important; cursor: not-allowed !important; }
+.modal textarea.form-control { resize: vertical !important; min-height: 90px !important; }
+
+/* ── MODALES ── */
+.modal-content {
+    border-radius: 18px !important; border: none !important;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.18) !important;
+    overflow: hidden;
+}
+.modal-header {
+    padding: 20px 24px !important;
+    border-bottom: 1px solid var(--gris-medio) !important;
+}
+.modal-header h5 {
+    font-family: 'Playfair Display', serif !important;
+    font-size: 18px !important; color: var(--azul) !important;
+}
+.modal-body { padding: 24px !important; background: white; }
+.modal-footer {
+    background: var(--gris) !important;
+    border-top: 1px solid var(--gris-medio) !important;
+    padding: 16px 24px !important;
+}
+.modal .btn-save {
+    background: var(--azul) !important; color: white !important;
+    border: none !important; border-radius: 10px !important;
+    padding: 12px !important; font-size: 14px !important; font-weight: 600 !important;
+    cursor: pointer !important; transition: all 0.2s !important;
+    font-family: 'DM Sans', sans-serif !important;
+}
+.modal .btn-save:hover { background: var(--azul-claro) !important; transform: translateY(-1px) !important; }
+
+/* ── CV DESCARGA ── */
+.btn.btn-primary.w-100.fw-bold {
+    background: var(--azul) !important; border: none !important;
+    border-radius: 10px !important; padding: 12px !important;
+    font-family: 'DM Sans', sans-serif !important;
+    font-size: 14px !important; transition: all 0.2s !important;
+}
+.btn.btn-primary.w-100.fw-bold:hover { background: var(--azul-claro) !important; transform: translateY(-1px) !important; }
+
+/* ── POSTULACIONES ── */
+.estado-bar {
+    width: 100%; padding: 10px 15px;
+    font-weight: 600; font-size: 13px; color: white;
+    border-radius: 9px; margin-bottom: 10px;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    font-family: 'DM Sans', sans-serif;
+}
+.estado-success  { background: linear-gradient(90deg, #198754, #157347); }
+.estado-danger   { background: linear-gradient(90deg, #dc3545, #b02a37); }
+.estado-warning  { background: linear-gradient(90deg, #ffc107, #e0a800); color: #1a1a2e; }
+.estado-secondary{ background: #6c757d; }
+
+.estado-container { width: 100%; display: flex; justify-content: center; margin-bottom: 10px; }
+.estado-badge {
+    font-size: 12px; padding: 5px 14px; border-radius: 20px; font-weight: 600;
 }
 
+/* ── MODAL VACANTE DARK ── */
+.modal-vacante-dark .modal-header {
+    background: var(--dark-nav) !important;
+    border-bottom: 1px solid var(--dark-border) !important;
+    padding: 18px 24px !important;
+}
+.modal-vacante-dark .modal-header h5 {
+    color: white !important; font-family: 'Playfair Display', serif !important;
+}
+.modal-vacante-dark .btn-close { filter: invert(1) !important; }
+.titulo-vacante { font-size: 17px; font-weight: 700; color: white; }
+.vacante-ubicacion {
+    font-size: 13px; color: rgba(255,255,255,0.65);
+    margin-top: 4px; display: flex; align-items: center; gap: 5px;
+}
 
-
-/* ==========================================
-   FOOTER CV
-========================================== */
-
+/* ── FOOTER ── */
 .footer-cv {
-    background: #ffffff;
-    background: rgba(255,255,255,0.9);
-    backdrop-filter: blur(6px);
-    border-top: 1px solid #e9ecef;
-    padding: 15px 0;
+    background: var(--dark-nav);
+    border-top: 1px solid var(--dark-border);
+    padding: 18px 0;
     margin-top: auto;
 }
-
+.footer-cv .fw-bold { color: white !important; font-family: 'Playfair Display', serif; }
+.footer-cv .text-muted { color: rgba(255,255,255,0.35) !important; }
 .footer-link {
-    font-size: 0.8rem;
-    color: #6c757d;
-    text-decoration: none;
-    transition: 0.2s;
+    font-size: 12.5px;
+    color: rgba(255,255,255,0.4) !important;
+    text-decoration: none; transition: color 0.2s;
+}
+.footer-link:hover { color: white !important; }
+
+/* ── RESPONSIVE ── */
+@media(max-width: 768px) {
+    .container.my-5 { padding-top: 18px !important; }
+    .card-profile { margin-bottom: 12px !important; }
 }
 
-.footer-link:hover {
-    color: #0d6efd;
-}
-
-
-
-.estado-container {
-    width: 100%;
-    display: flex;
-    justify-content: center; /* 🔥 centra horizontal */
-    margin-bottom: 10px;
-}
-
-.estado-badge {
-    font-size: 13px;
-    padding: 8px 20px;
-    border-radius: 999px;
-    font-weight: 600;
-}
-
-
-
-.modal-vacante-dark .modal-header {
-    background: linear-gradient(135deg, #111827, #1f2937);
-    color: #fff;
-    border-bottom: none;
-    padding: 18px 20px;
-}
-
-/* Contenedor */
-.header-vacante {
-    width: 100%;
-}
-
-/* Título */
-.titulo-vacante {
-    font-size: 18px;
-    font-weight: 600;
-    color: #fff;
-}
-
-/* Ubicación */
-.vacante-ubicacion {
-    font-size: 15px;
-    color: #ffffff;
-    margin-top: 4px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-/* Badge estado */
-.estado-badge {
-    font-size: 12px;
-    padding: 6px 10px;
-    border-radius: 20px;
-}
-
-/* Botón cerrar blanco */
-.modal-vacante-dark .btn-close {
-    filter: invert(1);
-}
-
-
-/* css barra modal */
-
-.estado-bar {
-    width: 100%;
-    padding: 10px 15px;
-    font-weight: 500;
-    font-size: 14px;
-    color: #fff;
-    border-radius: 6px;
-    margin-bottom: 15px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center; /* 🔥 centrado */
-    gap: 6px;
-}
-
-/* 🔵 Interesado */
-.estado-success {
-    background: linear-gradient(90deg, #198754, #157347);
-}
-
-/* 🔴 Descartado */
-.estado-danger {
-    background: linear-gradient(90deg, #dc3545, #b02a37);
-}
-
-/* 🟡 En revisión */
-.estado-warning {
-    background: linear-gradient(90deg, #ffc107, #e0a800);
-    color: #000;
-}
-
-/* ⚪ Pendiente */
-.estado-secondary {
-    background: #6c757d;
+.navbar-brand-icon {
+    display: flex !important;
+    width: 34px !important;
+    height: 34px !important;
+    background: linear-gradient(135deg, #F77F00, #ff6b00) !important;
+    border-radius: 9px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-weight: 800 !important;
+    font-size: 13px !important;
+    color: white !important;
+    flex-shrink: 0 !important;
 }

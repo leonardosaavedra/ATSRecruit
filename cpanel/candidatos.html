@@ -3,178 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Candidatos por Vacante - 3R Laboral</title>
+    <title>Candidatos por Vacante | 3R Laboral Admin</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/candidatos-admin.css">
 </head>
 
-<body class="bg-light d-flex flex-column min-vh-100">
+<body class="cadmin-body">
 
-<!-- NAV -->
-<nav class="navbar navbar-dark bg-dark mb-4">
-    <div class="container">
-        <a href="../cpanel/admin.html" class="btn btn-outline-light btn-sm">
+<!-- ── NAVBAR DARK ── -->
+<nav class="cadmin-navbar">
+    <div class="cadmin-navbar-inner">
+        <a class="cadmin-brand" href="#">
+            <div class="cadmin-brand-icon">3R</div>
+            <div>
+                <span class="cadmin-brand-name">3R Laboral</span>
+                <span class="cadmin-brand-sub">Panel Admin</span>
+            </div>
+        </a>
+        <a href="../cpanel/admin.html" class="btn-cadmin-back">
             <i class="fas fa-arrow-left"></i> Volver al Panel
         </a>
-        <span class="navbar-brand mb-0 h1" id="tituloVacante">Cargando Vacante...</span>
     </div>
 </nav>
 
-<!-- TABLA -->
-<div class="container flex-grow-1">
-    <div class="card shadow-sm border-0">
-        <div class="card-header bg-white py-3">
-            <h5 class="mb-0 text-secondary">
-                <i class="fas fa-users me-2"></i>Lista de Postulantes
-            </h5>
+<!-- ── SUBHEADER ── -->
+<div class="cadmin-subheader">
+    <div class="cadmin-subheader-inner">
+        <div class="cadmin-page-title">
+            <div class="cadmin-page-title-icon"><i class="fas fa-users"></i></div>
+            <span>Candidatos — <span id="tituloVacante" style="color:rgba(255,255,255,0.65);font-size:15px;">Cargando...</span></span>
         </div>
-
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-hover align-middle">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Ubicación</th>
-                            <th>WhatsApp</th>
-                            <th>Correo</th>
-                            <th>Estatus</th>
-                            <th class="text-end">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="listaCandidatosPagina"></tbody>
-                </table>
-            </div>
+        <div class="cadmin-breadcrumb">
+            3R Laboral › Admin › <span>Postulantes</span>
         </div>
     </div>
 </div>
 
-<!-- MODAL PERFIL -->
+<!-- ── CONTENIDO ── -->
+<main class="cadmin-main">
+<div class="cadmin-content">
+    <div class="cadmin-panel">
+        <div class="cadmin-panel-header">
+            <div class="cadmin-panel-title">
+                <i class="fas fa-users"></i> Lista de postulantes
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="cadmin-table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Ubicación</th>
+                        <th>WhatsApp</th>
+                        <th>Correo</th>
+                        <th class="text-center">Estatus</th>
+                        <th class="text-end">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="listaCandidatosPagina"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</main>
+
+<!-- ── MODAL PERFIL ── -->
 <div class="modal fade" id="modalPerfil" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <div class="modal-content">
 
-            <!-- HEADER -->
-            <div class="modal-header bg-dark text-white">
-                <h5 class="modal-title fw-bold">Perfil del Candidato</h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            <!-- HEADER MODAL -->
+            <div class="cadmin-modal-header">
+                <div class="cadmin-modal-title">
+                    <i class="fas fa-user-circle"></i>
+                    Perfil del Candidato
+                </div>
+                <button class="btn-cadmin-modal-close" data-bs-dismiss="modal">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
 
-            <!-- BODY -->
-            <div class="modal-body p-4 bg-white" id="areaImpresion">
+            <!-- BODY MODAL -->
+            <div class="modal-body p-4" style="background:var(--gris);" id="areaImpresion">
 
-                <!-- NOMBRE -->
-                <div class="mb-4 border-bottom pb-3">
-                    <h3 class="text-primary fw-bold mb-1" id="pdfNombre">---</h3>
-                    <p class="text-muted mb-0">
-                        <i class="fas fa-map-marker-alt me-2"></i>
-                        <span id="pdfUbicacion"></span>
-                    </p>
+                <!-- NOMBRE Y UBICACIÓN -->
+                <div style="background:white;border-radius:var(--radius-lg);padding:20px 24px;margin-bottom:14px;border:1px solid var(--gris-medio);display:flex;align-items:center;justify-content:space-between;gap:16px;">
+                    <div>
+                        <div style="font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--azul);margin-bottom:4px;" id="pdfNombre">—</div>
+                        <div style="font-size:13.5px;color:var(--texto-muted);">
+                            <i class="fas fa-map-marker-alt" style="color:var(--naranja);margin-right:6px;font-size:12px;"></i>
+                            <span id="pdfUbicacion"></span>
+                        </div>
+                    </div>
+                    <span class="cadmin-badge cadmin-badge-disponible" id="badgeEstado">Disponible</span>
                 </div>
 
-                <!-- GRID -->
-                <div class="row g-4">
+                <!-- GRID INFO -->
+                <div class="row g-3">
 
-                    <!-- CONTACTO -->
+                    <!-- COLUMNA IZQUIERDA -->
                     <div class="col-md-6">
-                        <h6 class="fw-bold text-secondary border-bottom pb-2">CONTACTO</h6>
-                        <p><strong>WhatsApp:</strong> <span id="pdfWhatsApp"></span></p>
-                        <p><strong>Correo:</strong> <span id="pdfCorreo"></span></p>
-                        <p><strong>Edad:</strong> <span id="pdfEdad"></span></p>
-                        <p><strong>Sexo:</strong> <span id="pdfSexo"></span></p>
-                        <p><strong>Estado Civil:</strong> <span id="pdfCivil"></span></p>
+                        <div class="cadmin-info-card">
+                            <div class="cadmin-info-title"><i class="fas fa-address-card"></i> Contacto</div>
+                            <div class="cadmin-info-row"><span class="cadmin-info-label">WhatsApp</span><span class="cadmin-info-value" id="pdfWhatsApp">—</span></div>
+                            <div class="cadmin-info-row"><span class="cadmin-info-label">Correo</span><span class="cadmin-info-value" id="pdfCorreo">—</span></div>
+                            <div class="cadmin-info-row"><span class="cadmin-info-label">Edad</span><span class="cadmin-info-value" id="pdfEdad">—</span></div>
+                            <div class="cadmin-info-row"><span class="cadmin-info-label">Sexo</span><span class="cadmin-info-value" id="pdfSexo">—</span></div>
+                            <div class="cadmin-info-row"><span class="cadmin-info-label">Estado Civil</span><span class="cadmin-info-value" id="pdfCivil">—</span></div>
+                        </div>
                     </div>
 
-                    <!-- DATOS -->
+                    <!-- COLUMNA DERECHA -->
                     <div class="col-md-6">
-                        <h6 class="fw-bold text-secondary border-bottom pb-2">DATOS GENERALES</h6>
-                        <p><strong>Licencia:</strong> <span id="pdfLicencia"></span></p>
-                        <p><strong>Vehículo:</strong> <span id="pdfVehiculo"></span></p>
-                        <p><strong>Escolaridad:</strong> <span id="pdfEscolaridad"></span></p>
-                        <p><strong>Carrera:</strong> <span id="pdfCarrera"></span></p>
-                        <p><strong>Idiomas:</strong> <span id="pdfIdiomas"></span></p>
+                        <div class="cadmin-info-card">
+                            <div class="cadmin-info-title"><i class="fas fa-info-circle"></i> Datos generales</div>
+                            <div class="cadmin-info-row"><span class="cadmin-info-label">Licencia</span><span class="cadmin-info-value" id="pdfLicencia">—</span></div>
+                            <div class="cadmin-info-row"><span class="cadmin-info-label">Vehículo</span><span class="cadmin-info-value" id="pdfVehiculo">—</span></div>
+                            <div class="cadmin-info-row"><span class="cadmin-info-label">Escolaridad</span><span class="cadmin-info-value" id="pdfEscolaridad">—</span></div>
+                            <div class="cadmin-info-row"><span class="cadmin-info-label">Carrera</span><span class="cadmin-info-value" id="pdfCarrera">—</span></div>
+                            <div class="cadmin-info-row"><span class="cadmin-info-label">Idiomas</span><span class="cadmin-info-value" id="pdfIdiomas">—</span></div>
+                        </div>
                     </div>
 
                 </div>
 
-                <!-- EDUCACIÓN -->
-                <div class="mt-4">
-                    <h6 class="fw-bold text-primary border-bottom pb-2">FORMACIÓN ACADÉMICA</h6>
-                    <p class="mb-1"><strong>Institución:</strong> <span id="pdfInstitucion"></span></p>
-                    <p class="mb-1"><strong>Periodo:</strong> <span id="pdfPeriodoEdu"></span></p>
-                    <p class="mb-1"><strong>Estado:</strong> <span id="pdfEstadoEdu"></span></p>
+                <!-- FORMACIÓN -->
+                <div class="cadmin-info-card" style="margin-top:14px;">
+                    <div class="cadmin-info-title"><i class="fas fa-graduation-cap"></i> Formación académica</div>
+                    <div class="cadmin-info-row"><span class="cadmin-info-label">Institución</span><span class="cadmin-info-value" id="pdfInstitucion">—</span></div>
+                    <div class="cadmin-info-row"><span class="cadmin-info-label">Periodo</span><span class="cadmin-info-value" id="pdfPeriodoEdu">—</span></div>
+                    <div class="cadmin-info-row"><span class="cadmin-info-label">Estado</span><span class="cadmin-info-value" id="pdfEstadoEdu">—</span></div>
                 </div>
 
                 <!-- HABILIDADES -->
-                <div class="mt-4">
-                    <h6 class="fw-bold text-primary border-bottom pb-2">HABILIDADES</h6>
-                    <p class="text-muted" id="pdfHabilidades"></p>
-                </div>
-
-                <!-- DISCAPACIDAD -->
-                <div class="mt-4">
-                    <h6 class="fw-bold text-secondary border-bottom pb-2">OTROS</h6>
-                    <p><strong>Discapacidad:</strong> <span id="pdfDiscapacidad"></span></p>
+                <div class="cadmin-info-card" style="margin-top:14px;">
+                    <div class="cadmin-info-title"><i class="fas fa-star"></i> Habilidades</div>
+                    <div id="pdfHabilidades"></div>
                 </div>
 
                 <!-- EXPERIENCIA -->
-                <div class="mt-4">
-                    <h6 class="fw-bold text-primary border-bottom pb-2">EXPERIENCIA LABORAL</h6>
+                <div class="cadmin-info-card" style="margin-top:14px;">
+                    <div class="cadmin-info-title"><i class="fas fa-briefcase"></i> Experiencia laboral</div>
                     <div id="pdfExperiencia"></div>
                 </div>
 
-                <!-- FOOT -->
-                <div class="text-center mt-5 pt-4 border-top">
-                    <small class="text-muted">
+                <!-- OTROS -->
+                <div class="cadmin-info-card" style="margin-top:14px;">
+                    <div class="cadmin-info-title"><i class="fas fa-circle-info"></i> Otros</div>
+                    <div class="cadmin-info-row"><span class="cadmin-info-label">Discapacidad</span><span class="cadmin-info-value" id="pdfDiscapacidad">—</span></div>
+                </div>
+
+                <!-- PIE DEL PDF -->
+                <div style="text-align:center;margin-top:24px;padding-top:16px;border-top:1px solid var(--gris-medio);">
+                    <small style="color:var(--texto-muted);font-size:11.5px;">
                         Documento generado por el Portal de Reclutamiento 3R Laboral
                     </small>
                 </div>
 
             </div>
 
-            <!-- FOOTER -->
-            <div class="modal-footer bg-light">
-                <button type="button" class="btn btn-danger fw-bold" onclick="PDFGenerator.descargarPDF()">
-                    <i class="fas fa-file-pdf me-2"></i> Descargar PDF
+            <!-- FOOTER MODAL -->
+            <div class="cadmin-modal-footer no-print" data-html2canvas-ignore="true">
+                <button class="btn-cadmin-cerrar" data-bs-dismiss="modal">
+                    <i class="fas fa-times"></i> Cerrar
                 </button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button class="btn-cadmin-pdf" onclick="PDFGenerator.descargarPDF()">
+                    <i class="fas fa-file-pdf"></i> Descargar PDF
+                </button>
             </div>
 
         </div>
     </div>
 </div>
 
-<!-- FOOTER -->
-<footer class="footer-corporativo mt-auto pt-5 pb-4 border-top bg-white">
-    <div class="container">
-        <div class="row gy-4">
-
-            <div class="col-lg-4">
-                <h5 class="fw-bold text-primary mb-3">3R LABORAL</h5>
-                <p class="text-muted small">
-                    Conectando talento con oportunidades.
-                </p>
-            </div>
-
-            <div class="col-lg-4">
-                <h6 class="fw-bold mb-3">Contacto</h6>
-                <p class="small text-muted mb-1">
-                    <i class="fas fa-map-marker-alt me-2"></i>Querétaro, México
-                </p>
-                <p class="small text-muted mb-1">
-                    <i class="fas fa-phone me-2"></i>+52 (442) 242 8962
-                </p>
-            </div>
-
-            <div class="col-lg-4 text-lg-end">
-                <p class="small text-muted">
-                    © 2026 3R Laboral
-                </p>
-            </div>
-
-        </div>
+<!-- ── FOOTER DARK ── -->
+<footer class="cadmin-footer">
+    <div style="display:flex;align-items:center;gap:20px;">
+        <span>© 2026 3R Laboral</span>
+        <a href="../cpanel/admin.html"><i class="fas fa-arrow-left" style="margin-right:5px;"></i>Volver al panel</a>
+    </div>
+    <div class="cadmin-server-badge">
+        <div class="cadmin-server-dot"></div> Servidor Online
     </div>
 </footer>
 

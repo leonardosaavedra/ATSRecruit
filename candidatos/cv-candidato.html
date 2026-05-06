@@ -4,158 +4,289 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi Perfil Profesional | 3R Laboral</title>
-    
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="cvcandidato.css">
     <link rel="stylesheet" href="timeline.css">
+
+    <style>
+/* ── FORZAR NAVBAR DARK ── */
+nav.navbar {
+    background: #0f1923 !important;
+    border-bottom: 1px solid rgba(255,255,255,0.07) !important;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.3) !important;
+    padding: 0 !important;
+}
+nav.navbar .container {
+    height: 60px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+}
+.navbar-brand {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    text-decoration: none !important;
+}
+.navbar-brand-icon {
+    width: 34px !important; height: 34px !important;
+    background: linear-gradient(135deg, #F77F00, #ff6b00) !important;
+    border-radius: 9px !important;
+    display: flex !important; align-items: center !important; justify-content: center !important;
+    font-weight: 800 !important; font-size: 13px !important;
+    color: white !important; letter-spacing: -1px !important; flex-shrink: 0 !important;
+}
+.navbar-brand-name {
+    font-family: 'Playfair Display', serif !important;
+    font-size: 15px !important; font-weight: 700 !important;
+    color: white !important; line-height: 1.1 !important; display: block !important;
+}
+.navbar-brand-sub {
+    font-size: 9.5px !important; color: rgba(255,255,255,0.4) !important;
+    text-transform: uppercase !important; letter-spacing: 1.5px !important; display: block !important;
+}
+nav.navbar .btn.btn-primary {
+    background: rgba(255,255,255,0.08) !important;
+    border: 1px solid rgba(255,255,255,0.07) !important;
+    border-radius: 30px !important;
+    padding: 5px 14px 5px 6px !important;
+    display: flex !important; align-items: center !important; gap: 8px !important;
+    color: rgba(255,255,255,0.8) !important;
+    font-size: 13px !important; font-weight: 500 !important;
+}
+nav.navbar .btn.btn-primary:hover {
+    background: rgba(255,255,255,0.14) !important;
+}
+.footer-cv {
+    background: #0f1923 !important;
+    border-top: 1px solid rgba(255,255,255,0.07) !important;
+    padding: 18px 0 !important;
+}
+.footer-cv .fw-bold { color: white !important; }
+.footer-cv .text-muted { color: rgba(255,255,255,0.35) !important; }
+.footer-link { color: rgba(255,255,255,0.4) !important; }
+.footer-link:hover { color: white !important; }
+
+
+</style>
+
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-light sticky-top">
+<!-- ── NAVBAR DARK ── -->
+<nav class="navbar sticky-top">
     <div class="container">
-        <a class="navbar-brand fw-bold text-primary" href="../index.html">3R LABORAL</a>
+
+        <a class="navbar-brand" href="../index.html">
+            <div class="navbar-brand-icon">3R</div>
+            <div>
+                <span class="navbar-brand-name">3R Laboral</span>
+                <span class="navbar-brand-sub">Mi Perfil</span>
+            </div>
+        </a>
+
         <div class="ms-auto">
             <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown">
-                    <img id="userImgNav" src="" class="rounded-circle me-2" style="width:24px; height:24px;" onerror="this.src='https://via.placeholder.com/24'">
-                    <span id="userNameNav" class="fw-bold small text-white">Usuario</span>
+                <button class="btn btn-primary dropdown-toggle d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown">
+                    <img id="userImgNav" src="" class="rounded-circle" style="width:26px;height:26px;object-fit:cover;" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'100\'%3E%3Crect width=\'100\' height=\'100\' fill=\'%23E8ECF0\'/%3E%3Ctext x=\'50\' y=\'55\' text-anchor=\'middle\' fill=\'%235a6a7a\' font-size=\'30\'%3E👤%3C/text%3E%3C/svg%3E'"">
+                    <span id="userNameNav" class="fw-bold small">Usuario</span>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end shadow border-0">
-                    <li><a class="dropdown-item" href="../index.html">Ver Vacantes</a></li>
+                    <li><a class="dropdown-item" href="../index.html"><i class="bi bi-briefcase me-2"></i>Ver Vacantes</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><button id="btnCerrarSesion" class="dropdown-item text-danger border-0 bg-transparent w-100 text-start">Cerrar Sesión</button></li>
+                    <li><button id="btnCerrarSesion" class="dropdown-item text-danger border-0 bg-transparent w-100 text-start"><i class="bi bi-box-arrow-right me-2"></i>Cerrar Sesión</button></li>
                 </ul>
             </div>
         </div>
+
     </div>
 </nav>
 
+<!-- ── CONTENIDO PRINCIPAL ── -->
 <div class="container my-5">
-    <div class="row">
+    <div class="row g-4">
+
+        <!-- COLUMNA IZQUIERDA — Datos personales -->
         <div class="col-lg-3">
-            <div class="card card-profile p-4 text-center mb-3">
-                <img src="" id="lblFoto" class="profile-main-img mx-auto mb-3" onerror="this.src='https://via.placeholder.com/100'">
+
+            <!-- Card perfil -->
+            <div class="card card-profile p-4 text-center">
+                <img src="" id="lblFoto" class="profile-main-img mx-auto mb-3" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'100\'%3E%3Crect width=\'100\' height=\'100\' fill=\'%23E8ECF0\'/%3E%3Ctext x=\'50\' y=\'55\' text-anchor=\'middle\' fill=\'%235a6a7a\' font-size=\'30\'%3E👤%3C/text%3E%3C/svg%3E'">
                 <h5 class="fw-bold mb-0" id="lblNombreMain">-</h5>
-                <p class="text-primary small fw-bold" id="lblPuestoPrincipal">-</p>
+                <p class="text-primary small fw-bold mt-1" id="lblPuestoPrincipal">-</p>
             </div>
 
-            <div class="card card-profile p-3 mb-3">
-                <div class="section-header">DATOS PERSONALES <i class="bi bi-pencil-square edit-icon" data-bs-toggle="modal" data-bs-target="#modalPersonales"></i></div>
-                <div class="info-label">Nacionalidad</div>
+            <!-- Datos personales -->
+            <div class="card card-profile p-3">
+                <div class="section-header">
+                    Datos Personales
+                    <i class="bi bi-pencil-square edit-icon" data-bs-toggle="modal" data-bs-target="#modalPersonales"></i>
+                </div>
+                <span class="info-label">Nacionalidad</span>
                 <div class="info-value" id="lblPais">-</div>
-                <div class="info-label">Edad / Género</div>
+                <span class="info-label">Edad / Género</span>
                 <div class="info-value"><span id="lblEdad">-</span> años / <span id="lblSexo">-</span></div>
-                <div class="info-label">Estado Civil</div>
+                <span class="info-label">Estado Civil</span>
                 <div class="info-value" id="lblEstado_civil">-</div>
-                <div class="info-label">R.F.C.</div>
+                <span class="info-label">R.F.C.</span>
                 <div class="info-value" id="lblRfc">-</div>
-                <div class="info-label">Licencia de Manejo</div>
+                <span class="info-label">Licencia de Manejo</span>
                 <div class="info-value" id="lblLicencia">-</div>
             </div>
 
-            <div class="card card-profile p-3 mb-3">
-                <div class="section-header">UBICACIÓN <i class="bi bi-pencil-square edit-icon" data-bs-toggle="modal" data-bs-target="#modalUbicacion"></i></div>
+            <!-- Ubicación -->
+            <div class="card card-profile p-3">
+                <div class="section-header">
+                    Ubicación
+                    <i class="bi bi-pencil-square edit-icon" data-bs-toggle="modal" data-bs-target="#modalUbicacion"></i>
+                </div>
                 <div id="lbldireccion" class="info-value">-</div>
                 <div id="lblColonia" class="info-value">-</div>
                 <div id="lblMunicipioEstado" class="info-value small text-muted">-</div>
             </div>
 
-            <div class="card card-profile p-3 mb-3">
-                <div class="section-header">CONTACTO <i class="bi bi-pencil-square edit-icon" data-bs-toggle="modal" data-bs-target="#modalContacto"></i></div>
-                <div class="info-value"><i class="bi bi-whatsapp text-success me-2"></i> <span id="lblWhatsapp">-</span></div>
-                <div class="info-value"><i class="bi bi-envelope text-muted me-2"></i> <span id="lblCorreo">-</span></div>
+            <!-- Contacto -->
+            <div class="card card-profile p-3">
+                <div class="section-header">
+                    Contacto
+                    <i class="bi bi-pencil-square edit-icon" data-bs-toggle="modal" data-bs-target="#modalContacto"></i>
+                </div>
+                <div class="info-value"><i class="bi bi-whatsapp text-success me-2"></i><span id="lblWhatsapp">-</span></div>
+                <div class="info-value"><i class="bi bi-envelope me-2" style="color:var(--texto-muted);"></i><span id="lblCorreo">-</span></div>
             </div>
+
         </div>
 
+        <!-- COLUMNA CENTRAL — Tabs -->
         <div class="col-lg-6">
             <div class="card card-profile h-100">
 
-                <div class="card-header bg-white border-0 pt-3">
-                    <ul class="nav nav-tabs nav-tabs-custom position-relative" role="tablist">
-                    <li class="nav-item">
-                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tabEdu">
-                            <i class="bi bi-mortarboard me-1"></i> Educación </button>
-                    </li>
-                    <li class="nav-item">
-                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabExp">
-                            <i class="bi bi-briefcase me-1"></i> Experiencia</button>
-                    </li>
-                    <li class="nav-item">
-                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabPerfil">
-                            <i class="bi bi-person-lines-fill me-1"></i> Perfil</button>
-                    </li>
-                     <!-- 🔥 Slider -->
-                    <span class="tab-slider"></span>
+                <div class="card-header bg-white border-0 pt-3 px-0">
+                    <ul class="nav nav-tabs-custom position-relative px-4" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tabEdu">
+                                <i class="bi bi-mortarboard me-1"></i> Educación
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabExp">
+                                <i class="bi bi-briefcase me-1"></i> Experiencia
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabPerfil">
+                                <i class="bi bi-person-lines-fill me-1"></i> Perfil
+                            </button>
+                        </li>
+                        <span class="tab-slider"></span>
                     </ul>
-
                 </div>
 
                 <div class="card-body tab-content p-4">
+
+                    <!-- TAB EDUCACIÓN -->
                     <div class="tab-pane fade show active" id="tabEdu">
-                        <div class="section-header">FORMACIÓN ACADÉMICA <button class="btn btn-outline-primary btn-add-section" data-bs-toggle="modal" data-bs-target="#modalEducacion">+ Sumar estudio</button></div>
+                        <div class="section-header">
+                            Formación Académica
+                            <button class="btn btn-outline-primary btn-add-section" data-bs-toggle="modal" data-bs-target="#modalEducacion">+ Sumar estudio</button>
+                        </div>
                         <div class="mb-4">
                             <h6 class="fw-bold mb-1" id="lblCarrera">-</h6>
-                            <p class="text-muted small mb-0"><span id="lblEscolaridad">-</span> | <span id="lblInstitucion">-</span></p>
-                            <p class="text-muted small"><span id="lblEdu_inicio"></span> / <span id="lblEdu_fin"></span></p>
+                            <p class="small mb-0" style="color:var(--texto-muted);">
+                                <span id="lblEscolaridad">-</span> | <span id="lblInstitucion">-</span>
+                            </p>
+                            <p class="small" style="color:var(--texto-muted);">
+                                <span id="lblEdu_inicio"></span> / <span id="lblEdu_fin"></span>
+                            </p>
                         </div>
 
-                        <div class="section-header">IDIOMAS <button class="btn btn-outline-primary btn-add-section" data-bs-toggle="modal" data-bs-target="#modalIdiomas">+ Sumar idioma</button></div>
+                        <div class="section-header">
+                            Idiomas
+                            <button class="btn btn-outline-primary btn-add-section" data-bs-toggle="modal" data-bs-target="#modalIdiomas">+ Sumar idioma</button>
+                        </div>
                         <div id="listaIdiomas" class="mb-4">
-                            <div class="info-value"><span id="lblIdioma_nombre">-</span> (Hablado: <span id="lblNivel_hablado">-</span> / Escrito: <span id="lblNivel_escrito">-</span>)</div>
+                            <div class="info-value">
+                                <span id="lblIdioma_nombre">-</span>
+                                (Hablado: <span id="lblNivel_hablado">-</span> / Escrito: <span id="lblNivel_escrito">-</span>)
+                            </div>
                         </div>
 
-                        <div class="section-header">CONOCIMIENTOS Y HABILIDADES <button class="btn btn-outline-primary btn-add-section" data-bs-toggle="modal" data-bs-target="#modalHabilidades">+ Sumar conocimiento</button></div>
+                        <div class="section-header">
+                            Conocimientos y Habilidades
+                            <button class="btn btn-outline-primary btn-add-section" data-bs-toggle="modal" data-bs-target="#modalHabilidades">+ Sumar conocimiento</button>
+                        </div>
                         <div class="p-3 bg-light rounded small text-secondary" id="lblHabilidades_desc">-</div>
                     </div>
 
+                    <!-- TAB EXPERIENCIA -->
                     <div class="tab-pane fade" id="tabExp">
-                        <div class="section-header">EXPERIENCIA LABORAL <i class="bi bi-pencil-square edit-icon" data-bs-toggle="modal" data-bs-target="#modalExperiencia"></i></div>
+                        <div class="section-header">
+                            Experiencia Laboral
+                            <i class="bi bi-pencil-square edit-icon" data-bs-toggle="modal" data-bs-target="#modalExperiencia"></i>
+                        </div>
                         <div id="contenedorExp">
                             <h6 class="fw-bold text-uppercase mb-1" id="lblExp_puesto1">-</h6>
-                            <p class="text-primary fw-bold small mb-2" id="lblExp_empresa1">-</p>
-                            <p class="text-muted small mb-3">
-                                <span id="lblMes_in">-</span> <span id="lblAnio_in"></span> - 
+                            <p class="small fw-bold mb-2" style="color:var(--naranja);" id="lblExp_empresa1">-</p>
+                            <p class="small mb-3" style="color:var(--texto-muted);">
+                                <span id="lblMes_in">-</span> <span id="lblAnio_in"></span> —
                                 <span id="lblExp_fin_texto">Presente</span>
                             </p>
                             <div class="p-3 bg-light rounded small" id="lblExp_desc1">-</div>
                         </div>
                     </div>
 
+                    <!-- TAB PERFIL -->
                     <div class="tab-pane fade" id="tabPerfil">
-                        <div class="section-header">RESUMEN PROFESIONAL <i class="bi bi-pencil-square edit-icon" data-bs-toggle="modal" data-bs-target="#modalPerfilBio"></i></div>
-                        <p class="small text-secondary" style="white-space: pre-line;" id="lblResumen_profesional">Sin descripción...</p>
+                        <div class="section-header">
+                            Resumen Profesional
+                            <i class="bi bi-pencil-square edit-icon" data-bs-toggle="modal" data-bs-target="#modalPerfilBio"></i>
+                        </div>
+                        <p class="small" style="white-space:pre-line;color:var(--texto-muted);line-height:1.7;" id="lblResumen_profesional">Sin descripción...</p>
                     </div>
+
                 </div>
             </div>
         </div>
 
+        <!-- COLUMNA DERECHA — CV y postulaciones -->
         <div class="col-lg-3">
+
+            <!-- CV -->
             <div class="card card-profile p-4 text-center">
-                <div class="section-header">CURRÍCULUM VITAE</div>
-                <div class="bg-light p-3 mb-3 rounded border">
-                    <i class="bi bi-file-earmark-pdf fs-1 text-danger"></i>
-                    <p class="small mb-0 mt-2 fw-bold text-muted">PDF Cargado</p>
+                <div class="section-header" style="justify-content:center;">Currículum Vitae</div>
+                <div style="background:var(--gris);padding:20px;margin-bottom:16px;border-radius:10px;border:1px solid var(--gris-medio);">
+                    <i class="bi bi-file-earmark-pdf" style="font-size:2.5rem;color:#dc3545;"></i>
+                    <p class="small mb-0 mt-2 fw-bold" style="color:var(--texto-muted);">PDF Cargado</p>
                 </div>
-                <button class="btn btn-primary w-100 fw-bold">DESCARGAR CV</button>
+                <button class="btn btn-primary w-100 fw-bold">
+                    <i class="bi bi-download me-2"></i>Descargar CV
+                </button>
             </div>
-            <!--  PANEL DE ESTATUS DE POSTULACIONES  -->
-            <div class="card card-profile p-3 mt-3">
-                <div class="section-header">MIS POSTULACIONES</div>
-                    <div id="misPostulaciones"><p class="text-muted small">Cargando postulaciones...</p>
-                    </div>
+
+            <!-- Postulaciones -->
+            <div class="card card-profile p-3">
+                <div class="section-header">Mis Postulaciones</div>
+                <div id="misPostulaciones">
+                    <p class="small" style="color:var(--texto-muted);">Cargando postulaciones...</p>
                 </div>
             </div>
+
         </div>
+
     </div>
 </div>
 
+<!-- ── MODALES ── -->
+
+<!-- DATOS PERSONALES -->
 <div class="modal fade" id="modalPersonales" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content border-0 shadow">
-            <div class="modal-header border-0 pb-0"><h5 class="fw-bold m-0">Datos personales</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
-            <div class="modal-body p-4 row g-3">
+        <div class="modal-content">
+            <div class="modal-header"><h5 class="m-0">Datos Personales</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+            <div class="modal-body row g-3">
                 <div class="col-md-6"><label class="info-label">Nombre *</label><input type="text" id="nombre" class="form-control"></div>
                 <div class="col-md-6"><label class="info-label">Apellido *</label><input type="text" id="apellido" class="form-control"></div>
                 <div class="col-md-6"><label class="info-label">Nacionalidad *</label><input type="text" id="pais" class="form-control"></div>
@@ -171,67 +302,50 @@
                 <div class="col-md-6"><label class="info-label">RFC *</label><input type="text" id="rfc" class="form-control"></div>
                 <div class="col-md-12"><label class="info-label">Licencia de manejo</label><input type="text" id="licencia" class="form-control"></div>
             </div>
-            <div class="modal-footer border-0 p-4"><button class="btn btn-primary w-100 fw-bold btn-save" data-modal="modalPersonales">Guardar Datos Personales</button></div>
+            <div class="modal-footer"><button class="btn btn-save w-100 fw-bold btn-save" data-modal="modalPersonales">Guardar Datos Personales</button></div>
         </div>
     </div>
 </div>
 
+<!-- UBICACIÓN -->
 <div class="modal fade" id="modalUbicacion" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 shadow">
-            <div class="modal-header border-0 pb-0">
-                <h5 class="fw-bold m-0">Dirección</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        <div class="modal-content">
+            <div class="modal-header"><h5 class="m-0">Dirección</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+            <div class="modal-body row g-3">
+                <div class="col-md-6"><label class="info-label">Código Postal</label><input type="text" id="cp" class="form-control" maxlength="5" placeholder="Ej. 76800"></div>
+                <div class="col-md-6"><label class="info-label">Colonia</label>
+                    <select id="colonia" class="form-select"><option value="">Selecciona colonia</option></select>
+                </div>
+                <div class="col-md-6"><label class="info-label">Estado</label><input type="text" id="estado" class="form-control" readonly></div>
+                <div class="col-md-6"><label class="info-label">Municipio</label><input type="text" id="municipio" class="form-control" readonly></div>
+                <div class="col-md-12"><label class="info-label">Calle y número</label><input type="text" id="direccion" class="form-control" placeholder="Nombre de calle, # exterior e interior"></div>
             </div>
-            <div class="modal-body p-4 row g-3">
-                <div class="col-md-6">
-                    <label class="info-label">Código Postal</label>
-                    <input type="text" id="cp" class="form-control" maxlength="5" placeholder="Ej. 76800">
-                </div>
-                <div class="col-md-6">
-                    <label class="info-label">Colonia</label>
-                    <select id="colonia" class="form-select">
-                        <option value="">Selecciona colonia</option>
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <label class="info-label">Estado</label>
-                    <input type="text" id="estado" class="form-control" readonly>
-                </div>
-                <div class="col-md-6">
-                    <label class="info-label">Municipio</label>
-                    <input type="text" id="municipio" class="form-control" readonly>
-                </div>
-                <div class="col-md-12">
-                    <label class="info-label">Calle y número</label>
-                    <input type="text" id="direccion" class="form-control" placeholder="Nombre de calle, # exterior e interior">
-                </div>
-            </div>
-            <div class="modal-footer border-0 p-4">
-                <button class="btn btn-primary w-100 fw-bold btn-save" data-modal="modalUbicacion">Guardar Dirección</button>
-            </div>
+            <div class="modal-footer"><button class="btn btn-save w-100 fw-bold btn-save" data-modal="modalUbicacion">Guardar Dirección</button></div>
         </div>
     </div>
 </div>
 
+<!-- CONTACTO -->
 <div class="modal fade" id="modalContacto" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 shadow">
-            <div class="modal-header border-0 pb-0"><h5 class="fw-bold m-0">Contacto</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
-            <div class="modal-body p-4">
+        <div class="modal-content">
+            <div class="modal-header"><h5 class="m-0">Contacto</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+            <div class="modal-body">
                 <div class="mb-3"><label class="info-label">WhatsApp</label><input type="text" id="whatsapp" class="form-control"></div>
-                <div class="mb-1"><label class="info-label">Correo Electrónico (No editable)</label><input type="text" id="email_readonly" class="form-control bg-light" readonly></div>
+                <div><label class="info-label">Correo Electrónico (No editable)</label><input type="text" id="email_readonly" class="form-control" readonly></div>
             </div>
-            <div class="modal-footer border-0 p-4"><button class="btn btn-primary w-100 fw-bold btn-save" data-modal="modalContacto">Guardar Contacto</button></div>
+            <div class="modal-footer"><button class="btn btn-save w-100 fw-bold btn-save" data-modal="modalContacto">Guardar Contacto</button></div>
         </div>
     </div>
 </div>
 
+<!-- EDUCACIÓN -->
 <div class="modal fade" id="modalEducacion" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content border-0 shadow">
-            <div class="modal-header border-0 pb-0"><h5 class="fw-bold m-0">Formación Académica</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
-            <div class="modal-body p-4 row g-3">
+        <div class="modal-content">
+            <div class="modal-header"><h5 class="m-0">Formación Académica</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+            <div class="modal-body row g-3">
                 <div class="col-md-12"><label class="info-label">Título / Carrera</label><input type="text" id="carrera" class="form-control"></div>
                 <div class="col-md-6"><label class="info-label">País de estudio</label><input type="text" id="pais_estudio" class="form-control"></div>
                 <div class="col-md-6"><label class="info-label">Escolaridad</label>
@@ -247,101 +361,77 @@
                 <div class="col-md-6"><label class="info-label">Área de estudio</label><input type="text" id="area_estudio" class="form-control"></div>
                 <div class="col-md-6"><label class="info-label">Institución</label><input type="text" id="institucion" class="form-control"></div>
                 <div class="col-md-4"><label class="info-label">Estado actual</label><input type="text" id="estado_edu" class="form-control"></div>
-<div class="col-md-2">
-    <label class="info-label">Mes inicio</label>
-    <select id="edu_inicio_mes" class="form-select">
-        <option value="">Mes</option>
-        <option>Enero</option>
-        <option>Febrero</option>
-        <option>Marzo</option>
-        <option>Abril</option>
-        <option>Mayo</option>
-        <option>Junio</option>
-        <option>Julio</option>
-        <option>Agosto</option>
-        <option>Septiembre</option>
-        <option>Octubre</option>
-        <option>Noviembre</option>
-        <option>Diciembre</option>
-    </select>
-</div>
-
-<div class="col-md-2">
-    <label class="info-label">Año</label>
-    <select id="edu_inicio_anio" class="form-select select-anio">
-        <option value="">Año</option>
-    </select>
-</div>
-
-<!-- FECHA FIN -->
-<div class="col-md-2">
-    <label class="info-label">Mes fin</label>
-    <select id="edu_fin_mes" class="form-select">
-        <option value="">Mes</option>
-        <option>Enero</option>
-        <option>Febrero</option>
-        <option>Marzo</option>
-        <option>Abril</option>
-        <option>Mayo</option>
-        <option>Junio</option>
-        <option>Julio</option>
-        <option>Agosto</option>
-        <option>Septiembre</option>
-        <option>Octubre</option>
-        <option>Noviembre</option>
-        <option>Diciembre</option>
-    </select>
-</div>
-
-<div class="col-md-2">
-    <label class="info-label">Año</label>
-    <select id="edu_fin_anio" class="form-select select-anio">
-        <option value="">Año</option>
-    </select>
-</div>
+                <div class="col-md-2"><label class="info-label">Mes inicio</label>
+                    <select id="edu_inicio_mes" class="form-select">
+                        <option value="">Mes</option>
+                        <option>Enero</option><option>Febrero</option><option>Marzo</option><option>Abril</option>
+                        <option>Mayo</option><option>Junio</option><option>Julio</option><option>Agosto</option>
+                        <option>Septiembre</option><option>Octubre</option><option>Noviembre</option><option>Diciembre</option>
+                    </select>
+                </div>
+                <div class="col-md-2"><label class="info-label">Año</label>
+                    <select id="edu_inicio_anio" class="form-select select-anio"><option value="">Año</option></select>
+                </div>
+                <div class="col-md-2"><label class="info-label">Mes fin</label>
+                    <select id="edu_fin_mes" class="form-select">
+                        <option value="">Mes</option>
+                        <option>Enero</option><option>Febrero</option><option>Marzo</option><option>Abril</option>
+                        <option>Mayo</option><option>Junio</option><option>Julio</option><option>Agosto</option>
+                        <option>Septiembre</option><option>Octubre</option><option>Noviembre</option><option>Diciembre</option>
+                    </select>
+                </div>
+                <div class="col-md-2"><label class="info-label">Año</label>
+                    <select id="edu_fin_anio" class="form-select select-anio"><option value="">Año</option></select>
+                </div>
             </div>
-            <div class="modal-footer border-0 p-4"><button class="btn btn-primary w-100 fw-bold btn-save" data-modal="modalEducacion">Guardar Estudios</button></div>
+            <div class="modal-footer"><button class="btn btn-save w-100 fw-bold btn-save" data-modal="modalEducacion">Guardar Estudios</button></div>
         </div>
     </div>
 </div>
 
+<!-- IDIOMAS -->
 <div class="modal fade" id="modalIdiomas" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 shadow">
-            <div class="modal-header border-0 pb-0"><h5 class="fw-bold m-0">Idiomas</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
-            <div class="modal-body p-4 row g-3">
+        <div class="modal-content">
+            <div class="modal-header"><h5 class="m-0">Idiomas</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+            <div class="modal-body row g-3">
                 <div class="col-md-12"><label class="info-label">Idioma</label><input type="text" id="idioma_nombre" class="form-control"></div>
-                <div class="col-md-6"><label class="info-label">Nivel Hablado</label><select id="nivel_hablado" class="form-select"><option>Básico</option><option>Intermedio</option><option>Avanzado</option><option>Nativo</option></select></div>
-                <div class="col-md-6"><label class="info-label">Nivel Escrito</label><select id="nivel_escrito" class="form-select"><option>Básico</option><option>Intermedio</option><option>Avanzado</option><option>Nativo</option></select></div>
+                <div class="col-md-6"><label class="info-label">Nivel Hablado</label>
+                    <select id="nivel_hablado" class="form-select"><option>Básico</option><option>Intermedio</option><option>Avanzado</option><option>Nativo</option></select>
+                </div>
+                <div class="col-md-6"><label class="info-label">Nivel Escrito</label>
+                    <select id="nivel_escrito" class="form-select"><option>Básico</option><option>Intermedio</option><option>Avanzado</option><option>Nativo</option></select>
+                </div>
             </div>
-            <div class="modal-footer border-0 p-4"><button class="btn btn-primary w-100 fw-bold btn-save" data-modal="modalIdiomas">Guardar Idioma</button></div>
+            <div class="modal-footer"><button class="btn btn-save w-100 fw-bold btn-save" data-modal="modalIdiomas">Guardar Idioma</button></div>
         </div>
     </div>
 </div>
 
+<!-- HABILIDADES -->
 <div class="modal fade" id="modalHabilidades" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 shadow">
-            <div class="modal-header border-0 pb-0"><h5 class="fw-bold m-0">Habilidades</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
-            <div class="modal-body p-4">
+        <div class="modal-content">
+            <div class="modal-header"><h5 class="m-0">Habilidades</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+            <div class="modal-body">
                 <label class="info-label">Descripción de conocimientos</label>
                 <textarea id="habilidades_desc" class="form-control" rows="5" maxlength="500"></textarea>
             </div>
-            <div class="modal-footer border-0 p-4"><button class="btn btn-primary w-100 fw-bold btn-save" data-modal="modalHabilidades">Guardar Conocimientos</button></div>
+            <div class="modal-footer"><button class="btn btn-save w-100 fw-bold btn-save" data-modal="modalHabilidades">Guardar Conocimientos</button></div>
         </div>
     </div>
 </div>
 
+<!-- EXPERIENCIA -->
 <div class="modal fade" id="modalExperiencia" tabindex="-1">
     <div class="modal-dialog modal-lg modal-dialog-centered">
-        <div class="modal-content border-0 shadow">
-            <div class="modal-header border-0 pb-0"><h5 class="fw-bold m-0">Experiencia Laboral</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
-            <div class="modal-body p-4 row g-3">
+        <div class="modal-content">
+            <div class="modal-header"><h5 class="m-0">Experiencia Laboral</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+            <div class="modal-body row g-3">
                 <div class="col-md-6"><label class="info-label">Empresa</label><input type="text" id="exp_empresa1" class="form-control"></div>
                 <div class="col-md-6"><label class="info-label">Actividad de la empresa</label><input type="text" id="exp_actividad_empresa1" class="form-control"></div>
                 <div class="col-md-12"><label class="info-label">Puesto</label><input type="text" id="exp_puesto1" class="form-control"></div>
                 <div class="col-md-12"><label class="info-label">Descripción de actividades</label><textarea id="exp_desc1" class="form-control" rows="3"></textarea></div>
-                
                 <div class="col-md-6">
                     <label class="info-label">Fecha de inicio</label>
                     <div class="d-flex gap-2">
@@ -363,60 +453,56 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-footer border-0 p-4"><button class="btn btn-primary w-100 fw-bold btn-save" data-modal="modalExperiencia">Guardar Experiencia</button></div>
+            <div class="modal-footer"><button class="btn btn-save w-100 fw-bold btn-save" data-modal="modalExperiencia">Guardar Experiencia</button></div>
         </div>
     </div>
 </div>
 
+<!-- RESUMEN PROFESIONAL -->
 <div class="modal fade" id="modalPerfilBio" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 shadow">
-            <div class="modal-header border-0 pb-0"><h5 class="fw-bold m-0">Resumen Profesional</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
-            <div class="modal-body p-4">
+        <div class="modal-content">
+            <div class="modal-header"><h5 class="m-0">Resumen Profesional</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+            <div class="modal-body">
                 <textarea id="resumen_profesional" class="form-control" rows="8"></textarea>
             </div>
-            <div class="modal-footer border-0 p-4"><button class="btn btn-primary w-100 fw-bold btn-save" data-modal="modalPerfilBio">Guardar Resumen</button></div>
+            <div class="modal-footer"><button class="btn btn-save w-100 fw-bold btn-save" data-modal="modalPerfilBio">Guardar Resumen</button></div>
         </div>
     </div>
 </div>
 
+<!-- MODAL VACANTE DARK -->
+<div class="modal fade modal-vacante-dark" id="modalVacante" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="tituloVacanteModal">Vacante</h5>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body"><p id="descripcionVacante"></p></div>
+        </div>
+    </div>
+</div>
 
+<!-- ── FOOTER DARK ── -->
 <footer class="footer-cv mt-auto">
     <div class="container">
         <div class="row align-items-center">
-
-            <!-- Marca -->
             <div class="col-md-4 text-center text-md-start mb-2 mb-md-0">
-                <span class="fw-bold text-primary">3R LABORAL</span>
-                <div class="small text-muted">Tu perfil profesional en un solo lugar</div>
+                <span class="fw-bold">3R Laboral</span>
+                <div class="small" style="color:rgba(255,255,255,0.35);">Tu perfil profesional en un solo lugar</div>
             </div>
-
-            <!-- Links -->
             <div class="col-md-4 text-center mb-2 mb-md-0">
                 <a href="#" class="footer-link">Aviso de privacidad</a>
-                <span class="mx-2 text-muted">|</span>
+                <span class="mx-2" style="color:rgba(255,255,255,0.2);">|</span>
                 <a href="#" class="footer-link">Términos</a>
             </div>
-
-            <!-- Copyright -->
             <div class="col-md-4 text-center text-md-end">
-                <span class="small text-muted">© 2026 3R LABORAL</span>
+                <span class="small" style="color:rgba(255,255,255,0.35);">© 2026 3R Laboral</span>
             </div>
-
         </div>
     </div>
 </footer>
-
-            <!-- Modal para descripción de vacante -->
-            <div class="modal face modal-vacante-dark" id="modalVacante" tabindex="-1">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-
-                    <div class="modal-header"><h5 id="tituloVacanteModal">Vacante</h5>
-                        <button class="btn-close" data-bs-dismiss="modal"></button></div>
-                    <div class="modal-body"><p id="descripcionVacante"></p></div>
-                </div>
-            </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script type="module" src="cvcandidato.js"></script>
