@@ -77,8 +77,9 @@ if ($salarioDesde && $salarioHasta) {
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body { font-family: 'DM Sans', sans-serif; background: var(--gris); color: var(--texto); }
+html { scroll-behavior: smooth; height: 100%; }
+body { font-family: 'DM Sans', sans-serif; background: var(--gris); color: var(--texto); min-height: 100vh; display: flex; flex-direction: column; }
+.page-wrapper { flex: 1; }
 
 /* HEADER */
 header {
@@ -324,6 +325,42 @@ footer {
 footer a { color: rgba(255,255,255,0.55); text-decoration: none; }
 footer a:hover { color: white; }
 
+/* FOOTER COMPLETO */
+.footer-completo { background: #07233d; margin-top: auto; }
+.footer-inner { max-width: 1100px; margin: 0 auto; padding: 50px 40px 24px; }
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 36px;
+}
+.footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.footer-desc { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.65; margin-bottom: 16px; }
+.footer-social { display: flex; gap: 10px; }
+.footer-social a {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.1);
+  display: flex; align-items: center; justify-content: center;
+  color: rgba(255,255,255,0.55); font-size: 13px;
+  text-decoration: none; transition: all 0.2s;
+}
+.footer-social a:hover { background: rgba(255,255,255,0.15); color: white; }
+.footer-col-title { font-size: 13px; font-weight: 600; color: white; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 1px; }
+.footer-col-end { text-align: right; }
+.footer-links { list-style: none; }
+.footer-links li { font-size: 13px; color: rgba(255,255,255,0.45); margin-bottom: 9px; display: flex; align-items: center; gap: 8px; }
+.footer-links li i { font-size: 11px; color: var(--naranja); }
+.footer-links a { color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: white; }
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 20px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 12.5px; color: rgba(255,255,255,0.35);
+}
+
 /* RESPONSIVE */
 @media(max-width: 768px) {
   header { padding: 14px 20px; }
@@ -331,7 +368,10 @@ footer a:hover { color: white; }
   .vacante-header { padding: 26px 22px; }
   .card { padding: 22px; }
   .sidebar-card { position: static; }
-  footer { flex-direction: column; gap: 10px; text-align: center; padding: 20px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
+  .footer-col-end { text-align: left; }
+  .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+  .footer-inner { padding: 40px 20px 20px; }
 }
 </style>
 </head>
@@ -450,12 +490,53 @@ footer a:hover { color: white; }
 </div>
 
 <!-- FOOTER -->
-<footer>
-  <span>© 2026 3R Laboral — Todos los derechos reservados</span>
-  <div style="display:flex;gap:20px;">
-    <a href="../index.html">Bolsa de trabajo</a>
-    <a href="https://3rlaboral.com" target="_blank">3rlaboral.com</a>
-    <a href="#">Aviso de privacidad</a>
+<footer class="footer-completo">
+  <div class="footer-inner">
+    <div class="footer-grid">
+
+      <div class="footer-col">
+        <div class="footer-logo">
+          <div class="logo-icon" style="width:34px;height:34px;font-size:13px;">3R</div>
+          <span style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:white;">3R Laboral</span>
+        </div>
+        <p class="footer-desc">Expertos en soluciones de capital humano y cumplimiento laboral. Conectando el mejor talento con las mejores oportunidades.</p>
+        <div class="footer-social">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h6 class="footer-col-title">Navegación</h6>
+        <ul class="footer-links">
+          <li><a href="../index.html">Bolsa de Trabajo</a></li>
+          <li><a href="https://3rlaboral.com" target="_blank">3R Laboral</a></li>
+          <li><a href="#">Aviso de Privacidad</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h6 class="footer-col-title">Contacto</h6>
+        <ul class="footer-links">
+          <li><i class="fas fa-map-marker-alt"></i> Querétaro, México</li>
+          <li><i class="fas fa-phone"></i> +52 (442) 242 8962</li>
+          <li><i class="fas fa-clock"></i> Lun - Vie: 9:00 - 18:00</li>
+        </ul>
+      </div>
+
+      <div class="footer-col footer-col-end">
+        <h6 class="footer-col-title">Sistema v2.0</h6>
+        <p style="font-size:13px;color:rgba(255,255,255,0.45);line-height:1.6;">Desarrollado para la gestión eficiente de reclutamiento</p>
+        <img src="https://cdn-icons-png.flaticon.com/512/1162/1162933.png" alt="Compliance" width="38" style="opacity:0.4;margin-top:10px;">
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 3R Laboral. Todos los derechos reservados.</span>
+      <span>Desarrollado con <i class="fas fa-heart" style="color:#e05555;margin:0 3px;"></i> y Google Gemini</span>
+    </div>
   </div>
 </footer>
 

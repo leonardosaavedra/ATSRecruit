@@ -5,27 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal de Empleo Corporativo | 3R LABORAL</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
     <style>
-        /* Estilos para el nuevo aspecto de Dashboard */
-        .hero-banner {
-            background: linear-gradient(135deg, #0d6efd 0%, #0042a5 100%);
-            border-radius: 20px;
-            padding: 3rem;
-            color: white;
-            position: relative;
-            overflow: hidden;
+        /* ── RESET BODY para flex layout ── */
+        body {
+            display: flex !important;
+            flex-direction: column !important;
+            min-height: 100vh !important;
+            background-color: #f3f2f1 !important;
         }
-        .hero-img {
-            position: absolute;
-            right: 20px;
-            bottom: -20px;
-            width: 280px;
-            opacity: 0.2;
-            pointer-events: none;
-        }
+        main { flex: 1 0 auto; }
+
+        /* ── CARDS vacantes ── */
         .card-vacante-moderna {
             transition: all 0.3s ease;
             border: 1px solid rgba(0,0,0,0.08) !important;
@@ -41,30 +34,158 @@
         .modal-content { border-radius: 20px; border: none; }
         .modal-header { border: none; }
         .bg-primary-subtle { background-color: #e7f1ff !important; }
+
+        /* ── NAVBAR PREMIUM ── */
+        nav.navbar-premium {
+            background: #ffffff !important;
+            border-bottom: 1px solid #E8ECF0 !important;
+            box-shadow: 0 2px 16px rgba(13,59,102,0.06) !important;
+            padding: 12px 0 !important;
+        }
+        .navbar-brand-premium {
+            display: flex !important;
+            align-items: center !important;
+            gap: 10px !important;
+            text-decoration: none !important;
+        }
+        .brand-icon {
+            width: 36px !important; height: 36px !important;
+            background: #0D3B66 !important;
+            border-radius: 9px !important;
+            display: flex !important; align-items: center !important; justify-content: center !important;
+            color: white !important; font-weight: 700 !important; font-size: 13px !important;
+            letter-spacing: -1px !important; flex-shrink: 0 !important;
+        }
+        .brand-name {
+            font-family: 'Playfair Display', serif !important;
+            font-size: 16px !important; font-weight: 700 !important;
+            color: #0D3B66 !important; line-height: 1.1 !important; display: block !important;
+        }
+        .brand-sub {
+            font-size: 10px !important; color: #5a6a7a !important;
+            text-transform: uppercase !important; letter-spacing: 1.5px !important; display: block !important;
+        }
+        .btn-nav-reclutador {
+            border: 1.5px solid #0D3B66 !important; color: #0D3B66 !important;
+            background: transparent !important; padding: 7px 15px !important;
+            border-radius: 9px !important; font-size: 13px !important; font-weight: 600 !important;
+            display: inline-flex !important; align-items: center !important; gap: 6px !important;
+            transition: all 0.2s !important; text-decoration: none !important;
+        }
+        .btn-nav-reclutador:hover { background: #0D3B66 !important; color: white !important; }
+        .btn-nav-google {
+            background: #EA4335 !important; color: white !important; border: none !important;
+            padding: 7px 15px !important; border-radius: 9px !important;
+            font-size: 13px !important; font-weight: 600 !important;
+            display: inline-flex !important; align-items: center !important; gap: 6px !important;
+            cursor: pointer !important; transition: all 0.2s !important;
+        }
+        .btn-nav-google:hover { background: #c5352a !important; }
+
+        /* ── FOOTER PREMIUM ── */
+        footer.footer-premium {
+            background: #07233d !important;
+            flex-shrink: 0 !important;
+            display: block !important;
+            width: 100% !important;
+        }
+        footer.footer-premium .footer-inner {
+            max-width: 1200px !important; margin: 0 auto !important;
+            padding: 50px 40px 24px !important;
+        }
+        footer.footer-premium .footer-grid {
+            display: grid !important;
+            grid-template-columns: 2fr 1fr 1fr 1fr !important;
+            gap: 40px !important; margin-bottom: 36px !important;
+        }
+        footer.footer-premium .footer-logo-row {
+            display: flex !important; align-items: center !important;
+            gap: 10px !important; margin-bottom: 14px !important;
+        }
+        footer.footer-premium .footer-desc {
+            font-size: 13px !important; color: rgba(255,255,255,0.45) !important;
+            line-height: 1.65 !important; margin-bottom: 16px !important;
+        }
+        footer.footer-premium .footer-social { display: flex !important; gap: 10px !important; }
+        footer.footer-premium .footer-social a {
+            width: 32px !important; height: 32px !important; border-radius: 8px !important;
+            background: rgba(255,255,255,0.07) !important;
+            border: 1px solid rgba(255,255,255,0.1) !important;
+            display: flex !important; align-items: center !important; justify-content: center !important;
+            color: rgba(255,255,255,0.5) !important; font-size: 13px !important;
+            text-decoration: none !important; transition: all 0.2s !important;
+        }
+        footer.footer-premium .footer-social a:hover {
+            background: rgba(255,255,255,0.15) !important; color: white !important;
+        }
+        footer.footer-premium .footer-col-title {
+            font-size: 11.5px !important; font-weight: 600 !important; color: white !important;
+            margin-bottom: 14px !important; text-transform: uppercase !important;
+            letter-spacing: 1.2px !important; display: block !important;
+        }
+        footer.footer-premium .footer-links {
+            list-style: none !important; padding: 0 !important; margin: 0 !important;
+        }
+        footer.footer-premium .footer-links li {
+            font-size: 13px !important; color: rgba(255,255,255,0.45) !important;
+            margin-bottom: 9px !important; display: flex !important;
+            align-items: center !important; gap: 8px !important;
+        }
+        footer.footer-premium .footer-links li i {
+            font-size: 11px !important; color: #F77F00 !important;
+        }
+        footer.footer-premium .footer-links a {
+            color: rgba(255,255,255,0.45) !important;
+            text-decoration: none !important; transition: color 0.2s !important;
+        }
+        footer.footer-premium .footer-links a:hover { color: white !important; }
+        footer.footer-premium .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.08) !important;
+            padding-top: 20px !important;
+            display: flex !important; justify-content: space-between !important;
+            align-items: center !important; flex-wrap: wrap !important; gap: 8px !important;
+            font-size: 12px !important; color: rgba(255,255,255,0.35) !important;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media(max-width: 768px) {
+            footer.footer-premium .footer-grid { grid-template-columns: 1fr 1fr !important; gap: 24px !important; }
+            footer.footer-premium .footer-bottom { flex-direction: column !important; text-align: center !important; }
+            footer.footer-premium .footer-inner { padding: 38px 20px 20px !important; }
+        }
+        @media(max-width: 480px) {
+            footer.footer-premium .footer-grid { grid-template-columns: 1fr !important; }
+        }
     </style>
 </head>
-<body class="bg-light">
+<body>
 
-<nav class="navbar navbar-light bg-white border-bottom py-3 sticky-top">
-    <div class="container d-flex justify-content-between align-items-center">
-        <a class="navbar-brand fw-bold text-primary" href="#">3R LABORAL - BOLSA DE TRABAJO</a>
-        
-        <div class="d-flex align-items-center gap-3">
+<!-- ── NAVBAR PREMIUM ── -->
+<nav class="navbar navbar-premium sticky-top">
+    <div class="container d-flex justify-content: space-between align-items-center">
+        <a class="navbar-brand-premium" href="#">
+            <div class="brand-icon">3R</div>
+            <div>
+                <span class="brand-name">3R Laboral</span>
+                <span class="brand-sub">Bolsa de Trabajo</span>
+            </div>
+        </a>
+        <div class="d-flex align-items-center gap-2">
             <div id="auth-container-reclutador">
-                <a href="login.html" class="btn btn-outline-primary px-3 py-2 fw-bold btn-sm" id="btn-login-reclutador">
-                    <i class="fas fa-lock me-1"></i> Reclutador
+                <a href="login.html" class="btn-nav-reclutador">
+                    <i class="fas fa-lock"></i> Reclutador
                 </a>
             </div>
-
             <div id="auth-container">
-                <button id="btnGoogle" class="btn btn-danger px-3 py-2 fw-bold btn-sm">
-                    <i class="fab fa-google me-2"></i> Iniciar sesión con Google
+                <button id="btnGoogle" class="btn-nav-google">
+                    <i class="fab fa-google"></i> Iniciar sesión
                 </button>
             </div>
         </div>
     </div>
 </nav>
 
+<!-- ── CONTENIDO ORIGINAL (sin cambios) ── -->
 <main class="container py-4">
     <div class="hero-banner mb-5 shadow-sm">
         <div class="row align-items-center">
@@ -89,6 +210,7 @@
     </div>
 </main>
 
+<!-- ── MODAL (sin cambios) ── -->
 <div class="modal fade" id="modalVacante" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content shadow-lg">
@@ -100,51 +222,47 @@
     </div>
 </div>
 
-<footer class="footer-corporativo bg-white border-top pt-5 pb-3 mt-5">
-    <div class="container">
-        <div class="row gy-4">
-            <div class="col-lg-4 col-md-6">
-                <h5 class="fw-bold text-primary mb-3">3R LABORAL</h5>
-                <p class="text-muted small">
-                    Expertos en soluciones de capital humano y cumplimiento laboral. Conectando el mejor talento con las mejores oportunidades.
-                </p>
-                <div class="redes-sociales">
-                    <a href="#" class="me-2 text-primary"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="me-2 text-primary"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#" class="text-primary"><i class="fas fa-envelope"></i></a>
+<!-- ── FOOTER PREMIUM ── -->
+<footer class="footer-premium">
+    <div class="footer-inner">
+        <div class="footer-grid">
+            <div>
+                <div class="footer-logo-row">
+                    <div class="brand-icon">3R</div>
+                    <span style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:white;">3R Laboral</span>
+                </div>
+                <p class="footer-desc">Expertos en soluciones de capital humano y cumplimiento laboral. Conectando el mejor talento con las mejores oportunidades.</p>
+                <div class="footer-social">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fas fa-envelope"></i></a>
                 </div>
             </div>
-
-            <div class="col-lg-2 col-md-6">
-                <h6 class="fw-bold mb-3">Navegación</h6>
-                <ul class="list-unstyled small">
-                    <li class="mb-2"><a href="index.html" class="text-decoration-none text-muted">Bolsa de Trabajo</a></li>
-                    <li class="mb-2"><a href="admin.html" class="text-decoration-none text-muted">Panel Admin</a></li>
-                    <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Aviso de Privacidad</a></li>
+            <div>
+                <div class="footer-col-title">Navegación</div>
+                <ul class="footer-links">
+                    <li><a href="index.html">Bolsa de Trabajo</a></li>
+                    <li><a href="https://3rlaboral.com" target="_blank">3R Laboral</a></li>
+                    <li><a href="#">Aviso de Privacidad</a></li>
                 </ul>
             </div>
-
-            <div class="col-lg-3 col-md-6">
-                <h6 class="fw-bold mb-3">Contacto</h6>
-                <ul class="list-unstyled small text-muted">
-                    <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> Querétaro, México</li>
-                    <li class="mb-2"><i class="fas fa-phone me-2"></i> +52 (442) 242 8962</li>
-                    <li class="mb-2"><i class="fas fa-clock me-2"></i> Lun - Vie: 9:00 - 18:00</li>
+            <div>
+                <div class="footer-col-title">Contacto</div>
+                <ul class="footer-links">
+                    <li><i class="fas fa-map-marker-alt"></i> Querétaro, México</li>
+                    <li><i class="fas fa-phone"></i> +52 (442) 242 8962</li>
+                    <li><i class="fas fa-clock"></i> Lun - Vie: 9:00 - 18:00</li>
                 </ul>
             </div>
-
-            <div class="col-lg-3 col-md-6 text-lg-end">
-                <h6 class="fw-bold mb-3">Sistema v2.0</h6>
-                <p class="small text-muted">Desarrollado para la gestión eficiente de reclutamiento</p>
-                <img src="https://cdn-icons-png.flaticon.com/512/1162/1162933.png" alt="Compliance" width="40" style="opacity: 0.5;">
+            <div>
+                <div class="footer-col-title">Sistema v2.0</div>
+                <p style="font-size:13px;color:rgba(255,255,255,0.42);line-height:1.6;">Desarrollado para la gestión eficiente de reclutamiento</p>
+                <img src="https://cdn-icons-png.flaticon.com/512/1162/1162933.png" alt="Compliance" width="38" style="opacity:0.4;margin-top:10px;">
             </div>
         </div>
-        <hr class="my-4 text-muted">
-        <div class="row align-items-center">
-            <div class="col-md-6 small text-muted">&copy; 2026 3R Laboral. Todos los derechos reservados.</div>
-            <div class="col-md-6 text-md-end small">
-                <span class="text-muted">Desarrollado con</span> <i class="fas fa-heart text-danger"></i> <span class="text-muted">y Google Gemini</span>
-            </div>
+        <div class="footer-bottom">
+            <span>© 2026 3R Laboral. Todos los derechos reservados.</span>
+            <span>Desarrollado con <i class="fas fa-heart" style="color:#e05555;margin:0 3px;"></i> y Google Gemini</span>
         </div>
     </div>
 </footer>
@@ -154,53 +272,3 @@
 <script type="module" src="js/public-logic.js"></script>
 </body>
 </html>
-<!--
-<footer class="footer-corporativo bg-white border-top pt-5 pb-3 mt-5">
-    <div class="container">
-        <div class="row gy-4">
-            <div class="col-lg-4 col-md-6">
-                <h5 class="fw-bold text-primary mb-3">3R LABORAL</h5>
-                <p class="text-muted small">
-                    Expertos en soluciones de capital humano y cumplimiento laboral. Conectando el mejor talento con las mejores oportunidades.
-                </p>
-                <div class="redes-sociales">
-                    <a href="#" class="me-2 text-primary"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="me-2 text-primary"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#" class="text-primary"><i class="fas fa-envelope"></i></a>
-                </div>
-            </div>
-
-            <div class="col-lg-2 col-md-6">
-                <h6 class="fw-bold mb-3">Navegación</h6>
-                <ul class="list-unstyled small">
-                    <li class="mb-2"><a href="index.html" class="text-decoration-none text-muted">Bolsa de Trabajo</a></li>
-                    <li class="mb-2"><a href="admin.html" class="text-decoration-none text-muted">Panel Admin</a></li>
-                    <li class="mb-2"><a href="#" class="text-decoration-none text-muted">Aviso de Privacidad</a></li>
-                </ul>
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-                <h6 class="fw-bold mb-3">Contacto</h6>
-                <ul class="list-unstyled small text-muted">
-                    <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> Querétaro, México</li>
-                    <li class="mb-2"><i class="fas fa-phone me-2"></i> +52 (442) 242 8962</li>
-                    <li class="mb-2"><i class="fas fa-clock me-2"></i> Lun - Vie: 9:00 - 18:00</li>
-                </ul>
-            </div>
-
-            <div class="col-lg-3 col-md-6 text-lg-end">
-                <h6 class="fw-bold mb-3">Sistema v2.0</h6>
-                <p class="small text-muted">Desarrollado para la gestión eficiente de reclutamiento</p>
-                <img src="https://cdn-icons-png.flaticon.com/512/1162/1162933.png" alt="Compliance" width="40" style="opacity: 0.5;">
-            </div>
-        </div>
-        <hr class="my-4 text-muted">
-        <div class="row align-items-center">
-            <div class="col-md-6 small text-muted">&copy; 2026 3R Laboral. Todos los derechos reservados.</div>
-            <div class="col-md-6 text-md-end small">
-                <span class="text-muted">Desarrollado con</span> <i class="fas fa-heart text-danger"></i> <span class="text-muted">y Google Gemini</span>
-            </div>
-        </div>
-    </div>
-</footer>
--->
