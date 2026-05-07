@@ -83,7 +83,7 @@ window.enviarPostulacion = async function () {
     }
 
     btn.disabled = true;
-    btn.innerHTML = 'Postulando...';
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Postulando...';
 
     try {
 
@@ -108,7 +108,7 @@ window.enviarPostulacion = async function () {
         await set(push(ref(db, 'postulaciones')), dataParaInsertar);
 
         btn.classList.replace('btn-primary', 'btn-success');
-        btn.innerHTML = 'Ya te postulaste';
+        btn.innerHTML = '<i class="fas fa-check me-2"></i>Ya te postulaste';
 
     } catch (error) {
         console.error(error);
@@ -128,38 +128,62 @@ window.abrirModalVacante = async function (id) {
     const v = snap.val();
 
     const textoBoton = window.usuarioActual
-        ? 'Postularse'
-        : 'Inicia sesión para postularte';
+        ? '<i class="fas fa-paper-plane me-2"></i>Postularse'
+        : '<i class="fab fa-google me-2"></i>Inicia sesión para postularte';
 
     const urlCompartir = `${SHARE_BASE}/empleos/empleo.php?id=${id}`;
 
     const contenedor = document.getElementById('contenidoModal');
 
     contenedor.innerHTML = `
-        <input type="hidden" id="inputIDModal" value="${id}">
+    <input type="hidden" id="inputIDModal" value="${id}">
 
-        <h3 class="fw-bold">${v.titulo}</h3>
+    <!-- HEADER PREMIUM -->
+    <div style="background:linear-gradient(135deg,#0a2d4f,#0D3B66);padding:24px 20px 20px;position:relative;overflow:hidden;">
+        <div style="position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(247,127,0,0.15) 0%,transparent 70%);pointer-events:none;"></div>
 
-        <p>${v.ubicacion} | ${v.jornada}</p>
+        <div style="display:inline-flex;align-items:center;gap:6px;background:rgba(247,127,0,0.2);border:1px solid rgba(247,127,0,0.4);color:#FFB347;padding:3px 12px;border-radius:20px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:10px;">
+            <span style="width:6px;height:6px;border-radius:50%;background:#FFB347;display:inline-block;"></span>
+            Vacante activa
+        </div>
 
-        <p>$${Number(v.salarioDesde).toLocaleString()} - $${Number(v.salarioHasta).toLocaleString()}</p>
+        <div style="font-size:19px;font-weight:700;color:white;line-height:1.25;margin-bottom:12px;">${v.titulo}</div>
 
-        <div>${v.desc || ''}</div>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;">
+            <span style="display:flex;align-items:center;gap:5px;color:rgba(255,255,255,0.75);font-size:12.5px;white-space:nowrap;">
+                <i class="fas fa-map-marker-alt" style="color:#F77F00;font-size:11px;"></i>${v.ubicacion}
+            </span>
+            <span style="display:flex;align-items:center;gap:5px;color:rgba(255,255,255,0.75);font-size:12.5px;white-space:nowrap;">
+                <i class="fas fa-briefcase" style="color:#F77F00;font-size:11px;"></i>${v.jornada}
+            </span>
+            <span style="display:flex;align-items:center;gap:5px;color:rgba(255,255,255,0.75);font-size:12.5px;white-space:nowrap;">
+                <i class="fas fa-money-bill-wave" style="color:#F77F00;font-size:11px;"></i>$${Number(v.salarioDesde).toLocaleString()} — $${Number(v.salarioHasta).toLocaleString()}
+            </span>
+        </div>
+    </div>
 
-        <button id="btnPostularModal" class="btn btn-primary w-100 mt-3" onclick="window.enviarPostulacion()">
+    <!-- DESCRIPCIÓN -->
+    <div style="font-size:14px;line-height:1.75;color:#3a3a4a;padding:20px 20px 0;">
+        ${v.desc || ''}
+    </div>
+
+    <!-- ACCIONES -->
+    <div style="padding:16px 20px 20px;">
+        <button id="btnPostularModal" class="btn btn-primary w-100" style="padding:12px;border-radius:10px;font-weight:700;font-size:14px;border:none;background:#0D3B66;transition:all 0.2s;margin-bottom:10px;" onclick="window.enviarPostulacion()">
             ${textoBoton}
         </button>
-
-        <div class="d-flex gap-2 mt-3">
-            <a href="https://wa.me/?text=${encodeURIComponent(urlCompartir)}" target="_blank" class="btn btn-success w-50">
-                <i class="fab fa-whatsapp me-1"></i> WhatsApp
-            </a>
-
-            <button class="btn btn-outline-secondary w-50" onclick="copiarLink('${urlCompartir}')">
-                <i class="fas fa-link me-1"></i> Copiar link
-            </button>
+        <div style="display:flex;gap:10px;">
+            <a href="https://wa.me/?text=${encodeURIComponent(urlCompartir)}" target="_blank"
+             style="flex:1;display:flex;align-items:center;justify-content:center;gap:7px;background:#25D366;color:white;border:none;border-radius:10px;padding:10px;font-weight:600;font-size:13.5px;text-decoration:none;transition:all 0.2s;white-space:nowrap;">
+            <i class="fab fa-whatsapp"></i> WhatsApp
+        </a>
+        <button onclick="copiarLink('${urlCompartir}')"
+            style="flex:1;display:flex;align-items:center;justify-content:center;gap:7px;background:white;color:#5a6a7a;border:1.5px solid #E8ECF0;border-radius:10px;padding:10px;font-weight:600;font-size:13.5px;cursor:pointer;transition:all 0.2s;white-space:nowrap;">
+            <i class="fas fa-link"></i> Copiar link
+        </button>
         </div>
-    `;
+    </div>
+`;
 
     // 🔥 verificar si ya se postuló
     if (window.usuarioActual) {
@@ -177,7 +201,8 @@ window.abrirModalVacante = async function (id) {
                 const btn = document.getElementById('btnPostularModal');
                 btn.disabled = true;
                 btn.classList.replace('btn-primary', 'btn-success');
-                btn.innerHTML = 'Ya te postulaste';
+                btn.innerHTML = '<i class="fas fa-check me-2"></i>Ya te postulaste';
+                btn.style.background = '#198754';
             }
         }
     }
