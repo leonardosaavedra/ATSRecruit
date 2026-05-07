@@ -169,9 +169,10 @@ window.abrirModalVacante = async function (id) {
 
     <!-- ACCIONES -->
     <div style="padding:16px 20px 20px;">
-        <button id="btnPostularModal" class="btn btn-primary w-100" style="padding:12px;border-radius:10px;font-weight:700;font-size:14px;border:none;background:#0D3B66;transition:all 0.2s;margin-bottom:10px;" onclick="window.enviarPostulacion()">
+        <button id="btnPostularModal" class="btn btn-primary" style="padding:12px;border-radius:10px;font-weight:700;font-size:14px;border:none;background:#0D3B66;transition:all 0.2s;margin-bottom:10px;" onclick="window.enviarPostulacion()">
             ${textoBoton}
         </button>
+        <br>
         <div style="display:flex;gap:10px;">
             <a href="https://wa.me/?text=${encodeURIComponent(urlCompartir)}" target="_blank"
              style="flex:1;display:flex;align-items:center;justify-content:center;gap:7px;background:#25D366;color:white;border:none;border-radius:10px;padding:10px;font-weight:600;font-size:13.5px;text-decoration:none;transition:all 0.2s;white-space:nowrap;">

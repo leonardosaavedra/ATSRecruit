@@ -83,11 +83,11 @@
 
 /* 🟠 Pendiente con naranja */
 .timeline-step.pending .dot {
-    background: #F77F00;
+    background: #ffe8cf;
     box-shadow: 0 0 0 2px rgba(247,127,0,0.3);
     border-color: white;
 }
 .timeline-step.pending .label {
-    color: #F77F00;
+    color: #ffe8cf;
     font-weight: 600;
 }

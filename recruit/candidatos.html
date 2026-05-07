@@ -69,6 +69,31 @@ main { flex: 1; }
     font-size: 9.5px; color: rgba(255,255,255,0.4);
     text-transform: uppercase; letter-spacing: 1.5px; display: block; margin-top: 1px;
 }
+
+
+
+	/* ── CSS LOGO NAV Y FOOTER ── */
+
+        .brand-logo img{
+            height: 34px;
+            width: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        .brand-logo img{
+            height: 34px;
+            width: auto;
+            transition: transform .2s ease;
+        }
+
+        .brand-logo img:hover{
+            transform: scale(1.03);
+        }
+
+
+
+
 .btn-cand-back {
     display: flex; align-items: center; gap: 7px;
     background: rgba(255,255,255,0.07);
@@ -310,13 +335,12 @@ main { flex: 1; }
 <!-- ── NAVBAR DARK ── -->
 <nav class="cand-navbar">
     <div class="cand-navbar-inner">
-        <a class="cand-brand" href="#">
-            <div class="cand-brand-icon">3R</div>
-            <div>
-                <span class="cand-brand-name">3R Laboral</span>
-                <span class="cand-brand-sub">Panel Reclutador</span>
-            </div>
+
+        <a class="navbar-brand-premium" href="#">
+            <div class="brand-logo"><img src="../img/logo3rlaboral-white.png" alt="3R Laboral"></div>
         </a>
+
+        
         <a href="../recruit/reclutador.html" class="btn-cand-back">
             <i class="fas fa-arrow-left"></i> Volver al Panel
         </a>

@@ -11,6 +11,27 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="../css/admin.css">
+
+    <style>
+         /* ── CSS LOGO NAV Y FOOTER ── */
+
+        .brand-logo img{
+            height: 34px;
+            width: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        .brand-logo img{
+            height: 34px;
+            width: auto;
+            transition: transform .2s ease;
+        }
+
+        .brand-logo img:hover{
+            transform: scale(1.03);
+        }   
+    </style>
 </head>
 <body class="admin-body">
 
@@ -19,11 +40,7 @@
     <div class="admin-navbar-inner">
 
         <a class="admin-brand" href="#">
-            <div class="admin-brand-icon">3R</div>
-            <div class="admin-brand-text">
-                <span class="admin-brand-name">3R Laboral</span>
-                <span class="admin-brand-sub">Panel Admin</span>
-            </div>
+            <div class="brand-logo"><img src="../img/logo3rlaboral-white.png" alt="3R Laboral">            </div>
         </a>
 
         <div class="admin-nav-center">

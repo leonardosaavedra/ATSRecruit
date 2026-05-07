@@ -35,6 +35,8 @@
         .modal-header { border: none; }
         .bg-primary-subtle { background-color: #e7f1ff !important; }
 
+        
+        
         /* ── NAVBAR PREMIUM ── */
         nav.navbar-premium {
             background: #ffffff !important;
@@ -42,20 +44,7 @@
             box-shadow: 0 2px 16px rgba(13,59,102,0.06) !important;
             padding: 12px 0 !important;
         }
-        .navbar-brand-premium {
-            display: flex !important;
-            align-items: center !important;
-            gap: 10px !important;
-            text-decoration: none !important;
-        }
-        .brand-icon {
-            width: 36px !important; height: 36px !important;
-            background: #0D3B66 !important;
-            border-radius: 9px !important;
-            display: flex !important; align-items: center !important; justify-content: center !important;
-            color: white !important; font-weight: 700 !important; font-size: 13px !important;
-            letter-spacing: -1px !important; flex-shrink: 0 !important;
-        }
+
         .brand-name {
             font-family: 'Playfair Display', serif !important;
             font-size: 16px !important; font-weight: 700 !important;
@@ -81,6 +70,41 @@
             cursor: pointer !important; transition: all 0.2s !important;
         }
         .btn-nav-google:hover { background: #c5352a !important; }
+
+
+
+        /* ── CSS LOGO NAV Y FOOTER ── */
+
+        .brand-logo img{
+            height: 34px;
+            width: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        .brand-logo img{
+            height: 34px;
+            width: auto;
+            transition: transform .2s ease;
+        }
+
+        .brand-logo img:hover{
+            transform: scale(1.03);
+        }
+
+        .footer-logo-row .brand-logo img{
+            height:44px;
+            width:auto;
+            opacity:.95;
+            transition:all .25s ease;
+        }
+
+        .footer-logo-row .brand-logo img:hover{
+            opacity:1;
+            transform:translateY(-1px);
+        }
+
+
 
         /* ── FOOTER PREMIUM ── */
         footer.footer-premium {
@@ -238,40 +262,82 @@
 
 
 
-
-
 /* ── MODAL VACANTE ── */
-.modal-content { border-radius: 18px !important; overflow: hidden !important; border: none !important; }
-.modal-body { padding: 0 !important; }
-#contenidoModal { padding: 0 !important; }
-.modal-header { position: absolute !important; right: 0; top: 0; z-index: 10 !important; border: none !important; background: transparent !important; padding: 12px !important; }
-.modal-header .btn-close { filter: invert(1) !important; opacity: 0.8 !important; }
+.modal-content {
+    border-radius: 18px !important; 
+    overflow: hidden !important; 
+    border: none !important; 
+}
+.modal-body { 
+    padding: 0 !important; 
+}
+#contenidoModal { 
+    padding: 0 !important; 
+}
+.modal-header { 
+    position: absolute !important; 
+    right: 0; 
+    top: 0; 
+    z-index: 10 !important; 
+    border: none !important; 
+    background: transparent !important; 
+    padding: 12px !important; 
+}
+.modal-header .btn-close { 
+    filter: invert(1) !important; 
+    opacity: 0.8 !important; 
+}
 
 
 
 
 /* ── MODAL FIX HEADER ── */
-.modal-body {    padding: 0 !important;
+.modal-body { 
+    padding: 0 !important;
 }
-#contenidoModal {    padding: 0 !important;
+#contenidoModal { 
+    padding: 0 !important;
 }
 /* Contenido debajo del header */
 #contenidoModal > div:not(:first-child),
 #contenidoModal > p,
 #contenidoModal > button,
-#contenidoModal > .d-flex {    padding-left: 50px !important;    padding-right: 20px !important;}
-#contenidoModal > div:last-child {    padding-bottom: 20px !important;}
+#contenidoModal > .d-flex {    
+    padding-left: 50px !important;    
+    padding-right: 20px !important;
+}
+#contenidoModal > div:last-child {    
+    padding-bottom: 20px !important;
+}
 /* X de cerrar encima del header */
-.modal-header {    position: absolute !important;    right: 0; top: 0; z-index: 10 !important;    border: none !important; background: transparent !important;    padding: 12px !important;}
-.modal-header .btn-close {    filter: invert(1) !important;    opacity: 0.8 !important;}
+.modal-header {    
+    position: absolute !important;    
+    right: 0; 
+    top: 0; 
+    z-index: 10 !important;    
+    border: none !important; 
+    background: transparent !important;    
+    padding: 12px !important;
+}
+.modal-header .btn-close {    
+    filter: invert(1) !important;    
+    opacity: 0.8 !important;
+}
 
 
 
 /* ── BOTONES MODAL ANCHO ── */
-#btnPostularModal {    width: auto !important;    display: block !important;    margin: 8px auto 0 !important;    padding: 10px 30px !important;}
+#btnPostularModal {    
+    width: auto !important;    
+    display: block !important;    
+    margin: 8px auto 0 !important;    
+    padding: 10px 30px !important;
+}
 #contenidoModal .d-flex.gap-2 a.btn,
-#contenidoModal .d-flex.gap-2 button.btn {    width: auto !important;    flex: 0 !important;    padding: 9px 150px !important;}
-#contenidoModal .d-flex.gap-2 {    justify-content: center !important;}
+
+#contenidoModal .d-flex.gap-2 {    
+    justify-content: center !important;
+}
 
 
     </style>
@@ -282,10 +348,7 @@
 <nav class="navbar navbar-premium sticky-top">
     <div class="container d-flex justify-content: space-between align-items-center">
         <a class="navbar-brand-premium" href="#">
-            <div class="brand-icon">3R</div>
-            <div>
-                <span class="brand-name">3R Laboral</span>
-                <span class="brand-sub">Bolsa de Trabajo</span>
+            <div class="brand-logo"><img src="img/logo3rlaboral-blue.png" alt="3R Laboral">
             </div>
         </a>
         <div class="d-flex align-items-center gap-2">
@@ -346,12 +409,12 @@
         <div class="footer-grid">
             <div>
                 <div class="footer-logo-row">
-                    <div class="brand-icon">3R</div>
-                    <span style="font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:white;">3R Laboral</span>
+                    <div class="brand-logo"><img src="img/logo3rlaboral-white.png" alt="3R Laboral">
+                </div>
                 </div>
                 <p class="footer-desc">Expertos en soluciones de capital humano y cumplimiento laboral. Conectando el mejor talento con las mejores oportunidades.</p>
                 <div class="footer-social">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.facebook.com/3RLaboral" target="_blank"><i class="fab fa-facebook-f"></i></a>
                     <a href="#"><i class="fab fa-linkedin-in"></i></a>
                     <a href="#"><i class="fas fa-envelope"></i></a>
                 </div>

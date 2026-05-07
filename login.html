@@ -87,15 +87,31 @@
         background-size: 24px 24px; pointer-events: none;
     }
 
-    .brand-block { position: relative; z-index: 2; }
+    
     .brand-logo {
-        width: 42px; height: 42px;
-        background: linear-gradient(135deg, #F77F00, #ff6b00);
         border-radius: 11px;
-        display: flex; align-items: center; justify-content: center;
+        display: flex;
         font-weight: 800; font-size: 15px; color: white; letter-spacing: -1px;
         margin-bottom: 20px;
     }
+    .brand-logo img{
+            height: 34px;
+            width: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        .brand-logo img{
+            height: 44px;
+            width: auto;
+            transition: transform .2s ease;
+        }
+
+        .brand-logo img:hover{
+            transform: scale(1.03);
+        }
+
+        
     .brand-title {
         font-family: 'Playfair Display', serif;
         font-size: 28px; font-weight: 700; color: white;
@@ -213,8 +229,10 @@
         <div class="login-left-dots"></div>
 
         <div class="brand-block">
-            <div class="brand-logo">3R</div>
+            
+            <div class="brand-logo"><img src="img/logo3rlaboral-white.png" alt="3R Laboral"></div>
             <div class="brand-title">Panel de<br>Gestión <span>Laboral</span></div>
+
             <p class="brand-desc">Administra vacantes, candidatos y reclutadores desde un solo lugar.</p>
         </div>
 

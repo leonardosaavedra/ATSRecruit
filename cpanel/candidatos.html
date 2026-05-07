@@ -9,6 +9,26 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/candidatos-admin.css">
+    <style>
+	/* ── CSS LOGO NAV Y FOOTER ── */
+
+        .brand-logo img{
+            height: 34px;
+            width: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        .brand-logo img{
+            height: 34px;
+            width: auto;
+            transition: transform .2s ease;
+        }
+
+        .brand-logo img:hover{
+            transform: scale(1.03);
+        }
+</style>
 </head>
 
 <body class="cadmin-body">
@@ -16,13 +36,13 @@
 <!-- ── NAVBAR DARK ── -->
 <nav class="cadmin-navbar">
     <div class="cadmin-navbar-inner">
-        <a class="cadmin-brand" href="#">
-            <div class="cadmin-brand-icon">3R</div>
-            <div>
-                <span class="cadmin-brand-name">3R Laboral</span>
-                <span class="cadmin-brand-sub">Panel Admin</span>
-            </div>
-        </a>
+  
+            
+                <a class="navbar-brand-premium" href="#">
+                    <div class="brand-logo"><img src="../img/logo3rlaboral-white.png" alt="3R Laboral"></div>
+                </a>
+            
+        
         <a href="../cpanel/admin.html" class="btn-cadmin-back">
             <i class="fas fa-arrow-left"></i> Volver al Panel
         </a>

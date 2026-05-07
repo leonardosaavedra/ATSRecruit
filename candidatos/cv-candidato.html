@@ -70,6 +70,36 @@ nav.navbar .btn.btn-primary:hover {
 .footer-link { color: rgba(255,255,255,0.4) !important; }
 .footer-link:hover { color: white !important; }
 
+/* ── CSS LOGO NAV Y FOOTER ── */
+
+        .brand-logo img{
+            height: 34px;
+            width: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        .brand-logo img{
+            height: 34px;
+            width: auto;
+            transition: transform .2s ease;
+        }
+
+        .brand-logo img:hover{
+            transform: scale(1.03);
+        }
+
+        .footer-logo-row .brand-logo img{
+            height:44px;
+            width:auto;
+            opacity:.95;
+            transition:all .25s ease;
+        }
+
+        .footer-logo-row .brand-logo img:hover{
+            opacity:1;
+            transform:translateY(-1px);
+        }
 
 </style>
 
@@ -81,11 +111,7 @@ nav.navbar .btn.btn-primary:hover {
     <div class="container">
 
         <a class="navbar-brand" href="../index.html">
-            <div class="navbar-brand-icon">3R</div>
-            <div>
-                <span class="navbar-brand-name">3R Laboral</span>
-                <span class="navbar-brand-sub">Mi Perfil</span>
-            </div>
+                <div class="brand-logo"><img src="../img/logo3rlaboral-white.png" alt="3R Laboral"></div>
         </a>
 
         <div class="ms-auto">
@@ -489,7 +515,6 @@ nav.navbar .btn.btn-primary:hover {
     <div class="container">
         <div class="row align-items-center">
             <div class="col-md-4 text-center text-md-start mb-2 mb-md-0">
-                <span class="fw-bold">3R Laboral</span>
                 <div class="small" style="color:rgba(255,255,255,0.35);">Tu perfil profesional en un solo lugar</div>
             </div>
             <div class="col-md-4 text-center mb-2 mb-md-0">
