@@ -186,17 +186,44 @@
 
 
 
-        /* ── CARDS VACANTES MEJORADAS ── */
+        /* ── GRID VACANTES ── */
+#listaVacantes {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)) !important;
+    gap: 20px !important;
+}
+#listaVacantes .col-12 {
+    width: 100% !important;
+    padding: 0 !important;
+}
+
+/* ── CARD VACANTE GRID ── */
 .card-vacante-moderna {
-    border-left: 3px solid transparent !important;
-    transition: all 0.25s ease !important;
+    border: 1.5px solid #E8ECF0 !important;
+    border-top: 3px solid transparent !important;
     border-radius: 14px !important;
-    padding: 20px 24px !important;
+    padding: 20px !important;
+    cursor: pointer !important;
+    transition: all 0.25s ease !important;
+    background: white !important;
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
 }
 .card-vacante-moderna:hover {
-    border-left-color: #F77F00 !important;
-    transform: translateY(-2px) !important;
-    box-shadow: 0 8px 32px rgba(13,59,102,0.13) !important;
+    border-top-color: #F77F00 !important;
+    transform: translateY(-3px) !important;
+    box-shadow: 0 10px 32px rgba(13,59,102,0.13) !important;
+}
+
+/* Ocultar layout de fila dentro de la card */
+.card-vacante-moderna .row { display: block !important; }
+.card-vacante-moderna .col-md-8,
+.card-vacante-moderna .col-md-4 {
+    width: 100% !important;
+    text-align: left !important;
+    margin-top: 0 !important;
 }
 
 /* Badge nueva vacante */
@@ -210,44 +237,51 @@
     padding: 3px 10px !important;
 }
 
-/* Título vacante */
+/* Título */
 .card-vacante-moderna h4 {
     color: #0D3B66 !important;
-    font-size: 16px !important;
+    font-size: 15px !important;
     font-weight: 700 !important;
+    margin-bottom: 6px !important;
 }
 
 /* Salario */
 .card-vacante-moderna h5 {
-    font-size: 18px !important;
+    font-size: 17px !important;
     font-weight: 800 !important;
     color: #0D3B66 !important;
     letter-spacing: -0.3px !important;
+    margin: 10px 0 6px !important;
+}
+.card-vacante-moderna .text-muted.small.mb-0 {
+    font-size: 11px !important;
 }
 
-/* Botón ver detalles */
+/* Botones al fondo */
+.card-vacante-moderna .d-flex.justify-content-md-end {
+    justify-content: flex-start !important;
+    margin-top: 14px !important;
+}
 .card-vacante-moderna .btn-outline-primary {
     border-color: #0D3B66 !important;
     color: #0D3B66 !important;
     border-radius: 9px !important;
-    font-size: 13px !important;
+    font-size: 12.5px !important;
     font-weight: 600 !important;
-    padding: 7px 16px !important;
+    padding: 7px 14px !important;
     transition: all 0.2s !important;
 }
 .card-vacante-moderna .btn-outline-primary:hover {
     background: #0D3B66 !important;
     color: white !important;
 }
-
-/* Botón WhatsApp */
 .card-vacante-moderna .btn-outline-success {
     border-color: #25D366 !important;
     color: #25D366 !important;
     border-radius: 9px !important;
-    font-size: 13px !important;
+    font-size: 12.5px !important;
     font-weight: 600 !important;
-    padding: 7px 16px !important;
+    padding: 7px 14px !important;
     transition: all 0.2s !important;
 }
 .card-vacante-moderna .btn-outline-success:hover {
@@ -255,11 +289,15 @@
     color: white !important;
 }
 
-/* Iconos meta naranja */
-.card-vacante-moderna .text-primary {
-    color: #F77F00 !important;
-}
+/* Iconos naranja */
+.card-vacante-moderna .text-primary { color: #F77F00 !important; }
 
+/* ── RESPONSIVE ── */
+@media(max-width: 768px) {
+    #listaVacantes {
+        grid-template-columns: 1fr !important;
+    }
+}
 
 
 /* ── MODAL VACANTE ── */
@@ -322,6 +360,15 @@
 .modal-header .btn-close {    
     filter: invert(1) !important;    
     opacity: 0.8 !important;
+}
+
+/* ── FIX DESCRIPCIÓN MODAL ── */
+#contenidoModal .ql-editor,
+#contenidoModal div p,
+#contenidoModal div {
+    word-break: break-word !important;
+    overflow-wrap: break-word !important;
+    white-space: normal !important;
 }
 
 

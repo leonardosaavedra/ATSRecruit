@@ -163,27 +163,27 @@ window.abrirModalVacante = async function (id) {
     </div>
 
     <!-- DESCRIPCIÓN -->
-    <div style="font-size:14px;line-height:1.75;color:#3a3a4a;padding:20px 20px 0;">
+    <div style="font-size:14px;line-height:1.75;color:#3a3a4a;padding:20px 20px 0;word-break:break-word;overflow-wrap:break-word;">
         ${v.desc || ''}
     </div>
 
-    <!-- ACCIONES -->
-    <div style="padding:16px 20px 20px;">
-        <button id="btnPostularModal" class="btn btn-primary" style="padding:12px;border-radius:10px;font-weight:700;font-size:14px;border:none;background:#0D3B66;transition:all 0.2s;margin-bottom:10px;" onclick="window.enviarPostulacion()">
-            ${textoBoton}
-        </button>
-        <br>
-        <div style="display:flex;gap:10px;">
-            <a href="https://wa.me/?text=${encodeURIComponent(urlCompartir)}" target="_blank"
-             style="flex:1;display:flex;align-items:center;justify-content:center;gap:7px;background:#25D366;color:white;border:none;border-radius:10px;padding:10px;font-weight:600;font-size:13.5px;text-decoration:none;transition:all 0.2s;white-space:nowrap;">
-            <i class="fab fa-whatsapp"></i> WhatsApp
-        </a>
-        <button onclick="copiarLink('${urlCompartir}')"
-            style="flex:1;display:flex;align-items:center;justify-content:center;gap:7px;background:white;color:#5a6a7a;border:1.5px solid #E8ECF0;border-radius:10px;padding:10px;font-weight:600;font-size:13.5px;cursor:pointer;transition:all 0.2s;white-space:nowrap;">
-            <i class="fas fa-link"></i> Copiar link
-        </button>
-        </div>
-    </div>
+ <!-- ACCIONES -->
+<div style="padding:16px 20px 20px;display:flex;align-items:stretch;gap:15px;">
+    <button id="btnPostularModal" class="btn btn-primary" style="flex:2;height:44px;padding:0 16px;border-radius:10px;font-weight:700;font-size:14px;border:none;background:#0D3B66;transition:all 0.2s;white-space:nowrap;display:flex;align-items:center;justify-content:center;vertical-align:middle;line-height:1;" onclick="window.enviarPostulacion()">
+    ${textoBoton}
+    </button>
+    <a href="https://wa.me/?text=${encodeURIComponent(urlCompartir)}" target="_blank"
+       onmouseover="this.style.background='#1ebe5d'" onmouseout="this.style.background='#25D366'"
+       style="flex:1;height:44px;display:flex;align-items:center;justify-content:center;gap:6px;background:#25D366;color:white;border:none;border-radius:10px;padding:0 10px;font-weight:600;font-size:13px;text-decoration:none;transition:all 0.2s;white-space:nowrap;">
+        <i class="fab fa-whatsapp"></i> WhatsApp
+    </a>
+    <button onclick="copiarLink('${urlCompartir}')"
+            onmouseover="this.style.background='#F5F7FA';this.style.borderColor='#0D3B66';this.style.color='#0D3B66'"
+            onmouseout="this.style.background='white';this.style.borderColor='#E8ECF0';this.style.color='#5a6a7a'"
+            style="flex:1;height:44px;display:flex;align-items:center;justify-content:center;gap:6px;background:white;color:#5a6a7a;border:1.5px solid #E8ECF0;border-radius:10px;padding:0 10px;font-weight:600;font-size:13px;cursor:pointer;transition:all 0.2s;white-space:nowrap;">
+        <i class="fas fa-link"></i> Copiar link
+    </button>
+</div>
 `;
 
     // 🔥 verificar si ya se postuló
