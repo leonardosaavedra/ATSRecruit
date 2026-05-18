@@ -1,0 +1,307 @@
+/* ==========================================
+   EMPLEO.CSS — Detalle de Vacante 3R Laboral
+   ========================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+:root {
+    --azul: #0D3B66;
+    --azul-claro: #185FA5;
+    --naranja: #F77F00;
+    --gris: #F5F7FA;
+    --gris-medio: #E8ECF0;
+    --texto: #1a1a2e;
+    --texto-muted: #5a6a7a;
+    --dark-nav: #0f1923;
+    --dark-border: rgba(255,255,255,0.07);
+    --radius-lg: 20px;
+    --sombra: 0 2px 16px rgba(13,59,102,0.08);
+    --sombra-hover: 0 8px 32px rgba(13,59,102,0.14);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+    font-family: 'DM Sans', sans-serif;
+    background: #f0f2f5;
+    color: var(--texto);
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+}
+
+/* ── HEADER DARK ── */
+header {
+    background: var(--dark-nav);
+    border-bottom: 1px solid var(--dark-border);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+    position: sticky; top: 0; z-index: 1000;
+}
+.header-inner {
+    max-width: 1200px; margin: 0 auto; padding: 0 24px;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+}
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+.logo-icon {
+    width: 34px; height: 34px;
+    background: linear-gradient(135deg, var(--naranja), #ff6b00);
+    border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 13px; color: white; letter-spacing: -1px;
+}
+.logo-text { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 700; color: white; line-height: 1.1; display: block; }
+.logo-sub { font-size: 9.5px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1.5px; display: block; }
+.header-right { display: flex; align-items: center; gap: 10px; }
+.btn-back {
+    display: flex; align-items: center; gap: 7px;
+    background: rgba(255,255,255,0.07); border: 1px solid var(--dark-border);
+    color: rgba(255,255,255,0.7); padding: 7px 15px; border-radius: 9px;
+    font-size: 13px; font-weight: 500; text-decoration: none; transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+}
+.btn-back:hover { background: rgba(255,255,255,0.13); color: white; }
+#auth-container-reclutador .btn-reclutador {
+    border: 1.5px solid rgba(255,255,255,0.2); background: transparent;
+    color: rgba(255,255,255,0.8); padding: 7px 14px; border-radius: 9px;
+    font-size: 13px; font-weight: 600; cursor: pointer;
+    display: flex; align-items: center; gap: 6px;
+    transition: all 0.2s; font-family: 'DM Sans', sans-serif;
+}
+#auth-container-reclutador .btn-reclutador:hover { background: rgba(255,255,255,0.1); color: white; }
+#auth-container .btn-google {
+    background: #EA4335; color: white; border: none;
+    padding: 7px 14px; border-radius: 9px; font-size: 13px; font-weight: 600;
+    cursor: pointer; display: flex; align-items: center; gap: 6px;
+    transition: all 0.2s; font-family: 'DM Sans', sans-serif;
+}
+#auth-container .btn-google:hover { background: #c5352a; }
+
+/* ── LAYOUT UNA COLUMNA ── */
+.page-wrapper {
+    max-width: 860px;
+    margin: 36px auto;
+    padding: 0 20px 80px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* ── CARD HEADER — título + salario destacado ── */
+.vacante-header {
+    background: linear-gradient(135deg, #0a2d4f 0%, var(--azul) 100%);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    position: relative;
+}
+.vacante-header::before {
+    content: '';
+    position: absolute; top: -80px; right: -80px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(247,127,0,0.15) 0%, transparent 70%);
+    pointer-events: none;
+}
+.vacante-header-top {
+    padding: 32px 36px 24px;
+}
+.vacante-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(247,127,0,0.2); border: 1px solid rgba(247,127,0,0.4);
+    color: #FFB347; padding: 4px 12px; border-radius: 20px;
+    font-size: 11px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.5px; margin-bottom: 14px;
+}
+.vacante-titulo {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(26px, 4vw, 40px);
+    font-weight: 700; color: white; line-height: 1.2;
+    margin-bottom: 0;
+}
+
+/* Franja de datos bajo el título */
+.vacante-datos {
+    display: flex; flex-wrap: wrap;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin-top: 24px;
+}
+.vacante-dato {
+    flex: 1; min-width: 160px;
+    padding: 18px 24px;
+    border-right: 1px solid rgba(255,255,255,0.1);
+    display: flex; align-items: center; gap: 12px;
+}
+.vacante-dato:last-child { border-right: none; }
+.vacante-dato-icon {
+    width: 36px; height: 36px; border-radius: 9px;
+    background: rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--naranja); font-size: 14px; flex-shrink: 0;
+}
+.vacante-dato-label { font-size: 10.5px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 2px; }
+.vacante-dato-valor { font-size: 14px; font-weight: 600; color: white; }
+
+/* Salario más compacto */
+.vacante-dato.salario .vacante-dato-valor {
+    font-size: 15px !important;
+    font-weight: 700 !important;
+}
+
+/* ── CARD DESCRIPCIÓN ── */
+.card {
+    background: white; border-radius: var(--radius-lg);
+    padding: 32px 36px;
+    border: 1.5px solid var(--gris-medio);
+    box-shadow: var(--sombra);
+    transition: box-shadow 0.2s;
+}
+.card:hover { box-shadow: var(--sombra-hover); }
+.card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px; font-weight: 700; color: var(--azul);
+    margin-bottom: 18px; padding-bottom: 14px;
+    border-bottom: 2px solid var(--gris-medio);
+    display: flex; align-items: center; gap: 9px;
+}
+.card-title i { color: var(--naranja); }
+.desc-content { font-size: 15px; color: var(--texto); line-height: 1.8; }
+.desc-content p { margin-bottom: 10px; }
+.desc-content ul, .desc-content ol { padding-left: 22px; margin-bottom: 10px; }
+.desc-content li { margin-bottom: 5px; }
+.desc-content strong, .desc-content b { color: var(--azul); font-weight: 700; }
+.desc-content h1, .desc-content h2 {
+    font-family: 'Playfair Display', serif;
+    color: var(--azul); margin: 16px 0 8px; font-size: 17px;
+}
+
+/* ── CARD ACCIONES ── */
+.card-acciones {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 24px 36px;
+    border: 1.5px solid var(--gris-medio);
+    box-shadow: var(--sombra);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+/* ── FIX FINAL BOTÓN POSTULAR ── */
+#btnPostular {
+    background: var(--azul) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 11px !important;
+    padding: 13px 32px !important;
+    font-family: 'DM Sans', sans-serif !important;
+    font-size: 14.5px !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    transition: all 0.25s !important;
+    white-space: nowrap !important;
+}
+#btnPostular:hover {
+    background: var(--azul-claro) !important;
+    transform: translateY(-1px) !important;
+}
+#btnPostular:disabled {
+    background: #198754 !important;
+    cursor: not-allowed !important;
+    transform: none !important;
+}
+
+/* ── FIX COMPARTIR EN UNA LÍNEA ── */
+.compartir-grupo {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-wa, .btn-copy {
+    padding: 13px 20px !important;
+    white-space: nowrap !important;
+}
+
+.btn-wa {
+    flex: 1; padding: 13px;
+    background: #25D366; color: white; border: none; border-radius: 10px;
+    font-family: 'DM Sans', sans-serif; font-size: 13.5px; font-weight: 600;
+    cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 7px;
+    transition: all 0.2s;
+}
+.btn-wa:hover { background: #1ebe5d; transform: translateY(-1px); }
+.btn-copy {
+    flex: 1; padding: 13px;
+    background: transparent; color: var(--texto-muted);
+    border: 1.5px solid var(--gris-medio); border-radius: 10px;
+    font-family: 'DM Sans', sans-serif; font-size: 13.5px; font-weight: 600;
+    cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 7px;
+    transition: all 0.2s;
+}
+.btn-copy:hover { border-color: var(--azul); color: var(--azul); background: var(--gris); }
+
+/* ── DROPDOWN AUTH ── */
+.auth-dropdown {
+    position: absolute; right: 0; top: 44px;
+    background: white; border: 1px solid var(--gris-medio);
+    border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+    min-width: 160px; overflow: hidden; z-index: 100; display: none;
+}
+.auth-dropdown a, .auth-dropdown button {
+    display: block; padding: 11px 16px;
+    text-decoration: none; color: var(--texto); font-size: 13.5px;
+    background: none; width: 100%; text-align: left;
+    cursor: pointer; border: none; border-bottom: 1px solid var(--gris);
+    font-family: 'DM Sans', sans-serif; transition: background 0.15s;
+}
+.auth-dropdown a:hover, .auth-dropdown button:hover { background: var(--gris); }
+.auth-dropdown .logout-btn { color: #dc3545; }
+
+/* ── FOOTER DARK ── */
+.footer-completo { background: #07233d; margin-top: auto; }
+.footer-inner { max-width: 1100px; margin: 0 auto; padding: 50px 40px 24px; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 36px; }
+.footer-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.footer-desc { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.65; margin-bottom: 16px; }
+.footer-social { display: flex; gap: 10px; }
+.footer-social a {
+    width: 32px; height: 32px; border-radius: 8px;
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);
+    display: flex; align-items: center; justify-content: center;
+    color: rgba(255,255,255,0.55); font-size: 13px; text-decoration: none; transition: all 0.2s;
+}
+.footer-social a:hover { background: rgba(255,255,255,0.15); color: white; }
+.footer-col-title { font-size: 13px; font-weight: 600; color: white; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 1px; }
+.footer-col-end { text-align: right; }
+.footer-links { list-style: none; }
+.footer-links li { font-size: 13px; color: rgba(255,255,255,0.45); margin-bottom: 9px; display: flex; align-items: center; gap: 8px; }
+.footer-links li i { font-size: 11px; color: var(--naranja); }
+.footer-links a { color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: white; }
+.footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.08); padding-top: 20px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 12.5px; color: rgba(255,255,255,0.35);
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width: 768px) {
+    .header-inner { padding: 0 16px; }
+    .page-wrapper { padding: 0 16px 60px; margin-top: 20px; gap: 16px; }
+    .vacante-header-top { padding: 24px 20px 20px; }
+    .vacante-datos { flex-direction: column; }
+    .vacante-dato { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 14px 20px; }
+    .vacante-dato:last-child { border-bottom: none; }
+    .card { padding: 22px 20px; }
+    .card-acciones { padding: 20px; flex-direction: column; }
+    .btn-postular, .compartir-grupo { width: 100%; flex: none; min-width: unset; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+    .footer-col-end { text-align: left; }
+    .footer-bottom { flex-direction: column; gap: 8px; text-align: center; }
+    .footer-inner { padding: 40px 20px 20px; }
+}
+@media(max-width: 480px) {
+    .footer-grid { grid-template-columns: 1fr; }
+}
