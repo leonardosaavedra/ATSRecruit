@@ -1,4 +1,4 @@
-import { db, auth, ref, get, update, onValue, onAuthStateChanged } from './config.js';
+import { db, auth, ref, get, update, remove, onValue, onAuthStateChanged } from './config.js';
 
 // ============================
 // 🔔 SISTEMA DE NOTIFICACIONES
@@ -15,7 +15,7 @@ onAuthStateChanged(auth, async (user) => {
         const snap = await get(ref(db, `usuarios/${user.uid}`));
         if (snap.exists()) {
             const nombre = snap.val().nombre || '';
-            const el = document.getElementById('nombreAdminNav') 
+            const el = document.getElementById('nombreAdminNav')
                     || document.getElementById('nombreReclutador');
             if (el) el.textContent = nombre;
         }
@@ -25,17 +25,31 @@ onAuthStateChanged(auth, async (user) => {
 });
 
 function iniciarNotificaciones(uid) {
-    const btnNotif    = document.getElementById('btnNotificaciones');
-    const dropdown    = document.getElementById('dropdownNotif');
-    const listaNotif  = document.getElementById('listaNotif');
-    const badge       = document.getElementById('badgeNotif');
-    const btnMarcar   = document.getElementById('btnMarcarTodas');
+    const btnNotif   = document.getElementById('btnNotificaciones');
+    const dropdown   = document.getElementById('dropdownNotif');
+    const listaNotif = document.getElementById('listaNotif');
+    const badge      = document.getElementById('badgeNotif');
+    const btnMarcar  = document.getElementById('btnMarcarTodas');
 
     if (!btnNotif || !dropdown || !listaNotif || !badge) return;
 
     // ── ESCUCHAR NOTIFICACIONES EN TIEMPO REAL ──
     onValue(ref(db, `notificaciones/${uid}`), (snap) => {
         const data = snap.val();
+
+        // ── LIMPIAR NOTIFICACIONES DE MÁS DE 30 DÍAS ──
+        if (data) {
+            const hace30dias = new Date();
+            hace30dias.setDate(hace30dias.getDate() - 30);
+            Object.entries(data).forEach(([id, n]) => {
+                try {
+                    const fechaNotif = new Date(n.fecha);
+                    if (fechaNotif < hace30dias) {
+                        remove(ref(db, `notificaciones/${uid}/${id}`));
+                    }
+                } catch(e) {}
+            });
+        }
 
         if (!data) {
             badge.style.display = 'none';
@@ -72,7 +86,7 @@ function iniciarNotificaciones(uid) {
                 background:${n.leida ? 'white' : 'rgba(247,127,0,0.04)'};
             " onmouseover="this.style.background='#F5F7FA'"
                onmouseout="this.style.background='${n.leida ? 'white' : 'rgba(247,127,0,0.04)'}'">
-                
+
                 <!-- Ícono -->
                 <div style="
                     width:34px;height:34px;border-radius:9px;flex-shrink:0;
@@ -101,22 +115,20 @@ function iniciarNotificaciones(uid) {
             </div>
         `).join('');
 
-        // Click en notificación → marcar como leída y redirigir
-listaNotif.querySelectorAll('[data-id]').forEach(el => {
-    el.addEventListener('click', async () => {
-        await marcarLeida(uid, el.dataset.id);
-        const idVacante = el.dataset.vacante;
-        if (!idVacante) return;
+        // ── CLICK EN NOTIFICACIÓN → ELIMINAR Y REDIRIGIR ──
+        listaNotif.querySelectorAll('[data-id]').forEach(el => {
+            el.addEventListener('click', async () => {
+                const idNotif  = el.dataset.id;
+                const idVacante = el.dataset.vacante;
 
-        const path = window.location.pathname;
-        const enAdmin = path.includes('/cpanel/');
-        const url = enAdmin
-            ? `candidatos.html?id=${idVacante}`
-            : `candidatos.html?id=${idVacante}`;
+                await eliminarNotificacion(uid, idNotif);
 
-        window.location.href = url;
-    });
-});
+                if (!idVacante) return;
+                const path = window.location.pathname;
+                const enAdmin = path.includes('/cpanel/');
+                window.location.href = `candidatos.html?id=${idVacante}`;
+            });
+        });
     });
 
     // ── TOGGLE DROPDOWN ──
@@ -132,22 +144,17 @@ listaNotif.querySelectorAll('[data-id]').forEach(el => {
 
     dropdown.addEventListener('click', e => e.stopPropagation());
 
-    // ── MARCAR TODAS COMO LEÍDAS ──
+    // ── MARCAR TODAS COMO LEÍDAS → ELIMINAR TODAS ──
     btnMarcar?.addEventListener('click', async () => {
         try {
-            const snap = await get(ref(db, `notificaciones/${uid}`));
-            if (!snap.exists()) return;
-            const updates = {};
-            Object.keys(snap.val()).forEach(id => {
-                updates[`notificaciones/${uid}/${id}/leida`] = true;
-            });
-            await update(ref(db), updates);
+            await remove(ref(db, `notificaciones/${uid}`));
         } catch(e) { console.error(e); }
     });
 }
 
-async function marcarLeida(uid, id) {
+// ── ELIMINAR NOTIFICACIÓN INDIVIDUAL ──
+async function eliminarNotificacion(uid, id) {
     try {
-        await update(ref(db, `notificaciones/${uid}/${id}`), { leida: true });
+        await remove(ref(db, `notificaciones/${uid}/${id}`));
     } catch(e) { console.error(e); }
 }
