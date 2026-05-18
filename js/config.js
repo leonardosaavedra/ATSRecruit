@@ -3,6 +3,7 @@ import { getDatabase, ref, set, get, child, update, remove, push, onValue } from
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-analytics.js";
 
+
 const firebaseConfig = {
     apiKey: "AIzaSyAvdKeXYSvb5RPuHuTuavlsbgJU_w3o8FA",
     authDomain: "r-ats-recruit.firebaseapp.com",
