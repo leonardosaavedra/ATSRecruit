@@ -24,7 +24,6 @@ onAuthStateChanged(auth, async (user) => {
                 const userData = snapshot.val();
                 const nombreReclutador = userData.nombre || "Reclutador";
 
-                // ← detectar rol para redirigir al panel correcto
                 const panelUrl = userData.rol === 'admin'
                     ? 'cpanel/admin.html'
                     : 'recruit/reclutador.html';
@@ -74,6 +73,45 @@ onAuthStateChanged(auth, async (user) => {
 });
 
 // ============================
+// 🔔 CREAR NOTIFICACIONES
+// ============================
+async function crearNotificaciones(nombreCandidato, nombreVacante, sedeVacante, idVacante) {
+    try {
+        const usuariosSnap = await get(ref(db, 'usuarios'));
+        if (!usuariosSnap.exists()) return;
+
+        const usuarios = usuariosSnap.val();
+        const fecha = new Date().toLocaleString('es-MX');
+
+        const notificacion = {
+            candidato: nombreCandidato,
+            vacante: nombreVacante,
+            id_vacante: idVacante,
+            sede: sedeVacante || '',
+            fecha,
+            leida: false
+        };
+
+        const promesas = Object.entries(usuarios).map(([uid, u]) => {
+            const debeRecibir =
+                u.rol === 'admin'       ||  // admin recibe todo
+                u.sede === 'ambas'      ||  // ambas sedes recibe todo
+                u.sede === sedeVacante;     // misma sede recibe
+
+            if (!debeRecibir) return Promise.resolve();
+
+            return set(push(ref(db, `notificaciones/${uid}`)), notificacion);
+        });
+
+        await Promise.all(promesas);
+        console.log('✅ Notificaciones creadas');
+
+    } catch (error) {
+        console.error('Error al crear notificaciones:', error);
+    }
+}
+
+// ============================
 // 🚀 POSTULACIÓN
 // ============================
 window.enviarPostulacion = async function () {
@@ -111,6 +149,16 @@ window.enviarPostulacion = async function () {
         };
 
         await set(push(ref(db, 'postulaciones')), dataParaInsertar);
+
+        // ── CREAR NOTIFICACIONES PARA RECLUTADORES Y ADMINS ──
+        const vacanteSnap = await get(ref(db, `vacantes/${idV}`));
+        if (vacanteSnap.exists()) {
+            const v = vacanteSnap.val();
+            const nombreCandidato = datosUsuario.nombre
+                || window.usuarioActual.displayName
+                || 'Candidato';
+            await crearNotificaciones(nombreCandidato, v.titulo, v.sede, idV);
+        }
 
         btn.classList.replace('btn-primary', 'btn-success');
         btn.innerHTML = '<i class="fas fa-check me-2"></i>Ya te postulaste';
@@ -172,37 +220,33 @@ window.abrirModalVacante = async function (id) {
         ${v.desc || ''}
     </div>
 
- <!-- ACCIONES -->
-<div style="padding:16px 20px 20px;display:flex;align-items:stretch;gap:15px;">
-    <button id="btnPostularModal" class="btn btn-primary" style="flex:2;height:44px;padding:0 16px;border-radius:10px;font-weight:700;font-size:14px;border:none;background:#0D3B66;transition:all 0.2s;white-space:nowrap;display:flex;align-items:center;justify-content:center;vertical-align:middle;line-height:1;" onclick="window.enviarPostulacion()">
-    ${textoBoton}
-    </button>
-    <a href="https://wa.me/?text=${encodeURIComponent(urlCompartir)}" target="_blank"
-       onmouseover="this.style.background='#1ebe5d'" onmouseout="this.style.background='#25D366'"
-       style="flex:1;height:44px;display:flex;align-items:center;justify-content:center;gap:6px;background:#25D366;color:white;border:none;border-radius:10px;padding:0 10px;font-weight:600;font-size:13px;text-decoration:none;transition:all 0.2s;white-space:nowrap;">
-        <i class="fab fa-whatsapp"></i> WhatsApp
-    </a>
-    <button onclick="copiarLink('${urlCompartir}')"
-            onmouseover="this.style.background='#F5F7FA';this.style.borderColor='#0D3B66';this.style.color='#0D3B66'"
-            onmouseout="this.style.background='white';this.style.borderColor='#E8ECF0';this.style.color='#5a6a7a'"
-            style="flex:1;height:44px;display:flex;align-items:center;justify-content:center;gap:6px;background:white;color:#5a6a7a;border:1.5px solid #E8ECF0;border-radius:10px;padding:0 10px;font-weight:600;font-size:13px;cursor:pointer;transition:all 0.2s;white-space:nowrap;">
-        <i class="fas fa-link"></i> Copiar link
-    </button>
-</div>
-`;
+    <!-- ACCIONES -->
+    <div style="padding:16px 20px 20px;display:flex;align-items:stretch;gap:15px;">
+        <button id="btnPostularModal" class="btn btn-primary" style="flex:2;height:44px;padding:0 16px;border-radius:10px;font-weight:700;font-size:14px;border:none;background:#0D3B66;transition:all 0.2s;white-space:nowrap;display:flex;align-items:center;justify-content:center;vertical-align:middle;line-height:1;" onclick="window.enviarPostulacion()">
+            ${textoBoton}
+        </button>
+        <a href="https://wa.me/?text=${encodeURIComponent(urlCompartir)}" target="_blank"
+           onmouseover="this.style.background='#1ebe5d'" onmouseout="this.style.background='#25D366'"
+           style="flex:1;height:44px;display:flex;align-items:center;justify-content:center;gap:6px;background:#25D366;color:white;border:none;border-radius:10px;padding:0 10px;font-weight:600;font-size:13px;text-decoration:none;transition:all 0.2s;white-space:nowrap;">
+            <i class="fab fa-whatsapp"></i> WhatsApp
+        </a>
+        <button onclick="copiarLink('${urlCompartir}')"
+                onmouseover="this.style.background='#F5F7FA';this.style.borderColor='#0D3B66';this.style.color='#0D3B66'"
+                onmouseout="this.style.background='white';this.style.borderColor='#E8ECF0';this.style.color='#5a6a7a'"
+                style="flex:1;height:44px;display:flex;align-items:center;justify-content:center;gap:6px;background:white;color:#5a6a7a;border:1.5px solid #E8ECF0;border-radius:10px;padding:0 10px;font-weight:600;font-size:13px;cursor:pointer;transition:all 0.2s;white-space:nowrap;">
+            <i class="fas fa-link"></i> Copiar link
+        </button>
+    </div>
+    `;
 
     // 🔥 verificar si ya se postuló
     if (window.usuarioActual) {
-
         const postSnap = await get(ref(db, 'postulaciones'));
-
         if (postSnap.exists()) {
-
             const yaPostulado = Object.values(postSnap.val()).some(p =>
                 p.uid_candidato === window.usuarioActual.uid &&
                 p.id_vacante === id
             );
-
             if (yaPostulado) {
                 const btn = document.getElementById('btnPostularModal');
                 btn.disabled = true;

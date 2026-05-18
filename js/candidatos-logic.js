@@ -34,11 +34,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (data) {
             candidatosActuales = Object.entries(data)
-                .filter(([id, c]) => {
-                    const idEnDB = String(c.inputID || c.id_vacante || "");
-                    return idEnDB.startsWith(idURL);
-                })
-                .map(([id, c]) => ({ id, ...c }));
+    .filter(([id, c]) => {
+        const idEnDB = String(c.inputID || c.id_vacante || "");
+        return idEnDB.startsWith(idURL);
+    })
+    .map(([id, c]) => ({ id, ...c }))
+    .sort((a, b) => {
+        // fecha_registro es ISO format, más confiable
+        const fechaA = a.fecha_registro ? new Date(a.fecha_registro) : 0;
+        const fechaB = b.fecha_registro ? new Date(b.fecha_registro) : 0;
+        return fechaB - fechaA;
+    });
+    // ← aquí
+console.log('candidatos ordenados:', candidatosActuales.map(c => ({ 
+    nombre: c.nombre, 
+    fecha_registro: c.fecha_registro 
+
+})));
+
+
         }
 
         if (candidatosActuales.length === 0) {
@@ -72,33 +86,33 @@ document.addEventListener('DOMContentLoaded', () => {
                 </a>`;
 
             lista.innerHTML += `
-                <tr>
-                    <td><div class="fw-bold text-dark">${nombre}</div></td>
-                    <td>${ubicacion}</td>
-                    <td>${whatsappLink}</td>
-                    <td><small class="text-muted">${correo}</small></td>
-
-                    <td>
-                        <span class="badge bg-${colorEstado}">
-                            ${estado}
-                        </span>
-                    </td>
-
-                    <td class="text-end">
-                        <div class="d-flex justify-content-end gap-1 flex-wrap">
-
-                            <button class="btn btn-success btn-sm btn-estado" data-id="${c.id}" data-estado="Interesado">✔</button>
-                            <button class="btn btn-warning btn-sm btn-estado" data-id="${c.id}" data-estado="En revisión">?</button>
-                            <button class="btn btn-danger btn-sm btn-estado" data-id="${c.id}" data-estado="Descartado">✖</button>
-
-                            <button onclick="verPerfilCandidato(${index})" class="btn btn-dark btn-sm">
-                                <i class="fas fa-file-pdf"></i>
-                            </button>
-
-                        </div>
-                    </td>
-                </tr>
-            `;
+    <tr>
+        <td>
+            <div class="fw-bold text-dark">${nombre}</div>
+            <div style="font-size:11px;color:#aab4c0;margin-top:2px;">
+                <i class="fas fa-clock" style="margin-right:3px;"></i>${c.fecha_postulacion || ''}
+            </div>
+        </td>
+        <td>${ubicacion}</td>
+        <td>${whatsappLink}</td>
+        <td><small class="text-muted">${correo}</small></td>
+        <td>
+            <span class="badge bg-${colorEstado}">
+                ${estado}
+            </span>
+        </td>
+        <td class="text-end">
+            <div class="d-flex justify-content-end gap-1 flex-wrap">
+                <button class="btn btn-success btn-sm btn-estado" data-id="${c.id}" data-estado="Interesado">✔</button>
+                <button class="btn btn-warning btn-sm btn-estado" data-id="${c.id}" data-estado="En revisión">?</button>
+                <button class="btn btn-danger btn-sm btn-estado" data-id="${c.id}" data-estado="Descartado">✖</button>
+                <button onclick="verPerfilCandidato(${index})" class="btn btn-dark btn-sm">
+                    <i class="fas fa-file-pdf"></i>
+                </button>
+            </div>
+        </td>
+    </tr>
+`;
         });
 
     });

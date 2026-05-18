@@ -44,15 +44,59 @@
             <div class="brand-logo"><img src="../img/logo3rlaboral-white.png" alt="3R Laboral"></div>
         </a>
 
-        <div class="rec-nav-right">
-            <div class="rec-user-pill">
-                <div class="rec-user-avatar"><i class="fas fa-user-tie" style="font-size:11px;"></i></div>
-                <span class="rec-user-name" id="nombreReclutador">Reclutador</span>
+<div class="rec-nav-right">
+
+    <!-- 🔔 CAMPANA -->
+    <div style="position:relative;">
+        <button id="btnNotificaciones" style="
+            width:36px;height:36px;border-radius:9px;
+            background:rgba(255,255,255,0.07);
+            border:1px solid rgba(255,255,255,0.1);
+            color:rgba(255,255,255,0.7);
+            display:flex;align-items:center;justify-content:center;
+            cursor:pointer;transition:all 0.2s;font-size:15px;
+            position:relative;
+        " onmouseover="this.style.background='rgba(255,255,255,0.14)'"
+           onmouseout="this.style.background='rgba(255,255,255,0.07)'">
+            <i class="fas fa-bell"></i>
+            <span id="badgeNotif" style="
+                display:none;position:absolute;top:-4px;right:-4px;
+                background:#F77F00;color:white;
+                font-size:10px;font-weight:700;
+                min-width:17px;height:17px;border-radius:10px;
+                align-items:center;justify-content:center;
+                padding:0 4px;border:2px solid #0f1923;
+            ">0</span>
+        </button>
+
+        <!-- DROPDOWN -->
+        <div id="dropdownNotif" style="
+            display:none;position:absolute;right:0;top:44px;
+            width:320px;background:white;border-radius:14px;
+            box-shadow:0 12px 40px rgba(0,0,0,0.18);
+            border:1px solid #E8ECF0;z-index:9999;overflow:hidden;
+        ">
+            <div style="padding:14px 18px;border-bottom:1px solid #E8ECF0;display:flex;align-items:center;justify-content:space-between;">
+                <span style="font-size:14px;font-weight:700;color:#0D3B66;">Notificaciones</span>
+                <button id="btnMarcarTodas" style="font-size:11.5px;color:#F77F00;background:none;border:none;cursor:pointer;font-weight:600;padding:0;">
+                    Marcar todas como leídas
+                </button>
             </div>
-            <button class="btn-rec-logout" id="btnCerrarSesion">
-                <i class="fas fa-right-from-bracket"></i> Salir
-            </button>
+            <div id="listaNotif" style="max-height:340px;overflow-y:auto;"></div>
+            <div style="padding:10px 18px;border-top:1px solid #E8ECF0;text-align:center;">
+                <span style="font-size:12px;color:#aab4c0;">Solo se muestran las últimas 20</span>
+            </div>
         </div>
+    </div>
+
+    <div class="rec-user-pill">
+        <div class="rec-user-avatar"><i class="fas fa-user-tie" style="font-size:11px;"></i></div>
+        <span class="rec-user-name" id="nombreReclutador">Reclutador</span>
+    </div>
+    <button class="btn-rec-logout" id="btnCerrarSesion">
+        <i class="fas fa-right-from-bracket"></i> Salir
+    </button>
+</div>
 
     </div>
 </nav>
@@ -290,6 +334,8 @@
     </div>
 </footer>
 
+
+<script type="module" src="../js/notificaciones.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script type="module" src="../js/reclutador-logic.js"></script>
 </body>
