@@ -1,5 +1,6 @@
 import { db, auth, ref, set, push, remove, onValue, update, signOut } from "./config.js";
 import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { sedes, estados } from './data.js';
 
 // ==========================================
 // 0. CONFIGURACIÓN DE QUILL (EDITOR DE TEXTO)
@@ -14,8 +15,22 @@ const toolbarOptions = [
 let quillRegistro;
 let quillEdicion;
 
-// Inicializamos los editores cuando el DOM esté listo
+// Helper para llenar un select evitando duplicados
+function llenarSelect(id, opciones, esObjeto = false) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (el.options.length <= 1) {
+        opciones.forEach(op => {
+            el.innerHTML += esObjeto
+                ? `<option value="${op.id}">${op.label}</option>`
+                : `<option value="${op}">${op}</option>`;
+        });
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+
+    // ── QUILL ──
     if (document.getElementById('editor-registro')) {
         quillRegistro = new Quill('#editor-registro', {
             modules: { toolbar: toolbarOptions },
@@ -29,6 +44,31 @@ document.addEventListener('DOMContentLoaded', () => {
             theme: 'snow'
         });
     }
+
+    // ── SELECTS FORMULARIO PRINCIPAL (siempre visibles en el DOM) ──
+    llenarSelect('selectSedeVacante', sedes, true);
+    llenarSelect('selectEstadoVacante', estados);
+
+    const selectUserSede = document.getElementById('userSede');
+    if (selectUserSede && selectUserSede.options.length <= 1) {
+        selectUserSede.innerHTML += `<option value="ambas">Ambas sedes</option>`;
+        sedes.forEach(s => selectUserSede.innerHTML += `<option value="${s.id}">${s.label}</option>`);
+    }
+
+    // ── SELECTS DE MODALES — llenar cuando Bootstrap abra el modal ──
+    document.getElementById('modalEditarVacante')?.addEventListener('show.bs.modal', () => {
+        llenarSelect('editVacSede', sedes, true);
+        llenarSelect('editVacUbicacion', estados);
+    });
+
+    document.getElementById('modalEditarUsuario')?.addEventListener('show.bs.modal', () => {
+        const s = document.getElementById('editUserSede');
+        if (s && s.options.length <= 1) {
+            s.innerHTML += `<option value="ambas">Ambas sedes</option>`;
+            sedes.forEach(x => s.innerHTML += `<option value="${x.id}">${x.label}</option>`);
+        }
+    });
+
     window.obtenerVacantes();
     cargarUsuarios();
 });
@@ -52,15 +92,16 @@ if (formVacante) {
     formVacante.addEventListener('submit', (e) => {
         e.preventDefault();
         const formData = new FormData(formVacante);
-        
+
         const nuevaVacante = {
             titulo: formData.get('titulo'),
+            sede: formData.get('sede'),
             ubicacion: formData.get('ubicacion'),
+            direccion: formData.get('direccionEmpleo') || '',
             salarioDesde: formData.get('salarioDesde'),
             salarioHasta: formData.get('salarioHasta'),
             jornada: formData.get('jornada'),
             horario: formData.get('horario'),
-            // CAPTURAMOS EL HTML DEL EDITOR
             desc: quillRegistro ? quillRegistro.root.innerHTML : formData.get('desc'),
             estado: "Activa",
             fecha: new Date().toISOString(),
@@ -71,7 +112,7 @@ if (formVacante) {
             .then(() => {
                 alert("Vacante publicada con éxito");
                 formVacante.reset();
-                if (quillRegistro) quillRegistro.setContents([]); // Limpiar editor
+                if (quillRegistro) quillRegistro.setContents([]);
             });
     });
 }
@@ -82,7 +123,7 @@ window.obtenerVacantes = () => {
 
     onValue(ref(db, 'vacantes'), (snapshotVac) => {
         const vacantesData = snapshotVac.val();
-        
+
         onValue(ref(db, 'postulaciones'), (snapshotPost) => {
             tabla.innerHTML = '';
             const postulacionesData = snapshotPost.val() || {};
@@ -90,18 +131,23 @@ window.obtenerVacantes = () => {
             if (vacantesData) {
                 Object.keys(vacantesData).forEach(idCompleto => {
                     const v = vacantesData[idCompleto];
-                    const totalPostulados = Object.values(postulacionesData).filter(p => 
+                    const totalPostulados = Object.values(postulacionesData).filter(p =>
                         p.inputID === idCompleto || p.id_vacante === idCompleto
                     ).length;
 
                     const tr = document.createElement('tr');
                     let statusClass = "bg-success";
-                    if(v.estado === "Pausada") statusClass = "bg-warning text-dark";
-                    if(v.estado === "Cerrada") statusClass = "bg-danger";
+                    if (v.estado === "Pausada") statusClass = "bg-warning text-dark";
+                    if (v.estado === "Cerrada") statusClass = "bg-danger";
+
+                    const sedeLabel = sedes.find(s => s.id === v.sede)?.label || v.sede || '—';
 
                     tr.innerHTML = `
                         <td class="small text-muted font-monospace">${idCompleto.substring(0, 6)}</td>
-                        <td class="fw-bold">${v.titulo}</td>
+                        <td>
+                            <div class="fw-bold">${v.titulo}</div>
+                            <div class="small text-muted">${sedeLabel} · ${v.ubicacion || ''}</div>
+                        </td>
                         <td class="text-center">
                             <a href="candidatos.html?id=${idCompleto}" class="text-decoration-none">
                                 <span class="badge ${totalPostulados > 0 ? 'bg-primary' : 'bg-secondary'}" style="cursor:pointer">
@@ -118,7 +164,7 @@ window.obtenerVacantes = () => {
                                 <i class="fa-solid fa-trash-can"></i>
                             </button>
                         </td>`;
-                    
+
                     tr.querySelector('.btn-editar-vacante').onclick = () => window.prepararEdicionVacante(idCompleto, v);
                     tr.querySelector('.btn-eliminar').onclick = () => window.eliminarVacante(idCompleto);
                     tabla.appendChild(tr);
@@ -137,22 +183,32 @@ window.eliminarVacante = (id) => {
 };
 
 window.prepararEdicionVacante = (id, data) => {
-    document.getElementById('editVacanteId').value = id;
-    document.getElementById('editVacTitulo').value = data.titulo;
-    document.getElementById('editVacUbicacion').value = data.ubicacion;
-    document.getElementById('editVacSalarioDesde').value = data.salarioDesde || "";
-    document.getElementById('editVacSalarioHasta').value = data.salarioHasta || "";
-    document.getElementById('editVacJornada').value = data.jornada || "Tiempo Completo";
-    document.getElementById('editVacHorario').value = data.horario || "Lunes a Viernes";
-    document.getElementById('editVacEstado').value = data.estado || "Activa";
-    
-    // CARGAR CONTENIDO AL EDITOR DE EDICIÓN
-    if (quillEdicion) {
-        quillEdicion.root.innerHTML = data.desc || "";
+
+    // ── LLENAR SELECTS PRIMERO ──
+    const editSede = document.getElementById('editVacSede');
+    if (editSede && editSede.options.length <= 1) {
+        sedes.forEach(s => editSede.innerHTML += `<option value="${s.id}">${s.label}</option>`);
+    }
+    const editUbicacion = document.getElementById('editVacUbicacion');
+    if (editUbicacion && editUbicacion.options.length <= 1) {
+        estados.forEach(e => editUbicacion.innerHTML += `<option value="${e}">${e}</option>`);
     }
 
-    const modal = new bootstrap.Modal(document.getElementById('modalEditarVacante'));
-    modal.show();
+    // ── ASIGNAR VALORES ──
+    document.getElementById('editVacanteId').value = id;
+    document.getElementById('editVacTitulo').value = data.titulo;
+    document.getElementById('editVacDireccion').value = data.direccion || '';
+    if (editSede) editSede.value = data.sede || '';
+    if (editUbicacion) editUbicacion.value = data.ubicacion || '';
+    document.getElementById('editVacSalarioDesde').value = data.salarioDesde || '';
+    document.getElementById('editVacSalarioHasta').value = data.salarioHasta || '';
+    document.getElementById('editVacJornada').value = data.jornada || 'Tiempo Completo';
+    document.getElementById('editVacHorario').value = data.horario || 'Lunes a Viernes';
+    document.getElementById('editVacEstado').value = data.estado || 'Activa';
+
+    if (quillEdicion) quillEdicion.root.innerHTML = data.desc || '';
+
+    new bootstrap.Modal(document.getElementById('modalEditarVacante')).show();
 };
 
 const formEditarVacante = document.getElementById('formEditarVacante');
@@ -160,17 +216,18 @@ if (formEditarVacante) {
     formEditarVacante.addEventListener('submit', async (e) => {
         e.preventDefault();
         const id = document.getElementById('editVacanteId').value;
-        
+
         const updates = {
             titulo: document.getElementById('editVacTitulo').value,
+            sede: document.getElementById('editVacSede')?.value || '',
             ubicacion: document.getElementById('editVacUbicacion').value,
+            direccion: document.getElementById('editVacDireccion')?.value || '',
             salarioDesde: document.getElementById('editVacSalarioDesde').value,
             salarioHasta: document.getElementById('editVacSalarioHasta').value,
             jornada: document.getElementById('editVacJornada').value,
             horario: document.getElementById('editVacHorario').value,
             estado: document.getElementById('editVacEstado').value,
-            // CAPTURAMOS EL HTML ACTUALIZADO DEL EDITOR DE EDICIÓN
-            desc: quillEdicion ? quillEdicion.root.innerHTML : ""
+            desc: quillEdicion ? quillEdicion.root.innerHTML : ''
         };
 
         try {
@@ -196,6 +253,7 @@ if (formUser) {
         const nombre = document.getElementById('userName').value;
         const pass = document.getElementById('userPass').value;
         const rol = document.getElementById('userRole').value;
+        const sede = document.getElementById('userSede')?.value || '';
 
         if (pass.length < 6) {
             alert("La contraseña debe tener al menos 6 caracteres.");
@@ -207,9 +265,10 @@ if (formUser) {
             const uid = userCredential.user.uid;
 
             await set(ref(db, `usuarios/${uid}`), {
-                nombre: nombre,
-                email: email,
-                rol: rol,
+                nombre,
+                email,
+                rol,
+                sede,
                 fechaCreacion: new Date().toISOString()
             });
 
@@ -231,9 +290,16 @@ function cargarUsuarios() {
         if (data) {
             Object.keys(data).forEach((key) => {
                 const u = data[key];
+                const sedeLabel = u.sede === 'ambas'
+                    ? 'Ambas sedes'
+                    : sedes.find(s => s.id === u.sede)?.label || '—';
+
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-                    <td class="fw-bold">${u.nombre || 'N/A'}</td>
+                    <td>
+                        <div class="fw-bold">${u.nombre || 'N/A'}</div>
+                        <div class="small text-muted">${sedeLabel}</div>
+                    </td>
                     <td class="small">${u.email}</td>
                     <td>
                         <span class="badge ${u.rol === 'admin' ? 'bg-danger' : 'bg-info'} text-uppercase">
@@ -248,8 +314,8 @@ function cargarUsuarios() {
                             <i class="fa-solid fa-user-xmark"></i>
                         </button>
                     </td>`;
-                
-                tr.querySelector('.btn-editar-user').onclick = () => window.prepararEdicion(key, u.nombre, u.rol);
+
+                tr.querySelector('.btn-editar-user').onclick = () => window.prepararEdicion(key, u);
                 tr.querySelector('.btn-borrar-user').onclick = () => window.borrarUsuario(key);
                 tablaUsuarios.appendChild(tr);
             });
@@ -257,13 +323,22 @@ function cargarUsuarios() {
     });
 }
 
-window.prepararEdicion = (id, nombre, rol) => {
+window.prepararEdicion = (id, u) => {
+
+    // ── LLENAR SELECT PRIMERO ──
+    const editSede = document.getElementById('editUserSede');
+    if (editSede && editSede.options.length <= 1) {
+        editSede.innerHTML += `<option value="ambas">Ambas sedes</option>`;
+        sedes.forEach(s => editSede.innerHTML += `<option value="${s.id}">${s.label}</option>`);
+    }
+
+    // ── ASIGNAR VALORES ──
     document.getElementById('editUserId').value = id;
-    document.getElementById('editUserName').value = nombre;
-    document.getElementById('editUserRole').value = rol;
-    
-    const m = new bootstrap.Modal(document.getElementById('modalEditarUsuario'));
-    m.show();
+    document.getElementById('editUserName').value = u.nombre;
+    document.getElementById('editUserRole').value = u.rol;
+    if (editSede) editSede.value = u.sede || '';
+
+    new bootstrap.Modal(document.getElementById('modalEditarUsuario')).show();
 };
 
 const formEditarUser = document.getElementById('formEditarUsuario');
@@ -273,9 +348,10 @@ if (formEditarUser) {
         const id = document.getElementById('editUserId').value;
         const nombre = document.getElementById('editUserName').value;
         const rol = document.getElementById('editUserRole').value;
+        const sede = document.getElementById('editUserSede')?.value || '';
 
         try {
-            await update(ref(db, `usuarios/${id}`), { nombre, rol });
+            await update(ref(db, `usuarios/${id}`), { nombre, rol, sede });
             alert("Cambios guardados.");
             bootstrap.Modal.getInstance(document.getElementById('modalEditarUsuario')).hide();
         } catch (err) {
@@ -289,11 +365,3 @@ window.borrarUsuario = (id) => {
         remove(ref(db, `usuarios/${id}`));
     }
 };
-
-// ==========================================
-// 4. INICIALIZACIÓN
-// ==========================================
-document.addEventListener('DOMContentLoaded', () => {
-    window.obtenerVacantes();
-    cargarUsuarios();
-});

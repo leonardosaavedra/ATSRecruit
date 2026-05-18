@@ -87,66 +87,80 @@
         <div class="row g-4">
 
             <!-- FORMULARIO PUBLICAR -->
-            <div class="col-md-5">
-                <div class="admin-panel">
-                    <div class="admin-panel-header">
-                        <div class="admin-panel-title">
-                            <i class="fas fa-plus-circle"></i> Publicar vacante
-                        </div>
+<div class="col-md-5">
+    <div class="admin-panel">
+        <div class="admin-panel-header">
+            <div class="admin-panel-title">
+                <i class="fas fa-plus-circle"></i> Publicar vacante
+            </div>
+        </div>
+        <div class="admin-panel-body">
+            <form id="formNuevaVacante">
+                <div class="mb-3">
+                    <label class="admin-field-label">Nombre de la vacante</label>
+                    <input type="text" name="titulo" class="form-control" placeholder="Ej: Auxiliar Contable" required>
+                </div>
+                <div class="row g-2 mb-3">
+                    <div class="col-6">
+                        <label class="admin-field-label">Sede</label>
+                        <select name="sede" id="selectSedeVacante" class="form-select" required>
+                            <option value="">Seleccionar...</option>
+                        </select>
                     </div>
-                    <div class="admin-panel-body">
-                        <form id="formNuevaVacante">
-                            <div class="mb-3">
-                                <label class="admin-field-label">Nombre de la vacante</label>
-                                <input type="text" name="titulo" class="form-control" placeholder="Ej: Auxiliar Contable" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="admin-field-label">Ubicación</label>
-                                <input type="text" name="ubicacion" class="form-control" placeholder="Querétaro, Qro." required>
-                            </div>
-                            <div class="row g-2 mb-3">
-                                <div class="col-6">
-                                    <label class="admin-field-label">Salario desde</label>
-                                    <input type="number" name="salarioDesde" class="form-control" placeholder="12000" required>
-                                </div>
-                                <div class="col-6">
-                                    <label class="admin-field-label">Salario hasta</label>
-                                    <input type="number" name="salarioHasta" class="form-control" placeholder="15000" required>
-                                </div>
-                            </div>
-                            <div class="row g-2 mb-3">
-                                <div class="col-6">
-                                    <label class="admin-field-label">Jornada</label>
-                                    <select name="jornada" class="form-select">
-                                        <option value="Tiempo Completo">Tiempo Completo</option>
-                                        <option value="Medio Tiempo">Medio Tiempo</option>
-                                        <option value="Por Proyecto">Por Proyecto</option>
-                                    </select>
-                                </div>
-                                <div class="col-6">
-                                    <label class="admin-field-label">Horario</label>
-                                    <select name="horario" class="form-select">
-                                        <option value="Lunes a Viernes">Lunes a Viernes</option>
-                                        <option value="Lunes a Sábado">Lunes a Sábado</option>
-                                        <option value="Fines de Semana">Fines de Semana</option>
-                                        <option value="Turnos Rotativos">Turnos Rotativos</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="mb-4">
-                                <label class="admin-field-label">Descripción de la vacante</label>
-                                <div id="editor-registro" style="height:200px;" class="mb-3">
-                                    <div id="editor-container" style="height:300px;"></div>
-                                    <input type="hidden" name="descripcion" id="descripcion-input">
-                                </div>
-                            </div>
-                            <button type="submit" class="btn-admin-primary">
-                                <i class="fas fa-paper-plane"></i> Publicar ahora
-                            </button>
-                        </form>
+                    <div class="col-6">
+                        <label class="admin-field-label">Estado</label>
+                        <select name="ubicacion" id="selectEstadoVacante" class="form-select" required>
+                            <option value="">Seleccionar...</option>
+                        </select>
                     </div>
                 </div>
-            </div>
+                <div class="mb-3">
+                    <label class="admin-field-label">Dirección del empleo</label>
+                    <input type="text" name="direccionEmpleo" class="form-control" placeholder="Ej: Av. Constituyentes 100, Col. Centro">
+                </div>
+                <div class="row g-2 mb-3">
+                    <div class="col-6">
+                        <label class="admin-field-label">Salario desde</label>
+                        <input type="number" name="salarioDesde" class="form-control" placeholder="12000" required>
+                    </div>
+                    <div class="col-6">
+                        <label class="admin-field-label">Salario hasta</label>
+                        <input type="number" name="salarioHasta" class="form-control" placeholder="15000" required>
+                    </div>
+                </div>
+                <div class="row g-2 mb-3">
+                    <div class="col-6">
+                        <label class="admin-field-label">Jornada</label>
+                        <select name="jornada" class="form-select">
+                            <option value="Tiempo Completo">Tiempo Completo</option>
+                            <option value="Medio Tiempo">Medio Tiempo</option>
+                            <option value="Por Proyecto">Por Proyecto</option>
+                        </select>
+                    </div>
+                    <div class="col-6">
+                        <label class="admin-field-label">Horario</label>
+                        <select name="horario" class="form-select">
+                            <option value="Lunes a Viernes">Lunes a Viernes</option>
+                            <option value="Lunes a Sábado">Lunes a Sábado</option>
+                            <option value="Fines de Semana">Fines de Semana</option>
+                            <option value="Turnos Rotativos">Turnos Rotativos</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label class="admin-field-label">Descripción de la vacante</label>
+                    <div id="editor-registro" style="height:200px;" class="mb-3">
+                        <div id="editor-container" style="height:300px;"></div>
+                        <input type="hidden" name="descripcion" id="descripcion-input">
+                    </div>
+                </div>
+                <button type="submit" class="btn-admin-primary">
+                    <i class="fas fa-paper-plane"></i> Publicar ahora
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
 
             <!-- TABLA VACANTES -->
             <div class="col-md-7">
@@ -156,7 +170,7 @@
                             <i class="fas fa-list"></i> Vacantes publicadas
                         </div>
                         <button class="btn-admin-icon" id="btnRefrescarVacantes" title="Refrescar">
-                            <i class="fas fa-rotate"></i>
+                            <i class="fas fa-rotate"></i> Actualizar
                         </button>
                     </div>
                     <div class="table-responsive">
@@ -183,42 +197,48 @@
     <div class="admin-tab-section" id="tab-usuarios">
         <div class="row g-4">
 
-            <!-- FORMULARIO USUARIO -->
-            <div class="col-md-4">
-                <div class="admin-panel">
-                    <div class="admin-panel-header">
-                        <div class="admin-panel-title">
-                            <i class="fas fa-user-plus"></i> Registrar usuario
-                        </div>
-                    </div>
-                    <div class="admin-panel-body">
-                        <form id="formNuevoUsuario">
-                            <div class="mb-3">
-                                <label class="admin-field-label">Nombre completo</label>
-                                <input type="text" id="userName" class="form-control" placeholder="Nombre completo" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="admin-field-label">Correo electrónico</label>
-                                <input type="email" id="userEmail" class="form-control" placeholder="correo@3rlaboral.com" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="admin-field-label">Contraseña inicial</label>
-                                <input type="password" id="userPass" class="form-control" placeholder="Mínimo 6 caracteres" required>
-                            </div>
-                            <div class="mb-4">
-                                <label class="admin-field-label">Rol</label>
-                                <select id="userRole" class="form-select">
-                                    <option value="reclutador">Reclutador</option>
-                                    <option value="admin">Administrador</option>
-                                </select>
-                            </div>
-                            <button type="submit" class="btn-admin-success">
-                                <i class="fas fa-user-check"></i> Guardar usuario
-                            </button>
-                        </form>
-                    </div>
-                </div>
+<!-- FORMULARIO USUARIO -->
+<div class="col-md-4">
+    <div class="admin-panel">
+        <div class="admin-panel-header">
+            <div class="admin-panel-title">
+                <i class="fas fa-user-plus"></i> Registrar usuario
             </div>
+        </div>
+        <div class="admin-panel-body">
+            <form id="formNuevoUsuario">
+                <div class="mb-3">
+                    <label class="admin-field-label">Nombre completo</label>
+                    <input type="text" id="userName" class="form-control" placeholder="Nombre completo" required>
+                </div>
+                <div class="mb-3">
+                    <label class="admin-field-label">Correo electrónico</label>
+                    <input type="email" id="userEmail" class="form-control" placeholder="correo@3rlaboral.com" required>
+                </div>
+                <div class="mb-3">
+                    <label class="admin-field-label">Contraseña inicial</label>
+                    <input type="password" id="userPass" class="form-control" placeholder="Mínimo 6 caracteres" required>
+                </div>
+                <div class="mb-3">
+                    <label class="admin-field-label">Rol</label>
+                    <select id="userRole" class="form-select">
+                        <option value="reclutador">Reclutador</option>
+                        <option value="admin">Administrador</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label class="admin-field-label">Sede</label>
+                    <select id="userSede" class="form-select">
+                        <option value="">Seleccionar...</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-admin-success">
+                    <i class="fas fa-user-check"></i> Guardar usuario
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
 
             <!-- TABLA USUARIOS -->
             <div class="col-md-8">
@@ -265,11 +285,17 @@
                         <label class="admin-field-label">Nombre completo</label>
                         <input type="text" id="editUserName" class="form-control" required>
                     </div>
-                    <div class="mb-4">
+                    <div class="mb-3">
                         <label class="admin-field-label">Rol del sistema</label>
                         <select id="editUserRole" class="form-select">
                             <option value="reclutador">Reclutador</option>
                             <option value="admin">Administrador</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label class="admin-field-label">Sede</label>
+                        <select id="editUserSede" class="form-select">
+                            <option value="">Seleccionar...</option>
                         </select>
                     </div>
                     <button type="submit" class="btn-admin-primary">
@@ -293,13 +319,29 @@
                 <form id="formEditarVacante">
                     <input type="hidden" id="editVacanteId">
                     <div class="row g-3 mb-3">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <label class="admin-field-label">Nombre de la vacante</label>
                             <input type="text" id="editVacTitulo" class="form-control" required>
                         </div>
+                    </div>
+                    <div class="row g-3 mb-3">
                         <div class="col-md-6">
-                            <label class="admin-field-label">Ubicación</label>
-                            <input type="text" id="editVacUbicacion" class="form-control" required>
+                            <label class="admin-field-label">Sede</label>
+                            <select id="editVacSede" class="form-select">
+                                <option value="">Seleccionar...</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="admin-field-label">Estado</label>
+                            <select id="editVacUbicacion" class="form-select" required>
+                                <option value="">Seleccionar...</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-12">
+                            <label class="admin-field-label">Dirección del empleo</label>
+                            <input type="text" id="editVacDireccion" class="form-control" placeholder="Ej: Av. Constituyentes 100, Col. Centro">
                         </div>
                     </div>
                     <div class="row g-3 mb-3">
@@ -312,7 +354,7 @@
                             <input type="number" id="editVacSalarioHasta" class="form-control" required>
                         </div>
                         <div class="col-md-4">
-                            <label class="admin-field-label">Estado</label>
+                            <label class="admin-field-label">Estado vacante</label>
                             <select id="editVacEstado" class="form-select">
                                 <option value="Activa">Activa</option>
                                 <option value="Pausada">Pausada</option>

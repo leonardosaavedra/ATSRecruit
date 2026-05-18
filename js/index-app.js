@@ -24,13 +24,18 @@ onAuthStateChanged(auth, async (user) => {
                 const userData = snapshot.val();
                 const nombreReclutador = userData.nombre || "Reclutador";
 
+                // ← detectar rol para redirigir al panel correcto
+                const panelUrl = userData.rol === 'admin'
+                    ? 'cpanel/admin.html'
+                    : 'recruit/reclutador.html';
+
                 containerReclutador.innerHTML = `
                     <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle fw-bold btn-sm shadow-sm" data-bs-toggle="dropdown">
                             <i class="fas fa-user-tie me-1"></i> ${nombreReclutador}
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end shadow border-0">
-                            <li><a class="dropdown-item" href="recruit/reclutador.html">Mi Panel</a></li>
+                            <li><a class="dropdown-item" href="${panelUrl}">Mi Panel</a></li>
                             <li><button class="dropdown-item text-danger" id="btnCerrarSesionRecruit">Cerrar Sesión</button></li>
                         </ul>
                     </div>

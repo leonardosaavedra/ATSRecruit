@@ -100,9 +100,17 @@
                             <input type="text" name="titulo" class="form-control" placeholder="Ej: Desarrollador Backend" required>
                         </div>
                         <div class="mb-3">
-                            <label class="rec-field-label">Ubicación / Ciudad</label>
-                            <input type="text" name="ubicacion" class="form-control" placeholder="Querétaro, Qro." required>
-                        </div>
+    <label class="rec-field-label">Estado</label>
+    <select name="ubicacion" id="recSelectEstado" class="form-select" required>
+        <option value="">Seleccionar...</option>
+    </select>
+</div>
+<div class="mb-3">
+    <label class="rec-field-label">Dirección del empleo</label>
+    <input type="text" name="direccionEmpleo" class="form-control" placeholder="Ej: Av. Constituyentes 100, Col. Centro">
+</div>
+
+
                         <div class="row g-2 mb-3">
                             <div class="col-6">
                                 <label class="rec-field-label">Salario mínimo</label>
@@ -202,9 +210,17 @@
                             <input type="text" id="editVacTitulo" class="form-control" required>
                         </div>
                         <div class="col-md-6">
-                            <label class="rec-field-label">Ubicación</label>
-                            <input type="text" id="editVacUbicacion" class="form-control" required>
-                        </div>
+    <label class="rec-field-label">Estado</label>
+    <select id="editVacUbicacion" class="form-select" required>
+        <option value="">Seleccionar...</option>
+    </select>
+</div>
+<div class="col-md-12 mb-3">
+    <label class="rec-field-label">Dirección del empleo</label>
+    <input type="text" id="editVacDireccion" class="form-control" placeholder="Ej: Av. Constituyentes 100">
+</div>
+
+
                     </div>
                     <div class="row g-3 mb-3">
                         <div class="col-md-4">
@@ -275,6 +291,6 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script type="module" src="../js/admin-logic.js"></script>
+<script type="module" src="../js/reclutador-logic.js"></script>
 </body>
 </html>
